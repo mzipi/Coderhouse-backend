@@ -1,0 +1,24 @@
+<h1>Agregar producto</h1>
+<form action="/api/productos" method="post">
+    <fieldset>
+        <div class="form-group">
+            <label for="title">Title: </label>
+            <input type="text" name="title">
+        </div>
+        <br>
+        <div class="form-group">
+            <label for="price">Price: </label>
+            <input type="number" name="price">
+        </div>
+        <br>
+        <div class="form-group">
+            <label for="thumbnail">Thumbnail: </label>
+            <input type="url" name="thumbnail">
+        </div>
+        <br>
+        <div class="form-group">
+            <label></label>
+            <input type="submit" value="Enviar">
+        </div>
+    </fieldset>
+</form>
