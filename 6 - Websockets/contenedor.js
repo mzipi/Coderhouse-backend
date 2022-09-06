@@ -1,45 +1,69 @@
-class ContenedorMemoria {
-    miId=0;
-    constructor(){
-        this.productos=[];
+const fs = require('fs/promises');
+
+class Contenedor {
+
+    constructor(path){
+        this.path = path;
     }
-    getAll(){
-        return this.productos;
+
+    async save(obj) {
+        const file = await this.getAll();
+        let id;
+        const length = file.length;
+        const lastItem = file[length - 1];
+        if(file.length > 0) {
+            id = lastItem.id + 1;
+        } else {
+            id = 1;
+        }
+        obj = { 
+            ...obj, 
+            id
+        }
+        const newFile = [ ...file, obj ];
+        try {
+            await fs.writeFile(this.path, JSON.stringify(newFile));
+        } catch (err) {
+            console.error("Hubo un error al guardar el archivo\n", err);
+        }
+        return id;
     }
-    getOne(id){
-        let obj = this.productos;
-        let miObj = obj.filter(p=>p.id==Number(id))
-        return miObj;
+
+    async getById(id) {
+        const data = await this.getAll();
+        const item = data.find(element => element.id === id);
+        if(item) {
+            return item;
+        } else {
+            console.log("No se encuentra ese item");
+        }
     }
-    addOne(obj){
-        this.miId++;
-        obj.id=this.miId;
-        this.productos=[...this.productos,obj];
-        return obj
+
+    async getAll() {
+        try {
+            const data = await fs.readFile(this.path, 'utf-8');
+            return JSON.parse(data);
+        } catch (err) {
+            return []
+        }
     }
-    updateOne(id,obj){
-        this.productos.forEach(p=>{
-            if(p.id==Number(id)){
-                if(obj.id) {
-                    p.id=obj.id;
-                }
-                if(obj.title) {
-                    p.title=obj.title;
-                }
-                if(obj.price) {
-                    p.price=obj.price;
-                }
-                if(obj.thumbnail) {
-                    p.thumbnail=obj.thumbnail;
-                }
-            }
-        })
-        return this.productos;
+
+    async deleteById(id) {
+        const data = await this.getAll();
+        const item = data.filter(element => element.id != id);
+        try {
+            await fs.writeFile(this.path, JSON.stringify(item));
+        } catch (err) {
+            console.log("Ocurrio un error al borrar el producto\n", err);
+        }
     }
-    deleteOne(id){
-        let obj = this.productos.filter(p=>p.id != Number(id));
-        this.productos=obj
-        return obj
+
+    async deleteAll() {
+        try {
+            await fs.writeFile(this.path, "[]");
+        } catch (err) {
+            console.error("Ocurrio un error al vaciar el archivo\n", err);
+        }
     }
 }
-module.exports = ContenedorMemoria
+module.exports = Contenedor;
