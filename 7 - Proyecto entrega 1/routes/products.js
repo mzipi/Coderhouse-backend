@@ -1,48 +1,31 @@
 const express = require('express');
 const router = express.Router();
 const Contenedor = require('../contenedor');
-const data = new Contenedor('../public/productos.json');
-
-// router.get('/', (req, res) => {
-//     if(data.getAll()) {
-//         res.render('add', { mensaje: data.getAll(), title: 'Todos los productos' })
-//     } else {
-//         res.render('no-products', { title: 'Todos los productos' });
-//     }
-// });
+const data = new Contenedor('products.json');
 
 router.get('/:id?', ({ params }, res) => {
     if(params.id) {
-        let obj = data.getById(params.id);
-        res.render('add', { mensaje: obj });
-    } else if(data.getAll()) {
-        res.render('add', { mensaje: data.getAll() });
+        data.getById(params.id)
+            .then(n => res.render('products', {titulo: 'Un producto', mensaje: n}));
     } else {
-        res.render('no-products');
+        data.getAll()
+            .then(n => res.render('products', { titulo: 'Todos los productos', mensaje: n}));
     }
 });
 
 router.post('/', ({ body }, res) => {
-    let obj = data.save(body);
-    res.render('products', { mensaje: [obj], title: "Producto agregado" })
+    data.save(body)
+        .then(n => res.render('products', { titulo: 'Producto agregado', mensaje: n}));
 });
 
 router.put('/:id', ({ params, body}, res) => {
-    if(data.getAll().length > 0) {
-        let arr = data.updateOne(params.id, body);
-        res.render('products', { mensaje: arr, title: "Producto actualizado"})
-    } else {
-        res.render('no-products', { title: "Producto actualizado" });
-    }
+    data.update(params.id, body)
+        .then(n => res.render('products', { titulo: 'Producto actualizado', mensaje: n}));
 });
 
 router.delete('/:id', ({ params }, res) => {
-    if(data.getAll().length > 0) {
-        let obj = data.deleteById(params.id);
-        res.render('products', { mensaje: obj, title: 'Producto eliminado' })
-    } else {
-        res.render('no-products', { title: 'Producto eliminado' });
-    }
+    data.deleteById(params.id)
+        .then(n => res.render('products', { titulo: 'Producto borrado', mensaje: n}));
 });
 
 module.exports = router;

@@ -31,9 +31,9 @@ class Contenedor {
 
     async getById(id) {
         const data = await this.getAll();
-        const item = data.find(element => element.id === id);
+        const item = data.find(element => `${element.id}` === id);
         if(item) {
-            return item;
+            return [item];
         } else {
             console.log("No se encuentra ese item");
         }
@@ -42,7 +42,6 @@ class Contenedor {
     async getAll() {
         try {
             const data = await fs.readFile(this.path, 'utf-8');
-            console.log(data);
             return JSON.parse(data);
         } catch (err) {
             return []
@@ -59,12 +58,32 @@ class Contenedor {
         }
     }
 
-    async deleteAll() {
+    
+    async update(id, obj){
+        const data = await this.getAll();
+        data.forEach(p => {
+                if(`${p.id}`== id){
+                    p.id = obj.id;
+                    p.title = obj.title;
+                    p.price = obj.price;
+                    p.thumbnail = obj.thumbnail;
+                }
+            }
+        )
         try {
-            await fs.writeFile(this.path, "[]");
+            await fs.writeFile(this.path, JSON.stringify(data));
         } catch (err) {
-            console.error("Ocurrio un error al vaciar el archivo\n", err);
+            console.log("Ocurrio un error al actualizar el producto\n", err);
         }
+        // return data;
     }
+
+    // async deleteAll() {
+    //     try {
+    //         await fs.writeFile(this.path, "[]");
+    //     } catch (err) {
+    //         console.error("Ocurrio un error al vaciar el archivo\n", err);
+    //     }
+    // }
 }
 module.exports = Contenedor;

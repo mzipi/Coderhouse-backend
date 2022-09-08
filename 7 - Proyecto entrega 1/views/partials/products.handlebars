@@ -1,21 +1,21 @@
-<h1>{{title}}</h1>
-<table>
-    <thead>
-        <tr>
-            <th>ID</th>
-            <th>Nombre</th>
-            <th>Precio</th>
-            <th>Foto</th>
-        </tr>
-    </thead>
-    <tbody>
-        {{#each mensaje}}
-        <tr>
-            <td>{{this.id}}</td>
-            <td>{{this.title}}</td>
-            <td>{{this.price}}</td>
-            <td><img src="{{this.thumbnail}}" alt="{{this.title}}"></td>
-        </tr>
-        {{/each}}
-    </tbody>
-</table>
+        <h1>{{title}}</h1>
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nombre</th>
+                    <th>Precio</th>
+                    <th>Foto</th>
+                </tr>
+            </thead>
+            <tbody>
+                {{#each mensaje}}
+                <tr>
+                    <td>{{this.id}}</td>
+                    <td>{{this.title}}</td>
+                    <td>{{this.price}}</td>
+                    <td><img src="{{this.thumbnail}}" alt="{{this.title}}"></td>
+                </tr>
+                {{/each}}
+            </tbody>
+        </table>
