@@ -78,12 +78,12 @@ class Contenedor {
         // return data;
     }
 
-    // async deleteAll() {
-    //     try {
-    //         await fs.writeFile(this.path, "[]");
-    //     } catch (err) {
-    //         console.error("Ocurrio un error al vaciar el archivo\n", err);
-    //     }
-    // }
+    async deleteAll() {
+        try {
+            await fs.writeFile(this.path, "[]");
+        } catch (err) {
+            console.error("Ocurrio un error al vaciar el archivo\n", err);
+        }
+    }
 }
 module.exports = Contenedor;

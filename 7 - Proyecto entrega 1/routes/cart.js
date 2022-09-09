@@ -1,33 +1,26 @@
 const express = require('express');
 const router = express.Router();
-const Contenedor = require('../contenedor');
-const data = new Contenedor('productos.txt');
+const Contenedor = require('../cartClass');
+const data = new Contenedor('cart.json');
 
 router.get('/:id/productos', ({ params }, res) => {
-    if(data.getAll().length > 0) {
-        let obj = data.getById(params.id)
-        res.render('products', { mensaje: obj, title: 'Vista del producto'});
-    } else {
-        res.render('no-products', { title: 'Vista del producto' });
-    }
+    data.getById(params.id).then(n => res.send(n));
 });
 
-router.post('/', (req, res) => {});
-
-router.post('/:id/productos', ({ body }, res) => {
-    let obj = data.save(body)
-    res.render('products', { mensaje: [obj], title: "Producto agregado" })
+router.post('/', (req, res) => {
+    data.newCart().then(res.end());
 });
 
-router.delete('/:id', (req, res) => {});
+router.post('/:id/productos', ({ params, body }, res) => {
+    data.add(params.id, body).then(res.end());
+});
+
+router.delete('/:id', ({ params }, res) => {
+    data.deleteCart(params.id).then(res.end());
+});
 
 router.delete('/:id/productos/:id_prod', ({ params }, res) => {
-    if(data.getAll().length > 0) {
-        let obj = data.deleteById(params.id);
-        res.render('products', { mensaje: obj, title: 'Producto eliminado' })
-    } else {
-        res.render('no-products', { title: 'Producto eliminado' });
-    }
+    data.deleteItem(params.id, params.id_prod).then(res.end());
 });
 
 module.exports = router;
