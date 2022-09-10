@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const Contenedor = require('../contenedor');
-const data = new Contenedor('productos.txt');
+const data = new Contenedor('productos.json');
 
 router.get('/', (req, res) => {
     if(data.getAll().length > 0) {
