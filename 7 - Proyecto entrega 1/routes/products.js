@@ -5,9 +5,9 @@ const data = new Contenedor('products.json');
 
 router.get('/:id?', ({ params }, res) => {
     if(params.id) {
-        data.getById(params.id).then(res.end());
+        data.getById(params.id).then(n => res.json(n));
     } else {
-        data.getAll().then(res.end());
+        data.getAll().then(n => res.json(n));
     }
 });
 
