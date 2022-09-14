@@ -1,7 +1,12 @@
 const express = require('express');
 const router = express.Router();
-const Contenedor = require('../contenedor');
-const data = new Contenedor('productos.json');
+const Contenedor = require('../db-container');
+const data = new Contenedor({
+    client: 'sqlite3',
+    connection: {
+        filename: './db/mydb.sqlite'
+    }
+});
 
 router.get('/', (req, res) => {
     if(data.getAll().length > 0) {
