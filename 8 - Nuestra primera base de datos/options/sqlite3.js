@@ -1,14 +1,7 @@
-// const knex = require('knex')({
-//     client: 'sqlite3',
-//     connection: {
-//         filename: './db/db.sqlite'
-//     }
-// })
-
 const options = {
     client: 'sqlite3',
     connection: {
-        filename: './db/ecommerce.sqlite'
+        filename: './db/ecommerce.db'
     },
     useNullAsDefault: true
 }
