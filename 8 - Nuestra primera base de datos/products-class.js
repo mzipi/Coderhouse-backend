@@ -4,33 +4,33 @@ class Contenedor {
 
     constructor(config, table){
         this.knex = knex(config);
-        // this.table = table;
+        this.table = table;
     }
 
     getAll() {
-        let n = this.knex.select('*').table('products');
+        let n = this.knex.select('*').table(this.table);
         return n;
     }
 
     getById(id) {
-        let n = this.knex.select('*').table('products').where(id);
+        let n = this.knex.select('*').table(this.table).where(id);
         return n;
     }
 
     delete(id) {
-        let n = this.knex('products').where(id).del();
+        let n = this.knex(this.table).where(id).del();
         return n;
     }
 
     save(obj) {
         obj.id = Number(obj.id);
         obj.price = Number(obj.price);
-        let n = this.knex('products').insert(obj);
+        let n = this.knex(this.table).insert(obj);
         return n;
     }
 
     update(id, body){
-        let n = this.knex('products').where(id).update(body);
+        let n = this.knex(this.table).where(id).update(body);
         return n;
     }
     
