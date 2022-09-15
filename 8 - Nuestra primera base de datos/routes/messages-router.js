@@ -3,9 +3,6 @@ const router = express.Router();
 const options = require('../options/sqlite3');
 const Contenedor = require('../messages-class');
 const data = new Contenedor(options);
-// const options = require('../options/mariadb');
-// const Contenedor = require('../products-class');
-// const data = new Contenedor(options, 'products');
 
 router.get('/', (req, res) => {
     data.getAll().then(n => res.send(n));

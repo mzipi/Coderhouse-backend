@@ -10,7 +10,8 @@ const io = new Server(server);
 
 const handlebars = require('express-handlebars');
 
-const api_router = require('./routes/api_router');
+const products_router = require('./routes/products-router');
+const msg_router = require('./routes/messages-router');
 const main_router = require('./routes/main-router');
 
 const port = 8080;
@@ -23,7 +24,8 @@ app.set('views', './views');
 app.use(express.urlencoded({extended: true}));
 app.use(express.json());
 app.use(express.static(path.join(__dirname, '/public')));
-app.use('/api/productos', api_router);
+app.use('/api/productos', products_router);
+app.use('/api/mensajes', msg_router);
 app.use('/', main_router);
 
 io.on('connection', (socket) => {
