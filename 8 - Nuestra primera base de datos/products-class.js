@@ -23,7 +23,7 @@ class Contenedor {
     }
 
     save(obj) {
-        obj.id = Number(obj.id);
+        obj.id = 1;
         obj.price = Number(obj.price);
         let n = this.knex(this.table).insert(obj);
         return n;

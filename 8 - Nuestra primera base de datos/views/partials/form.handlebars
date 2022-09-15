@@ -1,8 +1,8 @@
 <h1>Ingrese producto</h1>
-<form action="/" method="post" id="form">
+<form action="/api/productos" method="post" id="form">
     <div>
         <label for="title">Nombre </label>
-        <input type="text" name="title" id="title">
+        <input type="text" name="name" id="title">
     </div>
     <br>
     <div>
@@ -12,10 +12,10 @@
     <br>
     <div>
         <label for="thumbnail">Foto URL </label>
-        <input type="url" name="thumbnail" id="thumbnail">
+        <input type="url" name="image" id="thumbnail">
     </div>
     <br>
-    <button value="Enviar">Enviar</button>
+    <button>Enviar</button>
 </form>
 <hr>
 <h2>Lista de productos</h2>

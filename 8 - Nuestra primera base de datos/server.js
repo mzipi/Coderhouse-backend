@@ -12,7 +12,7 @@ const handlebars = require('express-handlebars');
 
 const products_router = require('./routes/products-router');
 const msg_router = require('./routes/messages-router');
-const main_router = require('./routes/main-router');
+const index_router = require('./routes/index-router');
 
 const port = 8080;
 
@@ -26,13 +26,12 @@ app.use(express.json());
 app.use(express.static(path.join(__dirname, '/public')));
 app.use('/api/productos', products_router);
 app.use('/api/mensajes', msg_router);
-app.use('/', main_router);
+app.use('/', index_router);
 
 io.on('connection', (socket) => {
-    console.log('a user connected');
-    socket.on('disconnect', () => console.log('user disconnected'));
     socket.on('chat message', (msg) => io.emit('chat message', msg));
     socket.on('add item', (product) => io.emit('add item', product));
+    socket.on('add item', (product) => console.log(product));
 });
 
-server.listen(port, () => console.log(`Servidor corriendo en puerto ${port}`));
+server.listen(port);

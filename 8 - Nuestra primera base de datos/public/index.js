@@ -9,26 +9,30 @@ var title = document.getElementById('title')
 var price = document.getElementById('price');
 var thumbnail = document.getElementById('thumbnail');
 
-msgCenter.addEventListener('submit', function(e) {
-    e.preventDefault();
-    if (msg.value && email.value) {
-        var d = new Date();
-        var date = d.toLocaleString();
-        socket.emit('chat message', [email.value, date, msg.value]);
-        email.value = '';
-        msg.value = '';
-    }
-});
+if(msgCenter){
+    msgCenter.addEventListener('submit', function(e) {
+        e.preventDefault();
+        if (msg.value && email.value) {
+            var d = new Date();
+            var date = d.toLocaleString();
+            socket.emit('chat message', [email.value, date, msg.value]);
+            email.value = '';
+            msg.value = '';
+        }
+    });
+}
 
-form.addEventListener('submit', function(e) {
-    e.preventDefault();
-    if (title.value && price.value && thumbnail.value) {
-        socket.emit('add item', [title.value, price.value, thumbnail.value]);
-        title.value = '';
-        price.value = '';
-        thumbnail.value = '';
-    }
-});
+if(form) {
+    form.addEventListener('submit', function(e) {
+        e.preventDefault();
+        if (title.value && price.value && thumbnail.value) {
+            socket.emit('add item', [title.value, Number(price.value), thumbnail.value]);
+            title.value = '';
+            price.value = '';
+            thumbnail.value = '';
+        }
+    });
+}
 
 socket.on('chat message', function(res) {
     var messages = document.getElementById('messages');
@@ -48,7 +52,6 @@ socket.on('chat message', function(res) {
     p.appendChild(span3);
     item.appendChild(p);
     messages.appendChild(item);
-    window.scrollTo(0, document.body.scrollHeight);
 });
 
 socket.on('add item', function(res) {
@@ -68,7 +71,5 @@ socket.on('add item', function(res) {
     tr.appendChild(td2);
     tr.appendChild(td3);
     tbody.appendChild(tr);
-    table.appendChild(tbody);
-    
-    window.scrollTo(0, document.body.scrollHeight);
+    table.appendChild(tbody); 
 });

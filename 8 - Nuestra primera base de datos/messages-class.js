@@ -13,6 +13,7 @@ class Contenedor {
     }
 
     save(obj) {
+        obj.date = 150920221820;
         let n = this.knex(this.table).insert(obj);
         return n;
     }
