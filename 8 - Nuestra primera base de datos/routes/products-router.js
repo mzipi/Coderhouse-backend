@@ -13,7 +13,6 @@ router.get('/:id', ({ params }, res) => {
 });
 
 router.post('/', ({ body }, res) => {
-    console.log(body);
     data.save(body).then(n => res.send(n));
 });
 
