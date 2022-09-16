@@ -61,7 +61,7 @@ fetch('/api/productos', {
             td1.textContent = element.name;
             td2.textContent = element.price;
             img.alt = element.name;
-            img.src = element.thumbnail;
+            img.src = element.image;
             td3.appendChild(img);
             tr.appendChild(td1);
             tr.appendChild(td2);
