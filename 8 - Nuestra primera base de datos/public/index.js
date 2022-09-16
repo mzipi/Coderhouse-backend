@@ -9,28 +9,52 @@ var title = document.getElementById('title')
 var price = document.getElementById('price');
 var thumbnail = document.getElementById('thumbnail');
 
-if(msgCenter){
+if(msgCenter && email && msg){
     msgCenter.addEventListener('submit', function(e) {
         e.preventDefault();
-        if (msg.value && email.value) {
-            var d = new Date();
-            var date = d.toLocaleString();
-            socket.emit('chat message', [email.value, date, msg.value]);
-            email.value = '';
-            msg.value = '';
-        }
+        var urlencoded = new URLSearchParams();
+        urlencoded.append("email", email.value);
+        urlencoded.append("msg", msg.value);
+        fetch('/api/mensajes', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded',
+            },
+            body: urlencoded,
+            redirect: 'manual'
+        })
+            .then(response => response.text())
+
+        var d = new Date();
+        var date = d.toLocaleString();
+        socket.emit('chat message', [email.value, date, msg.value]);
+        email.value = '';
+        msg.value = '';
     });
 }
 
-if(form) {
+if(form && title && price && thumbnail) {
+    
     form.addEventListener('submit', function(e) {
         e.preventDefault();
-        if (title.value && price.value && thumbnail.value) {
-            socket.emit('add item', [title.value, Number(price.value), thumbnail.value]);
-            title.value = '';
-            price.value = '';
-            thumbnail.value = '';
-        }
+        var urlencoded = new URLSearchParams();
+        urlencoded.append("name", title.value);
+        urlencoded.append("price", Number(price.value));
+        urlencoded.append("image", thumbnail.value);
+        fetch('/api/productos', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded',
+            },
+            body: urlencoded,
+            redirect: 'manual'
+        })
+            .then(response => response.text())
+
+        socket.emit('add item', [title.value, Number(price.value), thumbnail.value]);
+        title.value = '';
+        price.value = '';
+        thumbnail.value = '';
     });
 }
 

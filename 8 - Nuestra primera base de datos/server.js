@@ -31,7 +31,6 @@ app.use('/', index_router);
 io.on('connection', (socket) => {
     socket.on('chat message', (msg) => io.emit('chat message', msg));
     socket.on('add item', (product) => io.emit('add item', product));
-    socket.on('add item', (product) => console.log(product));
 });
 
 server.listen(port);
