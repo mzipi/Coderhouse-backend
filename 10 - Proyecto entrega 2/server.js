@@ -1,7 +1,7 @@
 const express = require('express');
 const app = express();
-const products = require('./routes/products');
-const cart = require('./routes/cart');
+const products = require('./src/daos/productos/productosDaoArchivo');
+const cart = require('./src/daos/carritos/carritosDaoArchivo');
 
 const port = process.env.port || 8080;
 let admin = false;
