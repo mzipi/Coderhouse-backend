@@ -1,6 +1,5 @@
 const express = require('express');
 const router = express.Router();
-const path = require('path');
 const Contenedor = require('../../contenedores/contenedorArchivo');
 const data = new Contenedor('products.json');
 

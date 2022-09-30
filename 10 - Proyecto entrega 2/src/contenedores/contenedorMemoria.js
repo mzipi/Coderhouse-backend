@@ -1,30 +1,38 @@
 class Usuario {
-    constructor(nombre, apellido, libros, mascotas){
-        this.nombre = nombre
-        this.apellido = apellido
-        this.libros = [
-            {
-                nombre: libros.nombre,
-                autor: libros.autor
+    // constructor(col){
+    //     this.col = col
+    // }
+    
+    save(obj){
+        let id = 0;
+        obj.id = id++;
+        this.productos.push(obj);
+    }
+    getAll(){
+        return this.productos;
+    }
+    getById(id){
+        const data = this.getAll();
+        const item = data.find(element => `${element.id}` === id);
+        if(item) {
+            return [item];
+        } 
+    }
+    update(id, obj){
+        const data = this.getAll();
+        data.forEach(p => {
+                if(`${p.id}`== id){
+                    p.id = obj.id;
+                    p.title = obj.title;
+                    p.price = obj.price;
+                    p.thumbnail = obj.thumbnail;
+                }
             }
-        ]
-        this.mascotas = [
-            mascotas
-        ]
+        )
     }
-    getFullName(){
-        return `${this.nombre} ${this.apellido}`
-    }
-    addMascota(mascota){
-        this.mascotas = [...this.mascotas, mascota]
-    }
-    countMascotas(){
-        return this.mascotas.length
-    }
-    addBook(nombre, autor){
-        this.libros.push({nombre, autor})
-    }
-    getBookNames(){
-        return this.libros.map(i => i.nombre)
+    deleteById(id){
+        const data = this.getAll();
+        const item = data.filter(element => element.id != id);
+        return item
     }
 }

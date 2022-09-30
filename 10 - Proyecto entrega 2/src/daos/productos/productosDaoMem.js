@@ -1,8 +1,7 @@
 const express = require('express');
 const router = express.Router();
-const path = require('path');
 const Contenedor = require('../../contenedores/contenedorMemoria');
-const data = new Contenedor('products.json');
+// const data = new Contenedor('products.json');
 
 router.get('/:id?', ({ params }, res) => {
     if(params.id) {
