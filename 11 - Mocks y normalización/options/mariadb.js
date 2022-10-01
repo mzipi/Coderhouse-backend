@@ -7,4 +7,4 @@ const options = {
         database: 'coderhouse'
     }
 }
-module.exports = options
+export default options

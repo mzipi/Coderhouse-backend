@@ -1,4 +1,4 @@
-const knex = require('knex');
+import knex from 'knex';
 
 class Contenedor {
 
@@ -18,4 +18,4 @@ class Contenedor {
         return n;
     }
 }
-module.exports = Contenedor;
+export default Contenedor;

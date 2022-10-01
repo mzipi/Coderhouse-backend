@@ -1,4 +1,4 @@
-class Usuario {
+class ContenedorMemoria {
     // constructor(col){
     //     this.col = col
     // }
@@ -36,3 +36,4 @@ class Usuario {
         return item
     }
 }
+export default ContenedorMemoria;

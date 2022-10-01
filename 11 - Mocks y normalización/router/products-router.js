@@ -1,7 +1,8 @@
-const express = require('express');
-const router = express.Router();
-const options = require('../options/mariadb');
-const Contenedor = require('../products-class');
+import { Router } from 'express';
+import options from '../options/mariadb.js';
+import Contenedor from '../contenedores/products-class.js';
+
+const router = Router();
 const data = new Contenedor(options, 'products');
 
 router.get('/', (req, res) => {
@@ -24,4 +25,4 @@ router.delete('/:id', ({ params }, res) => {
     data.delete(params).then(res.end());
 });
 
-module.exports = router;
+export default router;

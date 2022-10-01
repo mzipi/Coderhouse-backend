@@ -1,4 +1,4 @@
-const knex = require('knex');
+import knex from 'knex';
 
 class Contenedor {
 
@@ -38,4 +38,4 @@ class Contenedor {
         this.knex.destroy();
     }
 }
-module.exports = Contenedor;
+export default Contenedor;

@@ -1,29 +1,31 @@
-const express = require('express');
+import express, { json, urlencoded } from 'express';
+
+// import { join } from 'path';
+import { createServer } from 'http';
+
+import { Server } from 'socket.io';
+
+import { engine } from 'express-handlebars';
+
+import test_router from './router/test-router.js';
+import products_router from './router/products-router.js';
+import msg_router from './router/messages-router.js';
+import index_router from './router/index-router.js';
+
 const app = express();
-
-const path = require('path');
-const http = require('http');
-const server = http.createServer(app);
-
-const { Server } = require('socket.io');
+const server = createServer(app);
 const io = new Server(server);
-
-const handlebars = require('express-handlebars');
-
-const products_router = require('./routes/products-router');
-const msg_router = require('./routes/messages-router');
-const index_router = require('./routes/index-router');
-
 const port = 8080;
 
-app.engine('handlebars', handlebars.engine());
+app.engine('handlebars', engine());
 
 app.set('view engine', 'handlebars');
 app.set('views', './views');
 
-app.use(express.urlencoded({extended: true}));
-app.use(express.json());
-app.use(express.static(path.join(__dirname, '/public')));
+app.use(urlencoded({extended: true}));
+app.use(json());
+app.use(express.static('./public'));
+app.use('/api/productos-test', test_router);
 app.use('/api/productos', products_router);
 app.use('/api/mensajes', msg_router);
 app.use('/', index_router);
@@ -34,3 +36,5 @@ io.on('connection', (socket) => {
 });
 
 server.listen(port);
+
+server.on('error', err => console.log(err));

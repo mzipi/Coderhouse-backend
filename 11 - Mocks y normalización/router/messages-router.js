@@ -1,7 +1,7 @@
-const express = require('express');
-const router = express.Router();
-const options = require('../options/sqlite3');
-const Contenedor = require('../messages-class');
+import { Router } from 'express';
+const router = Router();
+import options from '../options/sqlite3.js';
+import Contenedor from '../contenedores/messages-class.js';
 const data = new Contenedor(options, 'messages');
 
 router.get('/', (req, res) => {
@@ -12,4 +12,4 @@ router.post('/', ({ body }, res) => {
     data.save(body).then(res.end());
 });
 
-module.exports = router;
+export default router;
