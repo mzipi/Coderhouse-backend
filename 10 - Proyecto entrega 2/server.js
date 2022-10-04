@@ -1,13 +1,13 @@
-const express = require('express');
+import express, { urlencoded, json } from 'express';
 const app = express();
-const products = require('./src/daos/productos/productosDaoArchivo');
-const cart = require('./src/daos/carritos/carritosDaoArchivo');
+import products from './router/routerArchivoProductos.js';
+import cart from './router/routerArchivoCarro.js';
 
 const port = process.env.port || 8080;
 let admin = false;
 
-app.use(express.urlencoded({extended: true}));
-app.use(express.json());
+app.use(urlencoded({extended: true}));
+app.use(json());
 app.use('/api/productos', products);
 app.use('/api/carrito', cart);
 

@@ -7,4 +7,4 @@ const options = {
         database: 'ecommerce'
     }
 }
-module.exports = options
+export default options
