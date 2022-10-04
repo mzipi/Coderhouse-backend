@@ -1,4 +1,13 @@
-import knex from 'knex';
+// import knex from 'knex';
+import admin from "firebase-admin";
+import { serviceAccount } from "../coder-backend-a3fcf-firebase-adminsdk-9ug8w-cd644304ba.json";
+// var admin = require("firebase-admin");
+// var serviceAccount = require("path/to/serviceAccountKey.json");
+
+admin.initializeApp({
+  credential: admin.credential.cert(serviceAccount)
+});
+
 
 class Contenedor {
 
