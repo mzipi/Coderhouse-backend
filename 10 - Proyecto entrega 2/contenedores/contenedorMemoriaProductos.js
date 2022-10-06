@@ -6,18 +6,18 @@ class ContenedorMemoriaProductos {
     getAll(){
         return this.productos;
     }
-    getOne(id){
+    getById(id){
         let obj = this.productos;
         let miObj = obj.filter(p=>p.id==Number(id))
         return miObj;
     }
-    addOne(obj){
+    save(obj){
         this.miId++;
         obj.id=this.miId;
         this.productos=[...this.productos,obj];
         return obj
     }
-    updateOne(id,obj){
+    update(id,obj){
         this.productos.forEach(p=>{
             if(p.id==Number(id)){
                 if(obj.id) {
@@ -36,7 +36,7 @@ class ContenedorMemoriaProductos {
         })
         return this.productos;
     }
-    deleteOne(id){
+    deleteById(id){
         let obj = this.productos.filter(p=>p.id != Number(id));
         this.productos=obj
         return obj

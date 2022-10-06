@@ -16,4 +16,4 @@ const firebaseCarro = new ContenedorFirebaseCarro('cart');
 const memoriaCarro = new ContenedorMemoriaCarro();
 const mongoCarro = new ContenedorMongoCarro('../options/mongodb.js', 'cart');
 
-export { archivoProductos, archivoCarro };
+export { mongoProductos, mongoCarro };

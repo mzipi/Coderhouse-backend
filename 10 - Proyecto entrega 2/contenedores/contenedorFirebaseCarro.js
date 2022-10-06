@@ -1,11 +1,11 @@
-// import admin from "firebase-admin";
-// import fs from 'fs';
+import { initializeApp, applicationDefault, cert } from "firebase-admin/app";
+import { getFirestore, Timestamp, FieldValue } from "firebase-admin/firestore";
+import fs from 'fs';
 
-// const serviceAccount = JSON.parse(fs.readFileSync("./coder-backend-a3fcf-firebase-adminsdk-9ug8w-cd644304ba.json", 'utf8'))
+const serviceAccount = JSON.parse(fs.readFileSync("./coder-backend-a3fcf-firebase-adminsdk-9ug8w-cd644304ba.json", 'utf8'))
 
-// admin.initializeApp({
-// 	credential: admin.credential.cert(serviceAccount),
-// 	databaseURL: "firebase-adminsdk-9ug8w@coder-backend-a3fcf.iam.gserviceaccount.com"
+// initializeApp({
+// 	credential: cert(serviceAccount),
 // });
 
 class ContenedorFirebaseCarro {
@@ -14,54 +14,75 @@ class ContenedorFirebaseCarro {
 		this.collection = collection;
 	}
 	
-	async save(obj) {
-		const db = firestore();
-		const query = db.collection(this.collection);
+	async add(id, body) {
 		try {
-			let id = 1;
-			let doc = query.doc(`${id}`);
-			await doc.create(obj);
-			id++;
+			let res;
+			id = Number(id);
+			const db = getFirestore();
+			const ref = db.collection('cart');
+			const whereRef = await ref.where('id', '==', id).get();
+			whereRef.forEach((doc) => res = doc.id);
+			if (res) {
+				const docRef = db.collection('cart').doc(res);
+				await docRef.set({ products: [body] }, { merge: true });
+			}
 		} catch (err) {console.log(err)}
 	}
 
 	async getById(id) {
 		try {
-			const doc = query.doc(`${id}`);
-			const item = await doc.get();
-			const res = item.data();
-			console.log(res);
+			let res;
+			id = Number(id);
+			const db = getFirestore();
+			const ref = db.collection('cart');
+			const whereRef = await ref.where('id', '==', id).get();
+			whereRef.forEach((doc) => res = doc.data());
+			return res;
 		} catch (err) {console.log(err)}
 	}
 
-	async getAll() {
+	async newCart() {
+		let id = 0;
 		try {
-			const querySnapshot = await query.get();
-			let docs = querySnapshot.docs;
-			const res = docs.map((doc) => ({
-				id: doc.id,
-				nombre: doc.data().nombre,
-				precio: doc.data().precio
-			}))
-			console.log(res);
-		} catch (err) {console.log(err)}
+			const db = getFirestore();
+			const docRef = db.collection('cart');
+			await docRef.add({
+				id: id, 
+				timestamp: FieldValue.serverTimestamp(),
+				products: []
+			}); 
+			id++;
+		} catch (err) { console.log(err) }
 	}
 
-	async deleteById(id) {
+	async deleteItem(id, id_prod) {
 		try {
-			const doc = query.doc(`${id}`);
-			let item = await doc.delete();
-			console.log("El usuario ha sido borrado exitosamente", item);
-		} catch (err) {console.log(err)}
-	}
+			let res;
+			id = Number(id);
+			const db = getFirestore();
+			const ref = db.collection('cart');
+			const whereRef = await ref.where('id', '==', id).get();
+			whereRef.forEach((doc) => res = doc.id);
+			if (res) {
+				const deleteRef = db.collection('cart').doc(res);
+				await deleteRef.delete();
+			}
+		} catch (err) { console.log(err) }
+    }
 
-
-	async update(id, obj){
+    async deleteCart(id) {
 		try {
-			const doc = query.doc(`${id}`);
-			let item = await doc.update(obj);
-			console.log("El usuario ha sido actualidado", item);
-		} catch (err) {console.log(err)}
-	}
+			let res;
+			id = Number(id);
+			const db = getFirestore();
+			const ref = db.collection('cart');
+			const whereRef = await ref.where('id', '==', id).get();
+			whereRef.forEach((doc) => res = doc.id);
+			if (res) {
+				const deleteRef = db.collection('cart').doc(res);
+				await deleteRef.delete();
+			}
+		} catch (err) { console.log(err) }
+    }
 }
 export default ContenedorFirebaseCarro;
