@@ -1,12 +1,14 @@
 class ContenedorMemoria {
-    // constructor(col){
-    //     this.col = col
-    // }
+    miId=0;
+    constructor(){
+        this.productos=[];
+    }
     
     save(obj){
-        let id = 0;
-        obj.id = id++;
-        this.productos.push(obj);
+        this.miId++;
+        obj.id=this.miId;
+        this.productos=[...this.productos,obj];
+        return obj
     }
     getAll(){
         return this.productos;

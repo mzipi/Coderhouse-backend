@@ -14,7 +14,11 @@
     "@faker-js/faker": "^7.5.0",
     "express": "^4.18.1",
     "express-handlebars": "^6.0.6",
+<<<<<<< HEAD
     "firebase-admin": "^11.1.0",
+=======
+    "firebase-admin": "^11.0.1",
+>>>>>>> 1d105d83bdfa7cc5798f010eeefc9b7fb32cbbf3
     "knex": "^2.3.0",
     "mysql": "^2.18.1",
     "socket.io": "^4.5.1",
