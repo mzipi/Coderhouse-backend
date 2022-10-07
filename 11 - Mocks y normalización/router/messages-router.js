@@ -1,8 +1,7 @@
 import { Router } from 'express';
 const router = Router();
-import options from '../options/sqlite3.js';
 import Contenedor from '../contenedores/messages-class.js';
-const data = new Contenedor(options, 'messages');
+const data = new Contenedor();
 
 router.get('/', (req, res) => {
     data.getAll().then(n => res.send(n));
