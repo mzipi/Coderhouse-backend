@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 import { initializeApp, applicationDefault, cert } from "firebase-admin/app";
 import { getFirestore, Timestamp, FieldValue } from "firebase-admin/firestore";
 import fs from 'fs';
@@ -8,18 +7,6 @@ const serviceAccount = JSON.parse(fs.readFileSync("./coder-backend-a3fcf-firebas
 initializeApp({
 	credential: cert(serviceAccount),
 });
-=======
-// import knex from 'knex';
-import admin from "firebase-admin";
-import { serviceAccount } from "../coder-backend-a3fcf-firebase-adminsdk-9ug8w-cd644304ba.json";
-// var admin = require("firebase-admin");
-// var serviceAccount = require("path/to/serviceAccountKey.json");
-
-admin.initializeApp({
-  credential: admin.credential.cert(serviceAccount)
-});
-
->>>>>>> 1d105d83bdfa7cc5798f010eeefc9b7fb32cbbf3
 
 class Contenedor {
 
