@@ -46,3 +46,6 @@ class Contenedor {
     }
 }
 export default Contenedor;
+
+
+//FieldValue.serverTimestamp()
