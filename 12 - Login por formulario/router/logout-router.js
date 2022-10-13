@@ -1,8 +1,12 @@
 import { Router } from 'express';
 import session from "express-session";
 import MongoStore from "connect-mongo";
+import config from "../config.js";
 
-const mongoUrl = 'mongodb+srv://coder:mongocoderpwd@cluster0.t5mkzof.mongodb.net/coderhouse';
+var usr = config.USR;
+var pwd = config.PWD;
+var db = config.DB;
+const mongoUrl = `mongodb+srv://${usr}:${pwd}@cluster0.t5mkzof.mongodb.net/${db}`;
 const store = MongoStore.create({ mongoUrl, ttl: 300 });
 const router = Router();
 
