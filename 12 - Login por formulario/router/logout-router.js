@@ -14,7 +14,7 @@ router.use(session({
     cookie: { maxAge: 600000 }
 }));
 
-router.post('/', (req, res) => {
+router.get('/', (req, res) => {
     res.render('logout', { msg: 'Hasta luego', name: req.session.name });
     req.session.destroy(err => { console.log(err) })
 });

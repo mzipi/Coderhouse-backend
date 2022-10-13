@@ -1,6 +1,8 @@
 <div class="login">
-    <h1>{{msg}} {{name}}</h1>
-    <button id="logout">Desloguear</button>
+    <form action="/logout" method="get">
+        <h1>{{msg}} {{name}}</h1>
+        <button id="logout">Desloguear</button>
+    </form>
 </div>
 <div class="form">
     {{> form}}
