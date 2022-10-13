@@ -17,4 +17,10 @@ app.use(express.static('./public'));
 app.use('/login', login_router);
 app.use('/logout', logout_router);
 
+app.get('/logout?', (req, res) => {
+    setTimeout(() => {
+        res.redirect('/login');
+    }, 2000)
+})
+
 app.listen(PORT);
