@@ -2,10 +2,12 @@ import { Router } from 'express';
 import session from "express-session";
 import MongoStore from "connect-mongo";
 
-const mongoUrl = 'mongodb+srv://coder:mongocoderpwd@cluster0.t5mkzof.mongodb.net/coderhouse';
+const usr = config.USR;
+const pwd = config.PWD;
+const db = config.DB;
+const mongoUrl = `mongodb+srv://${usr}:${pwd}@cluster0.t5mkzof.mongodb.net/${db}`;
 const store = MongoStore.create({ mongoUrl, ttl: 300 });
 const router = Router();
-let name;
 
 router.use(session({
     store,
