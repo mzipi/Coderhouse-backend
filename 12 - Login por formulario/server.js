@@ -1,22 +1,20 @@
-import { express } from "express";
-import { session } from "express-session";
+import express from "express";
+import handlebars from 'express-handlebars';
+import login_router from './router/login-router.js';
+import logout_router from './router/logout-router.js';
 
+const PORT = process.env.port || 8080
 const app = express();
 
-var PORT = process.env.port || 8080
+app.engine('handlebars', handlebars.engine());
 
-app.use(session({
-    secret: 'secreto',
-    resave: true,
-    saveUninitialize: true
-}));
+app.set('view engine', 'handlebars');
+app.set('views', './views');
 
-app.get('/login', (req, res) => {
-    const { username, password } = req.query;
-    if (username !== 'pepe' || password !== 'pepepass') {
-        return res.send('login failed');
-    };
-    req.session.user = username;
-    req.session.admin = true;
-    res.send('login success!');
-})
+app.use(express.urlencoded({extended: true}));
+app.use(express.json());
+app.use(express.static('./public'));
+app.use('/login', login_router);
+app.use('/logout', logout_router);
+
+app.listen(PORT);
