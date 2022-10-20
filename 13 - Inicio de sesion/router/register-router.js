@@ -19,7 +19,7 @@ router.use(session({
 }));
 
 router.get('/', (req, res) => {
-    res.render('logout', { msg: 'Hasta luego', name: req.session.name });
+    res.render('register', { msg: 'Hasta luego', name: req.session.name });
 });
 
 export default router;
