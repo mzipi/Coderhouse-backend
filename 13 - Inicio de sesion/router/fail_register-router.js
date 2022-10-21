@@ -1,5 +1,4 @@
 import { Router } from 'express';
-import register from "../middlewares/register.js";
 
 const router = Router();
 
