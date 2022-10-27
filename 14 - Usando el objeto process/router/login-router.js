@@ -1,5 +1,5 @@
-import { Router } from 'express';
-import passport from "passport";
+const { Router } = require('express');
+const passport  = require("passport");
 
 const router = Router();
 
@@ -15,4 +15,4 @@ router.post(
     }
 );
 
-export default router;
+module.exports = router;

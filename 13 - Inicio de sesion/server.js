@@ -9,7 +9,7 @@ import msg_router from './router/msg-router.js';
 import { sessionHandler as session } from './middlewares/session-middleware.js'
 import login_router from './router/login-router.js';
 import logout_router from './router/logout-router.js';
-import register_router from './router/register-router.js';
+import signup_router from './router/signup-router.js';
 import test_router from './router/test-router.js';
 import fail_login_router from './router/fail_login-router.js';
 import fail_register_router from './router/fail_register-router.js';
@@ -37,7 +37,7 @@ app.use('/api/mensajes', msg_router);
 app.use('/api/productos-test', test_router);
 app.use('/login', login_router);
 app.use('/logout', logout_router);
-app.use('/register', register_router);
+app.use('/register', signup_router);
 app.use('/faillogin', fail_login_router);
 app.use('/failregister', fail_register_router);
 

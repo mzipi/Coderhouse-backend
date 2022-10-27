@@ -1,6 +1,6 @@
-import passport from 'passport';
-import Strategy from 'passport-local';
-import { MongoClient } from "mongodb";
+const passport = require('passport');
+const Strategy = require('passport-local');
+const { MongoClient } = require("mongodb");
 
 const uri = "mongodb+srv://coder:mongocoderpwd@cluster0.t5mkzof.mongodb.net";
 const client = new MongoClient(uri);
@@ -48,4 +48,6 @@ passport.use('login', new Strategy(
     }
 ));
 
-export const passportMiddleware = passport.initialize();
+const passportMiddleware = passport.initialize();
+
+module.exports = passportMiddleware;
