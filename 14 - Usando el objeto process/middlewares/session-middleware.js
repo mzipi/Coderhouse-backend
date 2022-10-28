@@ -1,12 +1,12 @@
 const session = require("express-session");
 const MongoStore = require("connect-mongo");
-const config = require("../config.js");
+const { USR, PWD, DB } = require("../config.js");
 
-const mongoUrl = `mongodb+srv://${config.USR}:${config.PWD}@cluster0.t5mkzof.mongodb.net/${config.DB}`;
+const mongoUrl = `mongodb+srv://${USR}:${PWD}@cluster0.t5mkzof.mongodb.net/${DB}`;
 const store = MongoStore.create({ mongoUrl, ttl: 300 });
 const sessionHandler = session({
     store,
-    secret: 'secreto',
+    secret: "secreto",
     resave: false,
     saveUninitialized: false,
     cookie: { maxAge: 600000 }

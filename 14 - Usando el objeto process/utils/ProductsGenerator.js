@@ -1,6 +1,6 @@
-const ContenedorMemoria = require('../containers/ContenedorMemoria.js');
-const { faker } = require('@faker-js/faker');
-faker.locale = 'es';
+const ContenedorMemoria = require("../containers/ContenedorMemoria.js");
+const { faker } = require("@faker-js/faker");
+faker.locale = "es";
 
 class ProductsGenerator extends ContenedorMemoria {
     constructor() {

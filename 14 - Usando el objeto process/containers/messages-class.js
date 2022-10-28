@@ -1,8 +1,8 @@
 const { initializeApp, applicationDefault, cert } = require("firebase-admin/app");
 const { getFirestore, Timestamp, FieldValue } = require("firebase-admin/firestore");
-const fs = require('fs');
+const fs = require("fs");
 
-const serviceAccount = JSON.parse(fs.readFileSync("./coder-backend-a3fcf-firebase-adminsdk-9ug8w-cd644304ba.json", 'utf8'))
+const serviceAccount = JSON.parse(fs.readFileSync("./coder-backend-a3fcf-firebase-adminsdk-9ug8w-cd644304ba.json", "utf8"))
 
 initializeApp({
 	credential: cert(serviceAccount),
@@ -16,7 +16,7 @@ class Contenedor {
         try {
 			let res = [];
 			const db = getFirestore();
-			const snapshot = await db.collection('messages').get();
+			const snapshot = await db.collection("messages").get();
 			if (snapshot) {
                 snapshot.forEach((doc) => {
                     res.push(doc.data());
@@ -29,7 +29,7 @@ class Contenedor {
     async save(obj) {
 		try {
 			const db = getFirestore();
-			const docRef = db.collection('messages');
+			const docRef = db.collection("messages");
 			await docRef.add({
                 author: {
                     id: obj.author.id,

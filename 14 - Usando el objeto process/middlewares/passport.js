@@ -1,21 +1,22 @@
-const passport = require('passport');
-const Strategy = require('passport-local');
+const passport = require("passport");
+const Strategy = require("passport-local");
 const { MongoClient } = require("mongodb");
+const { USR, PWD, DB } = require("../config.js");
 
-const uri = "mongodb+srv://coder:mongocoderpwd@cluster0.t5mkzof.mongodb.net";
+const uri = `mongodb+srv://${USR}:${PWD}@cluster0.t5mkzof.mongodb.net`;
 const client = new MongoClient(uri);
 
-passport.use('signup', new Strategy(
+passport.use("signup", new Strategy(
     {
         passReqToCallback: true,
-        // usernameField: 'email',
-        // passwordField: 'contrasenia',
+        // usernameField: "email",
+        // passwordField: "contrasenia",
     },
     async function (req, username, password, done) {
         try {
-            const database = client.db('coderhouse');
+            const database = client.db("coderhouse");
             console.log(database);
-            const users = database.collection('users');
+            const users = database.collection("users");
             const query = { 
                 email: req.body.email,
                 password: req.body.password
@@ -36,7 +37,7 @@ passport.use('signup', new Strategy(
     // }
 ));
 
-passport.use('login', new Strategy(
+passport.use("login", new Strategy(
     function (username, password, done) {
         try {
             // const usuario = autenticar(username, password);

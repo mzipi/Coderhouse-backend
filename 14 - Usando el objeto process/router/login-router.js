@@ -1,17 +1,17 @@
-const { Router } = require('express');
+const { Router } = require("express");
 const passport  = require("passport");
 
 const router = Router();
 
-router.get('/', (req, res) => {
-    res.render('login');
+router.get("/", (req, res) => {
+    res.render("login");
 });
 
 router.post(
-    '/', 
-    passport.authenticate('login', { failureRedirect: '/login' }), 
+    "/", 
+    passport.authenticate("login", { failureRedirect: "/login" }), 
     (req, res) => {
-        res.redirect('/');
+        res.redirect("/");
     }
 );
 

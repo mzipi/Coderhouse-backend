@@ -1,4 +1,4 @@
-const knex = require('knex');
+const knex = require("knex");
 
 class Contenedor {
 
@@ -8,12 +8,12 @@ class Contenedor {
     }
 
     getAll() {
-        let n = this.knex.select('*').table(this.table);
+        let n = this.knex.select("*").table(this.table);
         return n;
     }
 
     getById(id) {
-        let n = this.knex.select('*').table(this.table).where(id);
+        let n = this.knex.select("*").table(this.table).where(id);
         return n;
     }
 
@@ -34,7 +34,7 @@ class Contenedor {
         return n;
     }
 
-    // { error: 'producto no encontrado' }
+    // { error: "producto no encontrado" }
     
     close() {
         this.knex.destroy();
