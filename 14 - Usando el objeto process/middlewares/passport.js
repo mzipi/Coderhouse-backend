@@ -1,7 +1,7 @@
 const passport = require("passport");
 const Strategy = require("passport-local");
 const { MongoClient } = require("mongodb");
-const { USR, PWD, DB } = require("../config.js");
+const { USR, PWD, DB } = require("../config");
 
 const uri = `mongodb+srv://${USR}:${PWD}@cluster0.t5mkzof.mongodb.net`;
 const client = new MongoClient(uri);

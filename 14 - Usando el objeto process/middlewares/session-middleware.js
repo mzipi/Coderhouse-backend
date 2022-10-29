@@ -1,6 +1,6 @@
 const session = require("express-session");
 const MongoStore = require("connect-mongo");
-const { USR, PWD, DB } = require("../config.js");
+const { USR, PWD, DB } = require("../config");
 
 const mongoUrl = `mongodb+srv://${USR}:${PWD}@cluster0.t5mkzof.mongodb.net/${DB}`;
 const store = MongoStore.create({ mongoUrl, ttl: 300 });
