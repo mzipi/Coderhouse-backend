@@ -16,11 +16,15 @@ const fail_register = require("./router/fail_register-router.js");
 const passportMiddleware = require("./middlewares/passport.js");
 const info = require("./router/info-router.js");
 const randoms = require("./router/api_randoms-router.js");
+const yargs = require("yargs/yargs")(process.argv.slice(2));
 
-const PORT = process.env.port || 8080
 const app = express();
 const server = createServer(app);
 const io = new Server(server);
+const args = yargs
+    .default({ port: 8080 })
+    .alias({ p: "port" })
+    .argv;
 
 app.engine("handlebars", handlebars.engine());
 
@@ -56,6 +60,6 @@ io.on("connection", (socket) => {
     socket.on("add item", (product) => io.emit("add item", product));
 });
 
-server.listen(PORT, () => console.log(`Servidor corriendo en http://localhost:${PORT}`));
+server.listen(args.port, () => console.log(`Servidor corriendo en http://localhost:${args.port}`));
 
 server.on("error", err => console.log(`Error en el servidor: ${err}`));
