@@ -1,11 +1,13 @@
 const { initializeApp, applicationDefault, cert } = require("firebase-admin/app");
 const { getFirestore, Timestamp, FieldValue } = require("firebase-admin/firestore");
-const fs = require("fs");
+const { PROJECT_ID, PRIVATE_KEY, CLIENT_EMAIL } = require("../config")
 
-const serviceAccount = JSON.parse(fs.readFileSync("./coder-backend-a3fcf-firebase-adminsdk-9ug8w-cd644304ba.json", "utf8"))
-
-initializeApp({
-	credential: cert(serviceAccount),
+initializeApp({ 
+    credential: cert({
+        projectId: PROJECT_ID,
+        privateKey: PRIVATE_KEY,
+        clientEmail: CLIENT_EMAIL
+    }) 
 });
 
 class Contenedor {
