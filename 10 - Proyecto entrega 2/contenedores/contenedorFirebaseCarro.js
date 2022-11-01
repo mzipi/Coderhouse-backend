@@ -1,12 +1,5 @@
 import { initializeApp, applicationDefault, cert } from "firebase-admin/app";
 import { getFirestore, Timestamp, FieldValue } from "firebase-admin/firestore";
-import fs from 'fs';
-
-const serviceAccount = JSON.parse(fs.readFileSync("./coder-backend-a3fcf-firebase-adminsdk-9ug8w-cd644304ba.json", 'utf8'))
-
-// initializeApp({
-// 	credential: cert(serviceAccount),
-// });
 
 class ContenedorFirebaseCarro {
 	

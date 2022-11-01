@@ -1,14 +1,14 @@
 import { initializeApp, applicationDefault, cert } from "firebase-admin/app";
 import { getFirestore, Timestamp, FieldValue } from "firebase-admin/firestore";
-import fs from 'fs';
+import { PROJECT_ID, PRIVATE_KEY, CLIENT_EMAIL } from "../config.js";
 
-const serviceAccount = JSON.parse(fs.readFileSync("./coder-backend-a3fcf-firebase-adminsdk-9ug8w-cd644304ba.json", 'utf8'))
-
-initializeApp({
-	credential: cert(serviceAccount),
+initializeApp({ 
+    credential: cert({
+        projectId: PROJECT_ID,
+        privateKey: PRIVATE_KEY,
+        clientEmail: CLIENT_EMAIL
+    }) 
 });
-
-
 
 class ContenedorFirebaseProductos {
 	constructor(collection){
