@@ -1,9 +1,13 @@
 var admin = require("firebase-admin");
 
-var serviceAccount = require("../../coder-backend-a3fcf-firebase-adminsdk-9ug8w-cd644304ba.json");
+const { PROJECT_ID, PRIVATE_KEY, CLIENT_EMAIL } = require("../config")
 
 admin.initializeApp({
-	credential: admin.credential.cert(serviceAccount)
+	credential: admin.credential.cert({
+        projectId: PROJECT_ID,
+        privateKey: PRIVATE_KEY,
+        clientEmail: CLIENT_EMAIL
+    })
 });
 
 class Contenedor {

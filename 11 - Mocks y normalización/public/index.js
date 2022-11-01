@@ -30,11 +30,11 @@ fetch('/api/mensajes', {
             span1.className = 'email';
             span2.className = 'date';
             span3.className = 'msg';
-            span1.textContent = `${element.email} `;
+            span1.textContent = `${element.author.id} `;
             var d = new Date();
             var date = d.toLocaleString();
             span2.textContent = `[${date}]: `;
-            span3.textContent = element.msg;
+            span3.textContent = element.text;
             p.appendChild(span1);
             p.appendChild(span2);
             p.appendChild(span3);

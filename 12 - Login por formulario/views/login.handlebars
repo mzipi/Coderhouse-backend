@@ -1,0 +1,14 @@
+<div class="login">
+    <h1>Login de usuario</h1>
+    <form id="login" action="/login" method="post">
+        <label for="name">Ingrese su nombre</label>
+        <input type="text" name="user" id="user">
+        <button type="submit">Enviar</button>
+    </form>
+</div>
+<div class="form">
+    {{> form}}
+</div>
+<div class="messages">
+    {{> messages}}
+</div>

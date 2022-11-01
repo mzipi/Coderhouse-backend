@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/style.css">
+    <title>Proyecto de backend</title>
+</head>
+<body>
+    <header>
+        <nav>
+            <ul>
+                <li>
+                    <a href="/api/mensajes">Ver mensajes</a>
+                </li>
+                <li>
+                    <a href="/api/productos">Ver productos</a>
+                </li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        {{{body}}}
+    </main>
+    <footer>
+        <hr>
+        <p>Desarrollado por Michell Zipitría</p>
+    </footer>
+    <script src="/socket.io/socket.io.js"></script>
+    {{!-- <script src='/config.js'></script> --}}
+    <script src="/index.js"></script>
+    <script src="/scripts.js"></script>
+</body>
+</html>
