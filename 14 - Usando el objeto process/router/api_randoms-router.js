@@ -3,17 +3,22 @@ const { fork } = require("child_process");
 
 const router = Router();
 
-const computo = fork('./computo.js')
-computo.on('message', msg => {
-    if (msg === 'listo') {
-        computo.send('calcular!')
-    } else {
-        res.end(`La suma es ${msg}`)
-    }
-})
 
-router.get("/", (req, res) => {
-    res.render("api-randoms");
+router.get("/:cant?", (req, res) => {
+    
+    let cant;
+
+    if(req.query.cant) {
+        cant = Number(req.query.cant);
+    } else {
+        cant = 100000;
+    }
+
+    const child = fork("./api/child.js");
+
+    child.send(cant);
+
+    child.on("message", msg => res.send({ num: msg }));
 });
 
 module.exports = router;
