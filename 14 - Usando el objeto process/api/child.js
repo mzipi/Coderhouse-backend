@@ -7,6 +7,6 @@ const calculo = (cant) => {
 };
 
 process.on('message', msg => {
-    const sum = calculo(cant);
+    const sum = calculo(msg);
     process.send(sum);
 });
