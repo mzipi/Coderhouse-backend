@@ -1,6 +1,6 @@
 const { initializeApp, applicationDefault, cert } = require("firebase-admin/app");
 const { getFirestore, Timestamp, FieldValue } = require("firebase-admin/firestore");
-const { PROJECT_ID, PRIVATE_KEY, CLIENT_EMAIL } = require("../config")
+const { PROJECT_ID, PRIVATE_KEY, CLIENT_EMAIL } = require("../config.js")
 
 initializeApp({ 
     credential: cert({

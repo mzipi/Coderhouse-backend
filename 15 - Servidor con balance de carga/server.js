@@ -60,6 +60,9 @@ io.on("connection", (socket) => {
     socket.on("add item", (product) => io.emit("add item", product));
 });
 
-server.listen(args.port, () => console.log(`Servidor corriendo en http://localhost:${args.port}`));
+server.listen(args.port, () => {
+    console.log(`Sirviendo en http://localhost:${args.port}`);
+    console.log(`PID: ${process.pid}`);
+});
 
 server.on("error", err => console.log(`Error en el servidor: ${err}`));
