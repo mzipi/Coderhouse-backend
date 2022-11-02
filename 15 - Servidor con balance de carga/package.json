@@ -4,7 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "nodemon server.js",
+    "forever-start": "forever start server.js",
+    "forever-end": "forever stopall"
   },
   "keywords": [],
   "author": "",
@@ -17,6 +19,7 @@
     "express-handlebars": "^6.0.6",
     "express-session": "^1.17.3",
     "firebase-admin": "^11.2.0",
+    "forever": "^4.0.3",
     "knex": "^2.3.0",
     "mongodb": "^4.11.0",
     "mysql": "^2.18.1",

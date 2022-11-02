@@ -17,13 +17,15 @@ const passportMiddleware = require("./middlewares/passport.js");
 const info = require("./router/info-router.js");
 const randoms = require("./router/api_randoms-router.js");
 const yargs = require("yargs/yargs")(process.argv.slice(2));
+const cluster = require("cluster");
+const cpus = require("os").cpus().length;
 
 const app = express();
 const server = createServer(app);
 const io = new Server(server);
 const args = yargs
-    .default({ port: 8080 })
-    .alias({ p: "port" })
+    .default({ port: 8080, mode: "fork" })
+    .alias({ p: "port", m: "mode" })
     .argv;
 
 app.engine("handlebars", handlebars.engine());
@@ -55,14 +57,25 @@ app.use("/api/randoms", randoms);
 //     }, 2000)
 // })
 
-io.on("connection", (socket) => {
+io.on ("connection", (socket) => {
     socket.on("chat message", (msg) => io.emit("chat message", msg));
     socket.on("add item", (product) => io.emit("add item", product));
 });
 
-server.listen(args.port, () => {
-    console.log(`Sirviendo en http://localhost:${args.port}`);
-    console.log(`PID: ${process.pid}`);
-});
+if (args.mode == "cluster" && cluster.isPrimary) {
+
+    for (let i = 0; i < cpus; i++) {
+        cluster.fork();
+    };
+    
+    cluster.on("exit", (worker, code, signal) => {
+        console.log(`Worker ${worker.process.pid} died`);
+    });
+} else {
+    server.listen(args.port, () => {
+        console.log(`Sirviendo en http://localhost:${args.port} con PID: ${process.pid}`);
+    });
+};
+
 
 server.on("error", err => console.log(`Error en el servidor: ${err}`));
