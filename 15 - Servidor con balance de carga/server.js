@@ -24,7 +24,7 @@ const app = express();
 const server = createServer(app);
 const io = new Server(server);
 const args = yargs
-    .default({ port: 8080, mode: "fork" })
+    .default({ port: 8080, mode: "FORK" })
     .alias({ p: "port", m: "mode" })
     .argv;
 
@@ -62,7 +62,7 @@ io.on ("connection", (socket) => {
     socket.on("add item", (product) => io.emit("add item", product));
 });
 
-if (args.mode == "cluster" && cluster.isPrimary) {
+if (args.mode == "CLUSTER" && cluster.isPrimary) {
 
     for (let i = 0; i < cpus; i++) {
         cluster.fork();
