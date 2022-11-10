@@ -4,7 +4,8 @@
   "description": "",
   "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "node ./utils/benchmark.js",
+    "start": "0x server.js"
   },
   "author": "Michell Zipitría",
   "license": "ISC",
@@ -27,6 +28,6 @@
     "socket.io": "^4.5.3",
     "sqlite3": "^5.1.2",
     "winston": "^3.8.2",
-    "yarg": "^1.0.7"
+    "yargs": "^17.6.2"
   }
 }
