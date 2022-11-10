@@ -19,7 +19,8 @@ const randoms = require("./router/api_randoms-router.js");
 const yargs = require("yargs/yargs")(process.argv.slice(2));
 const cluster = require("cluster");
 const cpus = require("os").cpus().length;
-const winston = require("winston");
+const all = require("./router/all-router.js");
+const logger = require("./api/logger.js");
 
 const app = express();
 const server = createServer(app);
@@ -28,16 +29,6 @@ const args = yargs
     .default({ port: 8080, mode: "FORK" })
     .alias({ p: "port", m: "mode" })
     .argv;
-
-const logger = winston.createLogger({
-    level: 'warn',
-    transports: [
-        new winston.transports.Console({ level: 'verbose' }),
-        new winston.transports.File({ filename: 'info.log', level: 'error' }),
-    ]
-})
-
-
 
 app.engine("handlebars", handlebars.engine());
 
@@ -49,18 +40,19 @@ app.use(express.json());
 app.use(sessionHandler);
 app.use(passportMiddleware);
 app.use(express.static(__dirname + '/public'));
-app.use("/api/productos", api_products);
 app.use("/", index);
-app.use("/productos", products)
-app.use("/api/mensajes", msg);
-app.use("/api/productos-test", test);
-app.use("/login", login);
-app.use("/logout", logout);
-app.use("/register", signup);
 app.use("/faillogin", fail_login);
 app.use("/failregister", fail_register);
 app.use("/info", info);
+app.use("/login", login);
+app.use("/logout", logout);
+app.use("/productos", products)
+app.use("/register", signup);
+app.use("/api/productos", api_products);
+app.use("/api/mensajes", msg);
+app.use("/api/productos-test", test);
 app.use("/api/randoms", randoms);
+app.use("*", all);
 
 // app.get("/logout?", (req, res) => {
 //     setTimeout(() => {
@@ -89,4 +81,4 @@ if (args.mode == "CLUSTER" && cluster.isPrimary) {
 };
 
 
-server.on("error", err => console.log(`Error en el servidor: ${err}`));
+server.on("error", err => logger.error(`Error en el servidor: ${err}`));
