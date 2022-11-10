@@ -1,6 +1,7 @@
 const { Router } = require("express");
 const os = require("os");
 const compression = require("compression");
+const logger = require("../api/logger.js");
 
 const router = Router();
 const cwd = process.cwd();
@@ -13,6 +14,7 @@ const path = process.argv[0];
 const cpus = os.cpus().length;
 
 router.get("/", compression(), (req, res) => {
+    logger.info(`URL: ${req.originalUrl} - Method: ${req.method}`);
     res.render("info", { cwd, pid, ver, platform, mem, argv, path, cpus });
 });
 

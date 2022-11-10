@@ -1,10 +1,13 @@
 const { Router } = require("express");
 const { fork } = require("child_process");
+const logger = require("../api/logger.js");
 
 const router = Router();
 
 
 router.get("/:cant?", (req, res) => {
+
+    logger.info(`URL: ${req.originalUrl} - Method: ${req.method}`);
     
     let cant;
 
