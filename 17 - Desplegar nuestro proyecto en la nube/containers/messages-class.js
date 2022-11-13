@@ -1,11 +1,13 @@
 const { initializeApp, applicationDefault, cert } = require("firebase-admin/app");
 const { getFirestore, Timestamp, FieldValue } = require("firebase-admin/firestore");
-const { PROJECT_ID, PRIVATE_KEY, CLIENT_EMAIL } = require("../config.js")
+const { PROJECT_ID, PRIVATE_KEY, CLIENT_EMAIL } = require("../config.js");
+
+const privateKey = PRIVATE_KEY.replace(/\\n/g, '\n');
 
 initializeApp({ 
     credential: cert({
         projectId: PROJECT_ID,
-        privateKey: PRIVATE_KEY,
+        privateKey,
         clientEmail: CLIENT_EMAIL
     }) 
 });

@@ -4,7 +4,7 @@ const { createServer } = require("http");
 const { Server } = require("socket.io");
 const api_products = require("./router/api_products-router.js");
 const index = require("./router/index-router.js");
-const products = require("./router/products-router.js");
+// const products = require("./router/products-router.js");
 const msg = require("./router/msg-router.js");
 const sessionHandler = require("./middlewares/session-middleware.js");
 const login = require("./router/login-router.js");
@@ -19,6 +19,8 @@ const randoms = require("./router/api_randoms-router.js");
 const yargs = require("yargs/yargs")(process.argv.slice(2));
 const cluster = require("cluster");
 const cpus = require("os").cpus().length;
+const all = require("./router/all-router.js");
+const logger = require("./api/logger.js");
 
 const app = express();
 const server = createServer(app);
@@ -27,6 +29,8 @@ const args = yargs
     .default({ port: 8080, mode: "FORK" })
     .alias({ p: "port", m: "mode" })
     .argv;
+
+const port = process.env.PORT || 8080
 
 app.engine("handlebars", handlebars.engine());
 
@@ -38,18 +42,19 @@ app.use(express.json());
 app.use(sessionHandler);
 app.use(passportMiddleware);
 app.use(express.static(__dirname + '/public'));
-app.use("/api/productos", api_products);
 app.use("/", index);
-app.use("/productos", products)
-app.use("/api/mensajes", msg);
-app.use("/api/productos-test", test);
-app.use("/login", login);
-app.use("/logout", logout);
-app.use("/register", signup);
 app.use("/faillogin", fail_login);
 app.use("/failregister", fail_register);
 app.use("/info", info);
+app.use("/login", login);
+app.use("/logout", logout);
+// app.use("/productos", products)
+app.use("/register", signup);
+app.use("/api/productos", api_products);
+app.use("/api/mensajes", msg);
+app.use("/api/productos-test", test);
 app.use("/api/randoms", randoms);
+app.use("*", all);
 
 // app.get("/logout?", (req, res) => {
 //     setTimeout(() => {
@@ -72,10 +77,10 @@ if (args.mode == "CLUSTER" && cluster.isPrimary) {
         console.log(`Worker ${worker.process.pid} died`);
     });
 } else {
-    server.listen(args.port, () => {
-        console.log(`Sirviendo en http://localhost:${args.port} con PID: ${process.pid}`);
+    server.listen(port, () => {
+        console.log(`Sirviendo en http://localhost:${port} con PID: ${process.pid}`);
     });
 };
 
 
-server.on("error", err => console.log(`Error en el servidor: ${err}`));
+server.on("error", err => logger.error(`Error en el servidor: ${err}`));

@@ -1,5 +1,6 @@
 const { Router } = require("express");
 const os = require("os");
+const compression = require("compression");
 
 const router = Router();
 const cwd = process.cwd();
@@ -11,7 +12,7 @@ const argv = process.argv.slice(2);
 const path = process.argv[0];
 const cpus = os.cpus().length;
 
-router.get("/", (req, res) => {
+router.get("/", compression(), (req, res) => {
     res.render("info", { cwd, pid, ver, platform, mem, argv, path, cpus });
 });
 

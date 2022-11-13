@@ -1,25 +1,23 @@
 {
-  "name": "15---servidor-con-balance-de-carga",
+  "name": "loggers-gzip-performance",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "server.js",
   "scripts": {
-    "start": "nodemon server.js",
-    "forever-start": "forever start server.js -p 8082",
-    "forever-end": "forever stopall"
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "keywords": [],
-  "author": "",
+  "author": "Michell Zipitría",
   "license": "ISC",
   "dependencies": {
     "@faker-js/faker": "^7.6.0",
+    "autocannon": "^7.10.0",
+    "compression": "^1.7.4",
     "connect-mongo": "^4.6.0",
     "dotenv": "^16.0.3",
     "express": "^4.18.2",
     "express-handlebars": "^6.0.6",
     "express-session": "^1.17.3",
     "firebase-admin": "^11.2.0",
-    "forever": "^4.0.3",
     "knex": "^2.3.0",
     "mongodb": "^4.11.0",
     "mysql": "^2.18.1",
@@ -28,6 +26,7 @@
     "passport-local": "^1.0.0",
     "socket.io": "^4.5.3",
     "sqlite3": "^5.1.2",
-    "yarg": "^1.0.8"
+    "winston": "^3.8.2",
+    "yarg": "^1.0.7"
   }
 }
