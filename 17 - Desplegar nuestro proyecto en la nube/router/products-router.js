@@ -12,7 +12,6 @@ router.get("/", (req, res) => {
 
 router.get("/:id", ({ params }, res) => {
     // data.getById(params).then(n => res.send(n));
-    console.log(params);
     res.end();
 });
 
