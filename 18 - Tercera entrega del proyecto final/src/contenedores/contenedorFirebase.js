@@ -1,14 +1,14 @@
-require("dotenv").config();
+const { PROJECT_ID, PRIVATE_KEY, CLIENT_EMAIL } = require("../config.js");
 const { initializeApp, cert } = require("firebase-admin/app");
 const { getFirestore } = require("firebase-admin/firestore");
 
-const privateKey = process.env.PRIVATE_KEY.replace(/\\n/g, '\n');
+const privateKey = PRIVATE_KEY.replace(/\\n/g, '\n');
 
 initializeApp({
 	credential: cert({
-        projectId: process.env.PROJECT_ID,
+        projectId: PROJECT_ID,
         privateKey,
-        clientEmail: process.env.CLIENT_EMAIL
+        clientEmail: CLIENT_EMAIL
     })
 });
 
