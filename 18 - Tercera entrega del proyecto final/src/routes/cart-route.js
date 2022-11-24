@@ -1,7 +1,7 @@
-const express = require("express");
-const cartDao = require("../daos/index.js");
+import { Router } from "express";
+import { cartDao } from "../daos/index.js";
 
-const cartRouter = express.Router();
+const cartRouter = Router();
 
 cartRouter.get("/:id/productos", async ({ params }, res) => {
     cartDao.getById(params.id).then(n => res.send(n));
@@ -23,4 +23,4 @@ cartRouter.delete("/:id/productos/:id_prod", async ({ params }, res) => {
     cartDao.deleteItem(params.id, params.id_prod).then(res.end());
 });
 
-module.exports = cartRouter;
+export default cartRouter;

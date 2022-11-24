@@ -1,6 +1,7 @@
-const { PROJECT_ID, PRIVATE_KEY, CLIENT_EMAIL } = require("../config.js");
-const { initializeApp, cert } = require("firebase-admin/app");
-const { getFirestore } = require("firebase-admin/firestore");
+import { PROJECT_ID, PRIVATE_KEY, CLIENT_EMAIL } from "../config.js";
+import { initializeApp, cert } from "firebase-admin/app";
+import { getFirestore } from "firebase-admin/firestore";
+import logger from "../api/logger.js";
 
 const privateKey = PRIVATE_KEY.replace(/\\n/g, '\n');
 
@@ -26,7 +27,7 @@ class FirebaseContainer {
 			let doc = query.doc(`${id}`);
 			await doc.create(obj);
 			id++;
-		} catch (err) {console.log(err)}
+		} catch (err) { logger.error(err) }
 	}
 
 	async getById(id) {
@@ -34,8 +35,8 @@ class FirebaseContainer {
 			const doc = query.doc(`${id}`);
 			const item = await doc.get();
 			const res = item.data();
-			console.log(res);
-		} catch (err) {console.log(err)}
+			logger.info(res);
+		} catch (err) { logger.error(err) }
 	}
 
 	// async getAll() {
@@ -47,8 +48,8 @@ class FirebaseContainer {
 	// 			nombre: doc.data().nombre,
 	// 			precio: doc.data().precio
 	// 		}))
-	// 		console.log(res);
-	// 	} catch (err) {console.log(err)}
+	// 		logger.info(res);
+	// 	} catch (err) { logger.error(err) }
 	// }
 
 	async getAll() {
@@ -62,15 +63,15 @@ class FirebaseContainer {
                 });
                 return res;
             } 
-		} catch (err) { console.log(err) }
+		} catch (err) { logger.error(err) }
     }
 
 	async deleteById(id) {
 		try {
 			const doc = query.doc(`${id}`);
 			let item = await doc.delete();
-			console.log("El usuario ha sido borrado exitosamente", item);
-		} catch (err) {console.log(err)}
+			logger.info("El usuario ha sido borrado exitosamente", item);
+		} catch (err) { logger.error(err) }
 	}
 
 
@@ -78,8 +79,8 @@ class FirebaseContainer {
 		try {
 			const doc = query.doc(`${id}`);
 			let item = await doc.update(obj);
-			console.log("El usuario ha sido actualidado", item);
-		} catch (err) {console.log(err)}
+			logger.info("El usuario ha sido actualidado", item);
+		} catch (err) { logger.error(err) }
 	}
 }
-module.exports = FirebaseContainer;
+export default FirebaseContainer;

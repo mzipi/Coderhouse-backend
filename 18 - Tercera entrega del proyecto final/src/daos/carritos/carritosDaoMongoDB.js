@@ -1,4 +1,4 @@
-const MongoContainer = require("../../contenedores/contenedorMongoDB.js");
+import MongoContainer from "../../contenedores/contenedorMongoDB.js";
 
 class carritosDaoMongoDB extends MongoContainer {
 
@@ -7,4 +7,4 @@ class carritosDaoMongoDB extends MongoContainer {
     };
 };
 
-module.exports = carritosDaoMongoDB;
+export default carritosDaoMongoDB;

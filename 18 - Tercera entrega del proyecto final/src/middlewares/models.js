@@ -1,13 +1,14 @@
-const mongoose = require("mongoose");
-const { MONGO_USR, MONGO_PWD, MONGO_DB } = require("../config.js");
+import { connect, model } from "mongoose";
+import { MONGO_USR, MONGO_PWD, MONGO_DB } from "../config.js";
 
-mongoose.connect(`mongodb+srv://${MONGO_USR}:${MONGO_PWD}@cluster0.t5mkzof.mongodb.net/${MONGO_DB}`);
+connect(`mongodb+srv://${MONGO_USR}:${MONGO_PWD}@cluster0.t5mkzof.mongodb.net/${MONGO_DB}`);
  
-module.exports = mongoose.model("Users",{
-    username: String,
+export default model("Users",{
+    email: String,
     password: String,
     name: String,
-    lastname: String,
+    address: String,
+    age: Number,
     phone: String,
     image: String
 });

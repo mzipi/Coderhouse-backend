@@ -1,7 +1,7 @@
-const express = require("express");
+import { Router } from "express";
 
-const unknownRouter = express.Router();
+const unknownRouter = Router();
 
 unknownRouter.get("/", (req, res) => res.status(404).json({ ruta: req.baseUrl, msg: "no implementada" }));
 
-module.exports = unknownRouter;
+export default unknownRouter;

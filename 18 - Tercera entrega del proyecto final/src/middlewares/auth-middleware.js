@@ -1,4 +1,4 @@
-module.exports = function authMiddleware(req, res, next) {
+export default function authMiddleware(req, res, next) {
     if (req.isAuthenticated()) {
         next();
     } else {

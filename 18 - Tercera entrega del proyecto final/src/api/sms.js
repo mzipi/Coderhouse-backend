@@ -1,5 +1,6 @@
-const { TWILIO_ACCOUNT_SID, TWILIO_AUTH_TOKEN, FROM_PHONE, TO_PHONE } = require("../config.js");
-const twilio = require("twilio");
+import { TWILIO_ACCOUNT_SID, TWILIO_AUTH_TOKEN, FROM_PHONE, TO_PHONE } from "../config.js";
+import twilio from "twilio";
+import logger from "../api/logger.js";
 
 const client = twilio(TWILIO_ACCOUNT_SID, TWILIO_AUTH_TOKEN);
 
@@ -10,7 +11,7 @@ function sms() {
             from: FROM_PHONE,
             to: TO_PHONE
         })
-        .then(message => console.log("Mensaje enviado"));
+        .then(message => logger.info("Mensaje enviado"));
 }
 
-module.exports = sms();
+export default sms();

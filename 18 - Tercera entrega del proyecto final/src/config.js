@@ -1,4 +1,6 @@
-require("dotenv").config();
+import * as dotenv from 'dotenv';
+
+dotenv.config();
 
 const MONGO_URL = process.env.MONGO_URL;
 const MONGO_USR = process.env.MONGO_USR;
@@ -16,7 +18,7 @@ const TO_PHONE = process.env.TO_PHONE;
 const CART = process.env.CART;
 const PRODUCT = process.env.PRODUCT;
 
-module.exports = {
+export {
     MONGO_URL,
     MONGO_USR,
     MONGO_PWD,

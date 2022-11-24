@@ -1,6 +1,6 @@
-const app = require("./server.js");
-const logger = require("./api/logger.js");
-const cluster = require("cluster");
+import app from "./server.js";
+import logger from "./api/logger.js";
+import cluster from "cluster";
 
 const PORT = process.env.PORT || 8080;
 
@@ -11,11 +11,11 @@ if (process.env.mode == "CLUSTER" && cluster.isPrimary) {
     };
     
     cluster.on("exit", (worker, code, signal) => {
-        console.log(`Worker ${worker.process.pid} died`);
+        logger.info(`Worker ${worker.process.pid} died`);
     });
 } else {
     const server = app.listen(PORT, () => {
-        console.log(`Sirviendo en http://localhost:${PORT} con PID: ${process.pid}`);
+        logger.info(`Sirviendo en http://localhost:${PORT} con PID: ${process.pid}`);
     });
     server.on("error", err => logger.error(`Error en el servidor: ${err}`));
 };

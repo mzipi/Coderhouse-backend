@@ -1,4 +1,4 @@
-const FileContainer = require("../../contenedores/contenedorArchivo.js");
+import FileContainer from "../../contenedores/contenedorArchivo.js";
 
 class carritosDaoArchivo extends FileContainer {
 
@@ -7,4 +7,4 @@ class carritosDaoArchivo extends FileContainer {
     };
 };
 
-module.exports = carritosDaoArchivo;
+export default carritosDaoArchivo;

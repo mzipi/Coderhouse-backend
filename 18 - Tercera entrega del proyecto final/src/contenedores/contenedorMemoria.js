@@ -38,4 +38,4 @@ class MemContainer {
         return item
     }
 }
-module.exports = MemContainer;
+export default MemContainer;

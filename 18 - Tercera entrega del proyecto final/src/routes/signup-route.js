@@ -1,11 +1,11 @@
-const express = require("express");
-const passport = require("passport");
+import { Router } from "express";
+import passport from "passport";
 
-const signupRouter = express.Router();
+const signupRouter = Router();
 
 signupRouter.post("/",
     passport.authenticate("signup", { failureRedirect: "/signup" }),
     (req, res) => res.redirect("/")
 );
 
-module.exports = signupRouter;
+export default signupRouter;

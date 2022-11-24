@@ -1,7 +1,8 @@
-const bCrypt = require("bcrypt");
-const passport = require("passport");
-const LocalStrategy = require("passport-local").Strategy;
-const User = require("./models.js");
+import { genSalt, hash, compare } from "bcrypt";
+import passport from "passport";
+import { Strategy as LocalStrategy } from "passport-local";
+import User from "./models.js";
+import logger from "../api/logger.js";
 
 const passportMiddleware = passport.initialize();
 const passportSessionHandler = passport.session();
@@ -14,20 +15,21 @@ passport.use("signup", new LocalStrategy({ passReqToCallback: true },
         try {
             user = await User.findOne({ 'username': username })
         } catch (err) {
-            console.log('Error in SignUp: ' + err);
+            logger.error('Error in SignUp: ');
             return done(err);
         }
 
         if (user) {
-            console.log('User already exists');
+            logger.info('User already exists');
             return done(null, false)
         }
 
         const newUser = {
-            username,
+            email: username,
             password: await createHash(password),
             name: req.body.name,
-            lastName: req.body.lastName,
+            address: req.body.address,
+            age: req.body.age,
             phone: req.body.phone,
             image: req.body.image
         }
@@ -37,12 +39,11 @@ passport.use("signup", new LocalStrategy({ passReqToCallback: true },
         try {
             userWithId = await User.create(newUser)
         } catch (error) {
-            console.log('Error in Saving user: ' + err);
+            logger.error('Error in Saving user: ');
             return done(err);
         }
 
-        console.log(user)
-        console.log('User Registration successful');
+        logger.info('User Registration successful');
         return done(null, userWithId);
     }
 ));
@@ -59,17 +60,16 @@ passport.use("login", new LocalStrategy(
         }
 
         if (!user) {
-            console.log('User Not Found with username ' + username);
+            logger.info('User Not Found with username ' + username);
             return done(null, false);
         }
 
         if (!await isValidPassword(user, password)) {
-            console.log('Invalid Password');
+            logger.info('Invalid Password');
             return done(null, false);
         }
 
-        console.log(user)
-        console.log('Login successful');
+        logger.info('Login successful');
         return done(null, user);
     }
 ));
@@ -83,15 +83,15 @@ passport.deserializeUser((id, done) => {
 });
 
 async function createHash(password) {
-    const salt = await bCrypt.genSalt(10);
-    return await bCrypt.hash(password, salt);
+    const salt = await genSalt(10);
+    return await hash(password, salt);
 }
   
 async function isValidPassword(user, password) {
-    return await bCrypt.compare(password, user.password);
+    return await compare(password, user.password);
 }
 
-module.exports = { 
+export { 
     passportMiddleware, 
     passportSessionHandler
 };

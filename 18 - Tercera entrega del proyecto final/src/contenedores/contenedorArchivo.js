@@ -1,4 +1,5 @@
-const fs = require("fs/promises");
+import { writeFile, readFile } from "fs/promises";
+import logger from "../api/logger.js";
 
 class FileContainer {
 
@@ -22,9 +23,9 @@ class FileContainer {
         }
         const newFile = [ ...file, obj ];
         try {
-            await fs.writeFile(this.path, JSON.stringify(newFile));
+            await writeFile(this.path, JSON.stringify(newFile));
         } catch (err) {
-            console.error("Hubo un error al guardar el archivo\n", err);
+            logger.error("Hubo un error al guardar el archivo\n", err);
         }
         return id;
     }
@@ -35,13 +36,13 @@ class FileContainer {
         if(item) {
             return [item];
         } else {
-            console.log("No se encuentra ese item");
+            logger.info("No se encuentra ese item");
         }
     }
 
     async getAll() {
         try {
-            const data = await fs.readFile(this.path, "utf-8");
+            const data = await readFile(this.path, "utf-8");
             return JSON.parse(data);
         } catch (err) {
             return []
@@ -52,9 +53,9 @@ class FileContainer {
         const data = await this.getAll();
         const item = data.filter(element => element.id != id);
         try {
-            await fs.writeFile(this.path, JSON.stringify(item));
+            await writeFile(this.path, JSON.stringify(item));
         } catch (err) {
-            console.log("Ocurrio un error al borrar el producto\n", err);
+            logger.error("Ocurrio un error al borrar el producto\n", err);
         }
     }
 
@@ -71,19 +72,19 @@ class FileContainer {
             }
         )
         try {
-            await fs.writeFile(this.path, JSON.stringify(data));
+            await writeFile(this.path, JSON.stringify(data));
         } catch (err) {
-            console.log("Ocurrio un error al actualizar el producto\n", err);
+            logger.error("Ocurrio un error al actualizar el producto\n", err);
         }
         // return data;
     }
 
     async deleteAll() {
         try {
-            await fs.writeFile(this.path, "[]");
+            await writeFile(this.path, "[]");
         } catch (err) {
-            console.error("Ocurrio un error al vaciar el archivo\n", err);
+            logger.error("Ocurrio un error al vaciar el archivo\n", err);
         }
     }
 }
-module.exports = FileContainer;
+export default FileContainer;

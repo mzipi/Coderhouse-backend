@@ -1,4 +1,4 @@
-const MongoContainer = require("../../contenedores/contenedorMongoDB.js");
+import MongoContainer from "../../contenedores/contenedorMongoDB.js";
 
 class productosDaoMongoDb extends MongoContainer {
 
@@ -7,4 +7,4 @@ class productosDaoMongoDb extends MongoContainer {
     };
 };
 
-module.exports = productosDaoMongoDb;
+export default productosDaoMongoDb;

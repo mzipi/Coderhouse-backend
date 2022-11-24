@@ -1,4 +1,4 @@
-const FirebaseContainer = require("../../contenedores/contenedorFirebase.js");
+import FirebaseContainer from "../../contenedores/contenedorFirebase.js";
 
 class carritosDaoFirebase extends FirebaseContainer {
 
@@ -7,4 +7,4 @@ class carritosDaoFirebase extends FirebaseContainer {
     };
 };
 
-module.exports = carritosDaoFirebase;
+export default carritosDaoFirebase;

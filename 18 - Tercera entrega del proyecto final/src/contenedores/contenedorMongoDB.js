@@ -1,5 +1,5 @@
-const { MONGO_USR, MONGO_PWD, MONGO_DB, MONGO_HOST, MONGO_URL } = require("../config.js");
-const { MongoClient } = require("mongodb");
+import { MONGO_USR, MONGO_PWD, MONGO_DB, MONGO_HOST, MONGO_URL } from "../config.js";
+import { MongoClient } from "mongodb";
 
 const uri = `mongodb+srv://${MONGO_USR}:${MONGO_PWD}@${MONGO_HOST}/${MONGO_DB}`;
 const client = new MongoClient(MONGO_URL);
@@ -51,4 +51,4 @@ class MongoContainer {
     //     this.knex.destroy();
     // }
 }
-module.exports = MongoContainer;
+export default MongoContainer;

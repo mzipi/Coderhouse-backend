@@ -1,4 +1,4 @@
-const FileContainer = require("../../contenedores/contenedorArchivo.js");
+import FileContainer from "../../contenedores/contenedorArchivo.js";
 
 class productosDaoArchivo extends FileContainer {
 
@@ -7,4 +7,4 @@ class productosDaoArchivo extends FileContainer {
     };
 };
 
-module.exports = productosDaoArchivo;
+export default productosDaoArchivo;

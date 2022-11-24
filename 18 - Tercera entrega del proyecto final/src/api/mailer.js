@@ -1,10 +1,10 @@
-const nodemailer = require("nodemailer");
-const { MAILER_MAIL, MAILER_PASS } = require("../config.js");
+import { createTransport } from "nodemailer";
+import { MAILER_MAIL, MAILER_PASS } from "../config.js";
 
 async function mailer() {
     const mail = "jarvis.koelpin@ethereal.email";
 
-    const transporter = nodemailer.createTransport({
+    const transporter = createTransport({
         host: "smtp.ethereal.email",
         port: 587,
         auth: {
@@ -21,4 +21,4 @@ async function mailer() {
     })
 }
 
-module.exports = mailer();
+export default mailer();

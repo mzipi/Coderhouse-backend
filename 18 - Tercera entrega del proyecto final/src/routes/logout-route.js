@@ -1,7 +1,7 @@
-const express = require("express");
-const passport = require("passport");
+import { Router } from "express";
+import passport from "passport";
 
-const logoutRouter = express.Router();
+const logoutRouter = Router();
 
 logoutRouter.post("/", (req, res, next) => {
     req.logout((err) => {
@@ -10,4 +10,4 @@ logoutRouter.post("/", (req, res, next) => {
     })
 });
 
-module.exports = logoutRouter;
+export default logoutRouter;

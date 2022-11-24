@@ -1,7 +1,7 @@
-const express = require("express");
-const { productDao } = require("../daos/index.js");
+import { Router } from "express";
+import { productDao } from "../daos/index.js";
 
-const productsRouter = express.Router();
+const productsRouter = Router();
 
 productsRouter.get("/:id?", ({ params }, res) => {
     if(params.id) {
@@ -23,4 +23,4 @@ productsRouter.delete("/:id", ({ params }, res) => {
     productDao.deleteById(params.id).then(res.end());
 });
 
-module.exports = productsRouter;
+export default productsRouter;

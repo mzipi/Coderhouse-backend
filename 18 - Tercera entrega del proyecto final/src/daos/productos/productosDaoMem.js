@@ -1,7 +1,7 @@
-const MemContainer = require("../../contenedores/contenedorMemoria.js");
+import MemContainer from "../../contenedores/contenedorMemoria.js";
 
 class productosDaoMem extends MemContainer {
 
 };
 
-module.exports = productosDaoMem;
+export default productosDaoMem;
