@@ -1,25 +1,26 @@
 const passport = require("passport");
-const Strategy = require("passport-local");
+const LocalStrategy = require("passport-local");
 const { MongoClient } = require("mongodb");
 const { MONGO_USR, MONGO_PWD } = require("../config.js");
+const User = require("./models.js");
+const bCrypt = require("bcrypt");
 
 const uri = `mongodb+srv://${MONGO_USR}:${MONGO_PWD}@cluster0.t5mkzof.mongodb.net`;
 const client = new MongoClient(uri);
 
-passport.use("signup", new Strategy(
-    {
-        passReqToCallback: true,
-        // usernameField: "email",
-        // passwordField: "contrasenia",
-    },
+passport.use("signup", new LocalStrategy(
+    { passReqToCallback: true },
     async function (req, username, password, done) {
         try {
             const database = client.db("coderhouse");
-            console.log(database);
             const users = database.collection("users");
-            const query = { 
-                email: req.body.email,
-                password: req.body.password
+            const query = {
+                email: username,
+                password: createHash(password),
+                name: req.body.name,
+                lastname: req.body.lastname,
+                phone: req.body.phone,
+                image: req.body.image
             };
             const user = await users.insertOne(query);
             done(null, user);
@@ -27,17 +28,9 @@ passport.use("signup", new Strategy(
             done(null, false, error);
         }
     }
-    // function(req, username, password, done) {
-    //     try {
-    //         const usuario = registrarUsuario(req.body);
-    //         done(null, usuario);
-    //     } catch (error) {
-    //         done(null, false, error);
-    //     }
-    // }
 ));
 
-passport.use("login", new Strategy(
+passport.use("login", new LocalStrategy(
     function (username, password, done) {
         try {
             // const usuario = autenticar(username, password);
@@ -49,6 +42,24 @@ passport.use("login", new Strategy(
     }
 ));
 
+async function createHash(password) {
+    const salt = await bCrypt.genSalt(10);
+    return await bCrypt.hash(password, salt);
+};
+
 const passportMiddleware = passport.initialize();
 
-module.exports = passportMiddleware;
+passport.serializeUser((user, done) => {
+    done(null, user._id);
+});
+
+passport.deserializeUser((id, done) => {
+    User.findById(id, done);
+});
+
+const passportSessionHandler = passport.session();
+
+module.exports = { 
+    passportMiddleware, 
+    passportSessionHandler
+};

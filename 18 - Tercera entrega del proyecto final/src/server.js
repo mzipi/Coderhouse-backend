@@ -1,24 +1,22 @@
 const express = require("express");
-const handlebars = require("express-handlebars");
+const session = require("./middlewares/session-middleware.js");
+const { passportMiddleware, passportSessionHandler } = require("./middlewares/passport-middleware.js");
 const products = require("./routes/products-route.js");
 const cart = require("./routes/cart-route.js");
-// const sessionHandler = require("./middlewares/session-middleware.js");
-// const passportMiddleware = require("./middlewares/passport.js");
+const login = require("./routes/login-route.js");
+const signup = require("./routes/signup-route.js");
 
 const app = express();
 let admin = false;
 
-app.engine("handlebars", handlebars.engine());
-
-app.set("view engine", "handlebars");
-app.set("views", "./views");
-
-app.use(express.urlencoded({extended: true}));
 app.use(express.json());
-// app.use(sessionHandler);
-// app.use(passportMiddleware);
-app.use(express.static(__dirname + "/public"));
+app.use(express.urlencoded({extended: true}));
+app.use(session);
+app.use(passportMiddleware);
+app.use(passportSessionHandler);
 app.use("/api/productos", products);
 app.use("/api/carrito", cart);
+app.use("/login", login);
+app.use("/signup", signup);
 
 module.exports = app;
