@@ -3,6 +3,7 @@ import passport from "passport";
 import { Strategy as LocalStrategy } from "passport-local";
 import User from "./models.js";
 import logger from "../api/logger.js";
+import mailer from "../api/mailer.js";
 
 const passportMiddleware = passport.initialize();
 const passportSessionHandler = passport.session();
@@ -37,8 +38,9 @@ passport.use("signup", new LocalStrategy({ passReqToCallback: true },
         let userWithId;
 
         try {
-            userWithId = await User.create(newUser)
-        } catch (error) {
+            userWithId = await User.create(newUser);
+            mailer(req.body);
+        } catch (err) {
             logger.error('Error in Saving user: ');
             return done(err);
         }
