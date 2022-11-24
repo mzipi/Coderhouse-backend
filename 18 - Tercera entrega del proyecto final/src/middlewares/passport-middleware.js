@@ -1,63 +1,95 @@
-const passport = require("passport");
-const LocalStrategy = require("passport-local");
-const { MongoClient } = require("mongodb");
-const { MONGO_USR, MONGO_PWD } = require("../config.js");
-const User = require("./models.js");
 const bCrypt = require("bcrypt");
+const passport = require("passport");
+const LocalStrategy = require("passport-local").Strategy;
+const User = require("./models.js");
 
-const uri = `mongodb+srv://${MONGO_USR}:${MONGO_PWD}@cluster0.t5mkzof.mongodb.net`;
-const client = new MongoClient(uri);
+const passportMiddleware = passport.initialize();
+const passportSessionHandler = passport.session();
 
-passport.use("signup", new LocalStrategy(
-    { passReqToCallback: true },
-    async function (req, username, password, done) {
+passport.use("signup", new LocalStrategy({ passReqToCallback: true },
+    async (req, username, password, done) => {
+        
+        let user;
+        
         try {
-            const database = client.db("coderhouse");
-            const users = database.collection("users");
-            const query = {
-                email: username,
-                password: createHash(password),
-                name: req.body.name,
-                lastname: req.body.lastname,
-                phone: req.body.phone,
-                image: req.body.image
-            };
-            const user = await users.insertOne(query);
-            done(null, user);
-        } catch (error) {
-            done(null, false, error);
+            user = await User.findOne({ 'username': username })
+        } catch (err) {
+            console.log('Error in SignUp: ' + err);
+            return done(err);
         }
+
+        if (user) {
+            console.log('User already exists');
+            return done(null, false)
+        }
+
+        const newUser = {
+            username,
+            password: await createHash(password),
+            name: req.body.name,
+            lastName: req.body.lastName,
+            phone: req.body.phone,
+            image: req.body.image
+        }
+
+        let userWithId;
+
+        try {
+            userWithId = await User.create(newUser)
+        } catch (error) {
+            console.log('Error in Saving user: ' + err);
+            return done(err);
+        }
+
+        console.log(user)
+        console.log('User Registration successful');
+        return done(null, userWithId);
     }
 ));
 
 passport.use("login", new LocalStrategy(
-    function (username, password, done) {
+    async (username, password, done) => {
+        
+        let user;
+
         try {
-            // const usuario = autenticar(username, password);
-            
-            done(null, usuario);
+            user = await User.findOne({ username })
         } catch (error) {
-            done(null, false, error);
+            return done(err);
         }
+
+        if (!user) {
+            console.log('User Not Found with username ' + username);
+            return done(null, false);
+        }
+
+        if (!await isValidPassword(user, password)) {
+            console.log('Invalid Password');
+            return done(null, false);
+        }
+
+        console.log(user)
+        console.log('Login successful');
+        return done(null, user);
     }
 ));
-
-async function createHash(password) {
-    const salt = await bCrypt.genSalt(10);
-    return await bCrypt.hash(password, salt);
-};
-
-const passportMiddleware = passport.initialize();
 
 passport.serializeUser((user, done) => {
     done(null, user._id);
 });
-
+  
 passport.deserializeUser((id, done) => {
     User.findById(id, done);
 });
 
-const passportSessionHandler = passport.session();
+async function createHash(password) {
+    const salt = await bCrypt.genSalt(10);
+    return await bCrypt.hash(password, salt);
+}
+  
+async function isValidPassword(user, password) {
+    return await bCrypt.compare(password, user.password);
+}
 
 module.exports = { 
     passportMiddleware, 
