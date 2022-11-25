@@ -1,5 +1,4 @@
 import express, { json, urlencoded } from "express";
-import { dirname } from "path";
 import session from "./middlewares/session-middleware.js";
 import { passportMiddleware, passportSessionHandler } from "./middlewares/passport-middleware.js";
 import products from "./routes/products-route.js";
