@@ -3,9 +3,8 @@ import { engine } from "express-handlebars";
 
 import sessionHandler from "./middlewares/session-middleware.js";
 import { passportMiddleware, passportSessionHandler } from "./middlewares/passport-middleware.js";
-
-import products from "./router/products-router.js";
-import product_random from "./router/product_random-router.js";
+import products from "./routes/products-router.js";
+import product_random from "./routes/product_random-router.js";
 import api_products from "./routes/api_products-router.js";
 import index from "./routes/index-router.js";
 import test_productos from "./routes/test_products-router.js";
