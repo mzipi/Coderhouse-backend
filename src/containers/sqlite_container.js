@@ -1,36 +1,37 @@
-const knex = require("knex");
+import knex from "knex";
+import options from "../options/sqlite3.js";
 
-class Contenedor {
+class SqliteContainer {
 
-    constructor(config, table){
-        this.knex = knex(config);
+    constructor(table){
+        this.knex = knex(options);
         this.table = table;
     }
 
-    getAll() {
-        let n = this.knex.select("*").table(this.table);
+    async getAll() {
+        let n = await this.knex.select("*").table(this.table);
         return n;
     }
 
-    getById(id) {
-        let n = this.knex.select("*").table(this.table).where(id);
+    async getById(id) {
+        let n = await this.knex.select("*").table(this.table).where(id);
         return n;
     }
 
-    delete(id) {
-        let n = this.knex(this.table).where(id).del();
+    async delete(id) {
+        let n = await this.knex(this.table).where(id).del();
         return n;
     }
 
-    save(obj) {
+    async save(obj) {
         // obj.id = 2;
         obj.price = Number(obj.price);
-        let n = this.knex(this.table).insert(obj);
+        let n = await this.knex(this.table).insert(obj);
         return n;
     }
 
-    update(id, body){
-        let n = this.knex(this.table).where(id).update(body);
+    async update(id, body){
+        let n = await this.knex(this.table).where(id).update(body);
         return n;
     }
 
@@ -40,4 +41,4 @@ class Contenedor {
         this.knex.destroy();
     }
 }
-module.exports = Contenedor;
+export default SqliteContainer;

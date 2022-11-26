@@ -10,6 +10,7 @@ const PRIVATE_KEY = process.env.PRIVATE_KEY;
 const CLIENT_EMAIL = process.env.CLIENT_EMAIL;
 const MONGO_URL1 = process.env.MONGO_URL1;
 const MONGO_URL2 = process.env.MONGO_URL2;
+const MONGO_DB = process.env.MONGO_DB;
 const MAILER_PASS = process.env.MAILER_PASS;
 const MAILER_MAIL = process.env.MAILER_MAIL;
 const TWILIO_ACCOUNT_SID = process.env.TWILIO_ACCOUNT_SID;
@@ -28,6 +29,7 @@ export {
     CLIENT_EMAIL,
     MONGO_URL1,
     MONGO_URL2,
+    MONGO_DB,
     MAILER_PASS,
     MAILER_MAIL,
     TWILIO_ACCOUNT_SID,

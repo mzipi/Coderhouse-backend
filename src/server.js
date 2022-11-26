@@ -6,6 +6,7 @@ import { passportMiddleware, passportSessionHandler } from "./middlewares/passpo
 import products from "./routes/products-router.js";
 import product_random from "./routes/product_random-router.js";
 import api_products from "./routes/api_products-router.js";
+import api_mensajes from "./routes/msg-router.js";
 import index from "./routes/index-router.js";
 import test_productos from "./routes/test_products-router.js";
 import login from "./routes/login-router.js";
@@ -43,6 +44,7 @@ app.use(express.static("public"));
 app.use("/productos", products);
 app.use("/productoRandom", product_random);
 app.use("/api/productos", api_products);
+app.use("/api/mensajes", api_mensajes);
 app.use("/", index);
 app.use("/api/productos-test", test_productos);
 app.use("/login", login);

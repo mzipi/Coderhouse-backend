@@ -1,10 +1,10 @@
-import { createLogger, transports as _transports } from "winston";
+import { createLogger, transports } from "winston";
 
 const logger = createLogger({
     transports: [
-        new _transports.Console({level: "info"}),
-        // new winston.transports.File({filename: "warn.log", level: "warn"}),
-        // new winston.transports.File({filename: "error.log", level: "error"})
+        new transports.Console({level: "info"}),
+        new transports.File({filename: "./src/logs/warn.log", level: "warn"}),
+        new transports.File({filename: "./src/logs/error.log", level: "error"})
     ]
 })
 

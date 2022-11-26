@@ -16,9 +16,7 @@ let data = [];
     document.getElementById("main__body").innerHTML = template2();
 })();
 
-if(document.getElementById("messages")) {
-    var messages = document.getElementById("messages");
-}
+var messages;
 
 if(document.getElementById("msg-center")) {
     var msgCenter = document.getElementById("msg-center");
@@ -48,8 +46,12 @@ if (thumbnail = document.getElementById("thumbnail")) {
     var thumbnail = document.getElementById("thumbnail");
 }
 
-
-fetch("/api/mensajes")
+fetch("/api/mensajes",{
+    method: "GET",
+    headers: {
+        "Content-Type": "application/x-www-form-urlencoded",
+    }}
+)
     .then(res => data = res.json())
     .then(data => {
         data.forEach(element => {
@@ -70,6 +72,7 @@ fetch("/api/mensajes")
             p.appendChild(span2);
             p.appendChild(span3);
             item.appendChild(p);
+            messages = document.getElementById("messages");
             messages.appendChild(item);
         });
     })

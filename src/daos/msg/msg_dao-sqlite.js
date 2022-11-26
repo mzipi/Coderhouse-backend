@@ -3,7 +3,7 @@ import SqliteContainer from "../../containers/sqlite_container.js";
 class MsgDaoSqlite extends SqliteContainer {
 
     constructor() {
-        super("cart");
+        super("messages");
     };
 };
 
