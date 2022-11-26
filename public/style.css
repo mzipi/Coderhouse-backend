@@ -24,16 +24,9 @@ input[type=submit] {
     color: #eee;
     width: 306px;
 }
-nav>ul {
+nav>a {
     display: grid;
-    grid-template-columns: 200px 200px;
     justify-content: end;
-}
-nav>ul>li {
-    list-style: none;
-}
-nav>ul>li>a {
-    border-bottom: #1c61e0 1px solid;
     text-decoration: none;
     color: #1c61e0;
 }

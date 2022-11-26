@@ -4,7 +4,7 @@ import { productsDao } from "../daos/index.js";
 const router = Router();
 
 router.get("/", (req, res) => {
-    productsDao.getAll().then(n => res.send(n));
+    productsDao.getAll().then(n => res.render("products"));
     // no hay productos
 });
 

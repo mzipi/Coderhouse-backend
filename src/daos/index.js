@@ -13,21 +13,21 @@ switch (process.env.MSG) {
         const { default: msgDaoFirebase } = await import("./msg/msg_dao-firebase.js");
         msgDao = new msgDaoFirebase();
         break;
-    case "mongodb":
-        const { default: msgDaoMongoDB } = await import("./msg/msg_dao-mongo.js");
-        msgDao = new msgDaoMongoDB();
+    case "sqlite":
+        const { default: msgDaoSqlite } = await import("./msg/msg_dao-sqlite.js");
+        msgDao = new msgDaoSqlite();
         break;
-    // case "sqlite":
-    //     const { default: msgDaoFirebase } = await import("./msg/msg_dao-firebase.js");
-    //     msgDao = new msgDaoFirebase();
-    //     break;
-    // case "mariadb":
-    //     const { default: msgDaoMongoDB } = await import("./msg/msg_dao-mongo.js");
-    //     msgDao = new msgDaoMongoDB();
-    //     break;
-    default:
-        const { default: msgDaoMem } = await import("./msg/msg_dao-mem.js")
+    case "mariadb":
+        const { default: msgDaoMariadb } = await import("./msg/msg_dao-mariadb.js");
+        msgDao = new msgDaoMariadb();
+        break;
+    case "mem":
+        const { default: msgDaoMem } = await import("./msg/msg_dao-mem.js");
         msgDao = new msgDaoMem();
+        break;
+    default:
+        const { default: msgDaoMongoDB } = await import("./msg/msg_dao-mongo.js")
+        msgDao = new msgDaoMongoDB();
         break;
 };
 
@@ -40,21 +40,21 @@ switch (process.env.PRODUCT) {
         const { default: productsDaoFirebase } = await import("./products/products_dao-firebase.js");
         productsDao = new productsDaoFirebase();
         break;
-    case "mongodb":
-        const { default: productsDaoMongoDB } = await import("./products/products_dao-mongo.js");
-        productsDao = new productsDaoMongoDB();
+    case "sqlite":
+        const { default: productsDaoSqlite } = await import("./products/products_dao-sqlite.js");
+        productsDao = new productsDaoSqlite();
         break;
-    // case "sqlite":
-    //     const { default: productsDaoFirebase } = await import("./products/products_dao-firebase.js");
-    //     productsDao = new productsDaoFirebase();
-    //     break;
-    // case "mariadb":
-    //     const { default: productsDaoMongoDB } = await import("./products/products_dao-mongo.js");
-    //     productsDao = new productsDaoMongoDB();
-    //     break;
-    default:
-        const { default: productsDaoMem } = await import("./products/products_dao-mem.js")
+    case "mariadb":
+        const { default: productsDaoMariaDB } = await import("./products/products_dao-mariadb.js");
+        productsDao = new productsDaoMariaDB();
+        break;
+    case "mem":
+        const { default: productsDaoMem } = await import("./products/products_dao-mem.js");
         productsDao = new productsDaoMem();
+        break;
+    default:
+        const { default: productsDaoMongoDB } = await import("./products/products_dao-mongo.js")
+        productsDao = new productsDaoMongoDB();
         break;
 };
 

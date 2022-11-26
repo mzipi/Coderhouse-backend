@@ -3,7 +3,6 @@ import { fork } from "child_process";
 
 const router = Router();
 
-
 router.get("/:cant?", (req, res) => {
     
     let cant;
@@ -14,7 +13,7 @@ router.get("/:cant?", (req, res) => {
         cant = 100000;
     }
 
-    const child = fork("./api/child.js");
+    const child = fork("./src/api/child.js");
 
     child.send(cant);
 
