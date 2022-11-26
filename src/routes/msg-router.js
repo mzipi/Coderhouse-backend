@@ -4,7 +4,7 @@ import { msgDao } from "../daos/index.js";
 const router = Router();
 
 router.get("/", (req, res) => {
-    msgDao.getAll().then(n => res.send(n));
+    msgDao.getAll().then(n => res.json(n));
 });
 
 router.post("/", ({ body }, res) => {

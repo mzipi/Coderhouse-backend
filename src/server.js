@@ -15,22 +15,30 @@ import fail_login from "./routes/fail_login-router.js";
 import fail_signup from "./routes/fail_signup-router.js";
 import info from "./routes/info-router.js";
 import api_randoms from "./routes/api_randoms-router.js";
-import all from "./routes/all-router.js";
+import unknown from "./routes/unknown-router.js";
 
 const app = express();
 let admin = false;
 
-app.engine("handlebars", engine());
+// app.engine(
+//     "handlebars", 
+//     handlebars({
+//         extname: ".hbs",
+//         defaultLayout: "main.hbs",
+//         layoutsDir: "views/layouts",
+//         partialDir: "views/partials"
+//     })
+// );
 
-app.set("view engine", "handlebars");
-app.set("views", "./src/views");
+// app.set("view engine", "handlebars");
+// app.set("views", "views");
 
 app.use(urlencoded({extended: true}));
 app.use(json());
 app.use(sessionHandler);
 app.use(passportMiddleware);
 app.use(passportSessionHandler);
-app.use(express.static('public'));
+app.use(express.static("public"));
 
 app.use("/productos", products);
 app.use("/productoRandom", product_random);
@@ -44,6 +52,6 @@ app.use("/faillogin", fail_login);
 app.use("/failsignup", fail_signup);
 app.use("/info", info);
 app.use("/api/randoms", api_randoms);
-app.use("*", all);
+app.use("*", unknown);
 
 export default app;

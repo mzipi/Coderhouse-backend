@@ -1,6 +1,20 @@
-var socket = io();
+const socket = io()
+let data = [];
 
-var data = [];
+(async function () {
+    const res1 = await fetch("/templates/partials/form.hbs");
+    const res2 = await fetch("/templates/index.hbs");
+    const res3 = await fetch("/templates/partials/messages.hbs");
+    const plantilla1 = await res1.text();
+    const plantilla2 = await res2.text();
+    const plantilla3 = await res3.text();
+    const template1 = Handlebars.compile(plantilla1);
+    const template2 = Handlebars.compile(plantilla2);
+    const template3 = Handlebars.compile(plantilla3);
+    Handlebars.partials["form"] = template1;
+    Handlebars.partials["messages"] = template3;
+    document.getElementById("main__body").innerHTML = template2();
+})();
 
 if(document.getElementById("messages")) {
     var messages = document.getElementById("messages");
@@ -34,15 +48,11 @@ if (thumbnail = document.getElementById("thumbnail")) {
     var thumbnail = document.getElementById("thumbnail");
 }
 
-fetch("/api/mensajes", {
-    method: "GET",
-    headers: {
-        "Content-Type": "application/json"
-    },
-})
-    .then(response => data = response.json())
-    .then(n => {
-        n.forEach(element => {
+
+fetch("/api/mensajes")
+    .then(res => data = res.json())
+    .then(data => {
+        data.forEach(element => {
             var item = document.createElement("li");
             var p = document.createElement("p");
             var span1 = document.createElement("span");
@@ -64,15 +74,10 @@ fetch("/api/mensajes", {
         });
     })
 
-fetch("/api/productos", {
-    method: "GET",
-    headers: {
-        "Content-Type": "application/json"
-    },
-})
-    .then(response => data = response.json())
-    .then(n => {
-        n.forEach(element => {
+fetch("/api/productos")
+    .then(res => data = res.json())
+    .then(data => {
+        data.forEach(element => {
             var tbody = document.getElementById("tbody");
             var tr = document.createElement("tr");
             var td1 = document.createElement("td");

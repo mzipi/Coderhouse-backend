@@ -14,13 +14,15 @@ initializeApp({
 
 class MongoContainer {
 
-    constructor(){}
+    constructor(table){
+        this.table = table;
+    }
 
     async getAll() {
         try {
 			let res = [];
 			const db = getFirestore();
-			const snapshot = await db.collection("messages").get();
+			const snapshot = await db.collection(this.table).get();
 			if (snapshot) {
                 snapshot.forEach((doc) => {
                     res.push(doc.data());
@@ -33,7 +35,7 @@ class MongoContainer {
     async save(obj) {
 		try {
 			const db = getFirestore();
-			const docRef = db.collection("messages");
+			const docRef = db.collection(this.table);
 			await docRef.add({
                 author: {
                     id: obj.author.id,

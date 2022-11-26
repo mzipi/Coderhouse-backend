@@ -7,14 +7,14 @@ import yargs from "yargs/yargs";
 import app from "./server.js";
 import logger from "./api/logger.js";
 
-const PORT = process.env.PORT || 8080;
 const server = createServer(app);
 const io = new Server(server);
 const cpus = os.cpus().length;
 const args = yargs(process.argv.slice(2))
-    .default({ port: 8080, mode: "FORK" })
-    .alias({ p: "port", m: "mode" })
-    .argv;
+.default({ port: 8080, mode: "FORK" })
+.alias({ p: "port", m: "mode" })
+.argv;
+const PORT = args.port;
 
 io.on ("connection", (socket) => {
     socket.on("chat message", (msg) => io.emit("chat message", msg));
