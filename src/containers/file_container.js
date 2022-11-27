@@ -36,14 +36,14 @@ class FileContainer {
         if(item) {
             return [item];
         } else {
-            logger.info("No se encuentra ese item");
+            return {"msg": "No se encuentra ese item"};
         }
     }
 
     async getAll() {
         try {
             const data = await readFile(this.path, "utf-8");
-            return JSON.parse(data);
+            return await JSON.parse(data);
         } catch (err) {
             return []
         }

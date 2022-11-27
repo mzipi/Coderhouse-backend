@@ -7,7 +7,7 @@ class ProductsGenerator extends MemContainer {
         super()
     }
 
-    generar() {
+    async generar() {
         const nuevos = [];
         for (let i = 0; i < 5; i++) {
             const nuevoProducto = {
@@ -16,7 +16,6 @@ class ProductsGenerator extends MemContainer {
                 image: faker.image.food(512, 512, true)
             }
             const guardado = this.save(nuevoProducto);
-            console.log(guardado);
             nuevos.push(guardado);
         }
         return nuevos;

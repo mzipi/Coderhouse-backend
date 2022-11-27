@@ -77,27 +77,27 @@ fetch("/api/mensajes",{
         });
     })
 
-fetch("/api/productos")
-    .then(res => data = res.json())
-    .then(data => {
-        data.forEach(element => {
-            var tbody = document.getElementById("tbody");
-            var tr = document.createElement("tr");
-            var td1 = document.createElement("td");
-            var td2 = document.createElement("td");
-            var td3 = document.createElement("td");
-            var img = document.createElement("img");
-            td1.textContent = element.name;
-            td2.textContent = element.price;
-            img.alt = element.name;
-            img.src = element.image;
-            td3.appendChild(img);
-            tr.appendChild(td1);
-            tr.appendChild(td2);
-            tr.appendChild(td3);
-            tbody.appendChild(tr);
-        });
-    })
+        fetch("/api/productos")
+        .then(res => data = res.json())
+        .then(data => {
+            data.forEach(element => {
+                var tbody = document.getElementById("tbody");
+                var tr = document.createElement("tr");
+                var td1 = document.createElement("td");
+                var td2 = document.createElement("td");
+                var td3 = document.createElement("td");
+                var img = document.createElement("img");
+                td1.textContent = element.name;
+                td2.textContent = element.price;
+                img.alt = element.name;
+                img.src = element.image;
+                td3.appendChild(img);
+                tr.appendChild(td1);
+                tr.appendChild(td2);
+                tr.appendChild(td3);
+                tbody.appendChild(tr);
+            });
+        })
 
 if(msgCenter && email && msg){
     msgCenter.addEventListener("submit", function(e) {

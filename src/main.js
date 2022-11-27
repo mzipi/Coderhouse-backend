@@ -11,18 +11,13 @@ const server = createServer(app);
 const io = new Server(server);
 const cpus = os.cpus().length;
 const args = yargs(process.argv.slice(2))
-.default({ port: 8080, mode: "FORK" })
-.alias({ p: "port", m: "mode" })
-.argv;
+    .default({ port: 8080, mode: "FORK" })
+    .alias({ p: "port", m: "mode" })
+    .argv;
 const PORT = args.port;
 
-io.on ("connection", (socket) => {
-    socket.on("chat message", (msg) => io.emit("chat message", msg));
-    socket.on("add item", (product) => io.emit("add item", product));
-});
-
 if (args.mode == "CLUSTER" && cluster.isPrimary) {
-
+    
     for (let i = 0; i < cpus; i++) {
         cluster.fork();
     };
@@ -31,6 +26,12 @@ if (args.mode == "CLUSTER" && cluster.isPrimary) {
         logger.info(`Worker ${worker.process.pid} died`);
     });
 } else {
+
+    io.on ("connection", (socket) => {
+        socket.on("chat message", (msg) => io.emit("chat message", msg));
+        socket.on("add item", (product) => io.emit("add item", product));
+    });
+
     server.listen(PORT, () => {
         logger.info(`Sirviendo en http://localhost:${PORT} con PID: ${process.pid}`);
     });

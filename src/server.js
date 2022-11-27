@@ -21,19 +21,6 @@ import unknown from "./routes/unknown-router.js";
 const app = express();
 let admin = false;
 
-// app.engine(
-//     "handlebars", 
-//     handlebars({
-//         extname: ".hbs",
-//         defaultLayout: "main.hbs",
-//         layoutsDir: "views/layouts",
-//         partialDir: "views/partials"
-//     })
-// );
-
-// app.set("view engine", "handlebars");
-// app.set("views", "views");
-
 app.use(urlencoded({extended: true}));
 app.use(json());
 app.use(sessionHandler);
