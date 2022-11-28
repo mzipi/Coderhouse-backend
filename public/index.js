@@ -1,22 +1,10 @@
-const socket = io()
-let data = [];
+var socket = io();
 
-(async function () {
-    const res1 = await fetch("/templates/partials/form.hbs");
-    const res2 = await fetch("/templates/index.hbs");
-    const res3 = await fetch("/templates/partials/messages.hbs");
-    const plantilla1 = await res1.text();
-    const plantilla2 = await res2.text();
-    const plantilla3 = await res3.text();
-    const template1 = Handlebars.compile(plantilla1);
-    const template2 = Handlebars.compile(plantilla2);
-    const template3 = Handlebars.compile(plantilla3);
-    Handlebars.partials["form"] = template1;
-    Handlebars.partials["messages"] = template3;
-    document.getElementById("main__body").innerHTML = template2();
-})();
+var data = [];
 
-var messages;
+if(document.getElementById("messages")) {
+    var messages = document.getElementById("messages");
+}
 
 if(document.getElementById("msg-center")) {
     var msgCenter = document.getElementById("msg-center");
@@ -46,15 +34,15 @@ if (thumbnail = document.getElementById("thumbnail")) {
     var thumbnail = document.getElementById("thumbnail");
 }
 
-fetch("/api/mensajes",{
+fetch("/api/mensajes", {
     method: "GET",
     headers: {
-        "Content-Type": "application/x-www-form-urlencoded",
-    }}
-)
-    .then(res => data = res.json())
-    .then(data => {
-        data.forEach(element => {
+        "Content-Type": "application/json"
+    },
+})
+    .then(response => data = response.json())
+    .then(n => {
+        n.forEach(element => {
             var item = document.createElement("li");
             var p = document.createElement("p");
             var span1 = document.createElement("span");
@@ -72,32 +60,36 @@ fetch("/api/mensajes",{
             p.appendChild(span2);
             p.appendChild(span3);
             item.appendChild(p);
-            messages = document.getElementById("messages");
             messages.appendChild(item);
         });
     })
 
-        fetch("/api/productos")
-        .then(res => data = res.json())
-        .then(data => {
-            data.forEach(element => {
-                var tbody = document.getElementById("tbody");
-                var tr = document.createElement("tr");
-                var td1 = document.createElement("td");
-                var td2 = document.createElement("td");
-                var td3 = document.createElement("td");
-                var img = document.createElement("img");
-                td1.textContent = element.name;
-                td2.textContent = element.price;
-                img.alt = element.name;
-                img.src = element.image;
-                td3.appendChild(img);
-                tr.appendChild(td1);
-                tr.appendChild(td2);
-                tr.appendChild(td3);
-                tbody.appendChild(tr);
-            });
-        })
+fetch("/api/productos", {
+    method: "GET",
+    headers: {
+        "Content-Type": "application/json"
+    },
+})
+    .then(response => data = response.json())
+    .then(n => {
+        n.forEach(element => {
+            var tbody = document.getElementById("tbody");
+            var tr = document.createElement("tr");
+            var td1 = document.createElement("td");
+            var td2 = document.createElement("td");
+            var td3 = document.createElement("td");
+            var img = document.createElement("img");
+            td1.textContent = element.name;
+            td2.textContent = element.price;
+            img.alt = element.name;
+            img.src = element.image;
+            td3.appendChild(img);
+            tr.appendChild(td1);
+            tr.appendChild(td2);
+            tr.appendChild(td3);
+            tbody.appendChild(tr);
+        });
+    })
 
 if(msgCenter && email && msg){
     msgCenter.addEventListener("submit", function(e) {

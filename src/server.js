@@ -1,46 +1,48 @@
-import express, { urlencoded, json } from "express";
-import { engine } from "express-handlebars";
+const express = require("express");
+const handlebars = require("express-handlebars");
+const path = require("path");
 
-import sessionHandler from "./middlewares/session-middleware.js";
-import { passportMiddleware, passportSessionHandler } from "./middlewares/passport-middleware.js";
-import products from "./routes/products-router.js";
-import product_random from "./routes/product_random-router.js";
-import api_products from "./routes/api_products-router.js";
-import api_mensajes from "./routes/msg-router.js";
-import index from "./routes/index-router.js";
-import test_productos from "./routes/test_products-router.js";
-import login from "./routes/login-router.js";
-import logout from "./routes/logout-router.js";
-import signup from "./routes/signup-router.js";
-import fail_login from "./routes/fail_login-router.js";
-import fail_signup from "./routes/fail_signup-router.js";
-import info from "./routes/info-router.js";
-import api_randoms from "./routes/api_randoms-router.js";
-import unknown from "./routes/unknown-router.js";
+const api_products = require("./router/api_products-router.js");
+const index = require("./router/index-router.js");
+// const products = require("./router/products-router.js");
+const msg = require("./router/msg-router.js");
+const login = require("./router/login-router.js");
+const logout = require("./router/logout-router.js");
+const signup = require("./router/signup-router.js");
+const test = require("./router/test-router.js");
+const fail_login = require("./router/fail_login-router.js");
+const fail_register = require("./router/fail_register-router.js");
+const info = require("./router/info-router.js");
+const randoms = require("./router/api_randoms-router.js");
+const all = require("./router/all-router.js");
+
+const sessionHandler = require("./middlewares/session-middleware.js");
+const passportMiddleware = require("./middlewares/passport.js");
 
 const app = express();
-let admin = false;
 
-app.use(urlencoded({extended: true}));
-app.use(json());
+app.engine("handlebars", handlebars.engine());
+
+app.set("view engine", "handlebars");
+app.set("views", "./views");
+
+app.use(express.urlencoded({extended: true}));
+app.use(express.json());
 app.use(sessionHandler);
 app.use(passportMiddleware);
-app.use(passportSessionHandler);
-app.use(express.static("public"));
-
-app.use("/productos", products);
-app.use("/productoRandom", product_random);
-app.use("/api/productos", api_products);
-app.use("/api/mensajes", api_mensajes);
+app.use(express.static(path.join(__dirname, '../public')));
 app.use("/", index);
-app.use("/api/productos-test", test_productos);
+app.use("/faillogin", fail_login);
+app.use("/failregister", fail_register);
+app.use("/info", info);
 app.use("/login", login);
 app.use("/logout", logout);
-app.use("/signup", signup);
-app.use("/faillogin", fail_login);
-app.use("/failsignup", fail_signup);
-app.use("/info", info);
-app.use("/api/randoms", api_randoms);
-app.use("*", unknown);
+// app.use("/productos", products)
+app.use("/register", signup);
+app.use("/api/productos", api_products);
+app.use("/api/mensajes", msg);
+app.use("/api/productos-test", test);
+app.use("/api/randoms", randoms);
+app.use("*", all);
 
-export default app;
+module.exports = app;
