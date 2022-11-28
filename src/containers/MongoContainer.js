@@ -59,30 +59,6 @@ class MongoContainer {
         }
     }
 
-    async saveCart(id, obj) {
-        try {
-            const tabla = database.collection(this.table);
-            const doc = await tabla.findOne({ _id: ObjectId(`${id}`) });
-            if(!doc) { 
-                await doc.insertOne(obj) 
-            } else { 
-                await tabla.findOneAndUpdate({ _id: ObjectId(`${id}`) },
-                { $set: {
-                    productos: {
-                        nombre: obj.productos.nombre,
-                        descripcion: obj.productos.descripcion,
-                        codigo: obj.productos.codigo, 
-                        foto: obj.productos.foto, 
-                        precio: obj.productos.precio, 
-                        stock: obj.productos.stock
-                    }}
-                })
-            }
-        } catch (err) {
-            logger.error("Hubo un error al guardar");
-        }
-    }
-
     async update(id, body) {
         try {
             const doc = database.collection(this.table);
@@ -98,15 +74,6 @@ class MongoContainer {
                 } });
         } catch (err) {
             logger.error("Hubo un error al actualizar");
-        }
-    }
-
-    async newCart() {
-        try {
-            const doc = database.collection(this.table);
-            doc.insertOne({ timestamp: new Timestamp() });
-        } catch (err) {
-            logger.error("Hubo un error al crear el carro");
         }
     }
 }
