@@ -1,7 +1,7 @@
-const passport = require("passport");
-const Strategy = require("passport-local");
-const { MongoClient } = require("mongodb");
-const { MONGO_URL1 } = require("../config");
+import passport from "passport";
+import Strategy from "passport-local";
+import { MongoClient } from "mongodb";
+import { MONGO_URL1 } from "../config.js";
 
 const uri = MONGO_URL1;
 const client = new MongoClient(uri);
@@ -51,4 +51,4 @@ passport.use("login", new Strategy(
 
 const passportMiddleware = passport.initialize();
 
-module.exports = passportMiddleware;
+export default passportMiddleware;

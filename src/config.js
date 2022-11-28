@@ -1,6 +1,6 @@
-const dotenv = require("dotenv");
+import { config } from "dotenv";
 
-dotenv.config();
+config();
 
 const MARIADB_USR = process.env.MARIADB_USR;
 const MARIADB_PWD = process.env.MARIADB_PWD;
@@ -20,7 +20,7 @@ const TO_PHONE = process.env.TO_PHONE;
 const PRODUCT = process.env.PRODUCT;
 const MSG = process.env.MSG;
 
-module.exports = {
+export {
     MARIADB_USR,
     MARIADB_PWD,
     MARIADB_DB,

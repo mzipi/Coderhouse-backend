@@ -1,5 +1,5 @@
-const { Router } = require("express");
-const logger = require("../api/logger.js");
+import { Router } from "express";
+import logger from "../api/logger.js";
 
 const router = Router();
 
@@ -9,4 +9,4 @@ router.all("*", (req, res, next) => {
     next();
 });
 
-module.exports = router;
+export default router;

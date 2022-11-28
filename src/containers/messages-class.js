@@ -1,6 +1,6 @@
-const { initializeApp, applicationDefault, cert } = require("firebase-admin/app");
-const { getFirestore, Timestamp, FieldValue } = require("firebase-admin/firestore");
-const { PROJECT_ID, PRIVATE_KEY, CLIENT_EMAIL } = require("../config.js");
+import { initializeApp, applicationDefault, cert } from "firebase-admin/app";
+import { getFirestore, Timestamp, FieldValue } from "firebase-admin/firestore";
+import { PROJECT_ID, PRIVATE_KEY, CLIENT_EMAIL } from "../config.js";
 
 const privateKey = PRIVATE_KEY.replace(/\\n/g, '\n');
 
@@ -49,7 +49,7 @@ class Contenedor {
 		} catch (err) { console.log(err) }
     }
 }
-module.exports = Contenedor;
+export default Contenedor;
 
 
 //FieldValue.serverTimestamp()

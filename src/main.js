@@ -1,15 +1,15 @@
-const { createServer } = require("http");
-const { Server } = require("socket.io");
-const yargs = require("yargs/yargs")(process.argv.slice(2));
-const cluster = require("cluster");
-const cpus = require("os").cpus().length;
+import { createServer } from "http";
+import { Server } from "socket.io";
+import yargs from "yargs/yargs";
+import cluster from "cluster";
+import { cpus } from "os";
 
-const app = require("./server.js");
-const logger = require("./api/logger.js");
+import app from "./server.js";
+import logger from "./api/logger.js";
 
 const server = createServer(app);
 const io = new Server(server);
-const args = yargs
+const args = yargs(process.argv.slice(2))
     .default({ PORT: 8080, mode: "FORK" })
     .alias({ p: "PORT", m: "mode" })
     .argv;
@@ -18,12 +18,12 @@ const PORT = args.PORT;
 
 if (args.mode == "CLUSTER" && cluster.isPrimary) {
     
-    for (let i = 0; i < cpus; i++) {
+    for (let i = 0; i < cpus.length; i++) {
         cluster.fork();
     };
     
     cluster.on("exit", (worker, code, signal) => {
-        console.log(`Worker ${worker.process.pid} died`);
+        logger.info(`Worker ${worker.process.pid} died`);
     });
 
 } else {

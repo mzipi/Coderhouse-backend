@@ -1,5 +1,5 @@
-const { Router } = require("express");
-const ApiTestMock = require("../utils/ProductsGenerator.js");
+import { Router } from "express";
+import ApiTestMock from "../utils/ProductsGenerator.js";
 
 
 const router = Router();
@@ -28,4 +28,4 @@ router.delete("/:id", ({ params }, res) => {
     data.delete(params).then(res.end());
 });
 
-module.exports = router;
+export default router;

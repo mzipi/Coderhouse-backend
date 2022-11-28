@@ -1,36 +1,36 @@
-const express = require("express");
-const handlebars = require("express-handlebars");
-const path = require("path");
+import express, { urlencoded, json } from "express";
+import { engine } from "express-handlebars";
+import { join } from "path";
 
-const api_products = require("./router/api_products-router.js");
-const index = require("./router/index-router.js");
+import api_products from "./router/api_products-router.js";
+import index from "./router/index-router.js";
 // const products = require("./router/products-router.js");
-const msg = require("./router/msg-router.js");
-const login = require("./router/login-router.js");
-const logout = require("./router/logout-router.js");
-const signup = require("./router/signup-router.js");
-const test = require("./router/test-router.js");
-const fail_login = require("./router/fail_login-router.js");
-const fail_register = require("./router/fail_register-router.js");
-const info = require("./router/info-router.js");
-const randoms = require("./router/api_randoms-router.js");
-const all = require("./router/all-router.js");
+import msg from "./router/msg-router.js";
+import login from "./router/login-router.js";
+import logout from "./router/logout-router.js";
+import signup from "./router/signup-router.js";
+import test from "./router/test-router.js";
+import fail_login from "./router/fail_login-router.js";
+import fail_register from "./router/fail_register-router.js";
+import info from "./router/info-router.js";
+import randoms from "./router/api_randoms-router.js";
+import all from "./router/all-router.js";
 
-const sessionHandler = require("./middlewares/session-middleware.js");
-const passportMiddleware = require("./middlewares/passport.js");
+import sessionHandler from "./middlewares/session-middleware.js";
+import passportMiddleware from "./middlewares/passport.js";
 
 const app = express();
 
-app.engine("handlebars", handlebars.engine());
+app.engine("handlebars", engine());
 
 app.set("view engine", "handlebars");
 app.set("views", "./views");
 
-app.use(express.urlencoded({extended: true}));
-app.use(express.json());
+app.use(urlencoded({extended: true}));
+app.use(json());
 app.use(sessionHandler);
 app.use(passportMiddleware);
-app.use(express.static(path.join(__dirname, '../public')));
+app.use(express.static('public'));
 app.use("/", index);
 app.use("/faillogin", fail_login);
 app.use("/failregister", fail_register);
@@ -45,4 +45,4 @@ app.use("/api/productos-test", test);
 app.use("/api/randoms", randoms);
 app.use("*", all);
 
-module.exports = app;
+export default app;

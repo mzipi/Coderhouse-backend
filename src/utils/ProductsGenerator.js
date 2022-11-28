@@ -1,5 +1,5 @@
-const ContenedorMemoria = require("../containers/ContenedorMemoria.js");
-const { faker } = require("@faker-js/faker");
+import ContenedorMemoria from "../containers/ContenedorMemoria.js";
+import { faker } from "@faker-js/faker";
 faker.locale = "es";
 
 class ProductsGenerator extends ContenedorMemoria {
@@ -26,4 +26,4 @@ class ProductsGenerator extends ContenedorMemoria {
     }
 }
 
-module.exports = ProductsGenerator;
+export default ProductsGenerator;

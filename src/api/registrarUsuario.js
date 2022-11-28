@@ -20,4 +20,4 @@ function registrarUsuario(datosUsuario) {
     return usuario
 }
 
-module.exports = registrarUsuario;
+export default registrarUsuario;

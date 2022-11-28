@@ -1,5 +1,5 @@
-const { Router } = require("express");
-const Contenedor = require("../containers/messages-class.js");
+import { Router } from "express";
+import Contenedor from "../containers/messages-class.js";
 
 const router = Router();
 const data = new Contenedor();
@@ -12,4 +12,4 @@ router.post("/", ({ body }, res) => {
     data.save(body).then(res.end());
 });
 
-module.exports = router;
+export default router;

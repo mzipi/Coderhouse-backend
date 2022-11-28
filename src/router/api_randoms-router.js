@@ -1,5 +1,5 @@
-const { Router } = require("express");
-const { fork } = require("child_process");
+import { Router } from "express";
+import { fork } from "child_process";
 
 const router = Router();
 
@@ -21,4 +21,4 @@ router.get("/:cant?", (req, res) => {
     child.on("message", msg => res.send({ num: msg }));
 });
 
-module.exports = router;
+export default router;
