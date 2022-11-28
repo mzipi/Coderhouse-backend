@@ -1,10 +1,10 @@
 import MongoContainer from "../../containers/MongoContainer.js";
 
-class MsgDaoMongoDB extends MongoContainer {
+class MsgDaoMongo extends MongoContainer {
 
     constructor() {
         super("messages");
     };
 };
 
-export default MsgDaoMongoDB;
+export default MsgDaoMongo;

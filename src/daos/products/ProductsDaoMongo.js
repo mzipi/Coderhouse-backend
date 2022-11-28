@@ -1,10 +1,10 @@
 import MongoContainer from "../../containers/MongoContainer.js";
 
-class ProductsDaoMongoDb extends MongoContainer {
+class ProductsDaoMongo extends MongoContainer {
 
     constructor() {
         super("products");
     };
 };
 
-export default ProductsDaoMongoDb;
+export default ProductsDaoMongo;
