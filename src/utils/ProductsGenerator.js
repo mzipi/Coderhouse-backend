@@ -1,4 +1,4 @@
-import ContenedorMemoria from "../containers/ContenedorMemoria.js";
+import ContenedorMemoria from "../containers/MemContainer.js";
 import { faker } from "@faker-js/faker";
 faker.locale = "es";
 

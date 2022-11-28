@@ -12,7 +12,7 @@ initializeApp({
     }) 
 });
 
-class Contenedor {
+class FirebaseContainer {
 
     constructor(){}
 
@@ -49,7 +49,7 @@ class Contenedor {
 		} catch (err) { console.log(err) }
     }
 }
-export default Contenedor;
+export default FirebaseContainer;
 
 
 //FieldValue.serverTimestamp()

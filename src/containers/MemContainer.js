@@ -1,4 +1,4 @@
-class ContenedorMemoria {
+class MemContainer {
     miId=0;
     constructor(){
         this.productos=[];
@@ -38,4 +38,4 @@ class ContenedorMemoria {
         return item
     }
 }
-export default ContenedorMemoria;
+export default MemContainer;

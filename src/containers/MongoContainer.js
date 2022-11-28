@@ -2,7 +2,7 @@ import { initializeApp, applicationDefault, cert } from "firebase-admin/app";
 import { getFirestore, Timestamp, FieldValue } from "firebase-admin/firestore";
 import { PROJECT_ID, PRIVATE_KEY, CLIENT_EMAIL } from "../config.js";
 
-class Contenedor {
+class MongoContainer {
 
     constructor(table){
         this.table = table;
@@ -64,4 +64,4 @@ class Contenedor {
 
     // { error: "producto no encontrado" }
 }
-export default Contenedor;
+export default MongoContainer;
