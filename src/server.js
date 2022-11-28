@@ -1,6 +1,4 @@
 import express, { urlencoded, json } from "express";
-import { engine } from "express-handlebars";
-import { join } from "path";
 
 import api_products from "./router/api_products-router.js";
 import index from "./router/index-router.js";
@@ -21,10 +19,7 @@ import passportMiddleware from "./middlewares/passport.js";
 
 const app = express();
 
-app.engine("handlebars", engine());
-
-app.set("view engine", "handlebars");
-app.set("views", "./views");
+app.set('view engine', 'ejs');
 
 app.use(urlencoded({extended: true}));
 app.use(json());
