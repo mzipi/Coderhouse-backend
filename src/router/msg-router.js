@@ -1,14 +1,16 @@
 import { Router } from "express";
-import { msgDao } from "../daos/index.js";
+import { negocioMsg } from "../negocio/NegocioMsg.js";
 
-const router = Router();
+const msgRouter = Router();
 
-router.get("/", (req, res) => {
-    msgDao.getAll().then(n => res.send(n));
+msgRouter.get("/", async (req, res) => {
+    const messages = await negocioMsg.getMsgs();
+    res.json(messages);
 });
 
-router.post("/", ({ body }, res) => {
-    msgDao.save(body).then(res.end());
+msgRouter.post("/", ({ body }, res) => {
+    const newMsg = negocioMsg.sendMsg(body);
+    if(newMsg === 1) res.status(201);
 });
 
-export default router;
+export default msgRouter;

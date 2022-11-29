@@ -1,27 +1,31 @@
 import { Router } from "express";
-import { productDao } from "../daos/index.js";
+import { negocioProducts } from "../negocio/NegocioProducts.js";
 
-const router = Router();
+const productsRouter = Router();
 
-router.get("/", (req, res) => {
-    productDao.getAll().then(n => res.send(n));
-    // no hay productos
+productsRouter.get("/", async (req, res) => {
+    const products = await negocioProducts.getProducts();
+    res.json(products);
 });
 
-router.get("/:id", ({ params }, res) => {
-    productDao.getById(params.id).then(n => res.send(n));
+productsRouter.get("/:id", async ({ params }, res) => {
+    const product = await negocioProducts.getProduct(params);
+    res.json(product);
 });
 
-router.post("/", ({ body }, res) => {
-    productDao.save(body).then(n => res.send(n));
+productsRouter.post("/", async ({ body }, res) => {
+    const product = await negocioProducts.addProduct(body);
+    if(product === 1) return res.status(201);
 });
 
-router.put("/:id", ({ params, body}, res) => {
-    productDao.update(params.id, body).then(res.end());
+productsRouter.put("/:id", ({ params, body}, res) => {
+    const product = negocioProducts.updateProduct(params);
+    if(product === 1) return res.status(201);
 });
 
-router.delete("/:id", ({ params }, res) => {
-    productDao.delete(params.id).then(res.end());
+productsRouter.delete("/:id", ({ params }, res) => {
+    const product = negocioProducts.deleteProduct(params);
+    if(product === 1) return res.status(201);
 });
 
-export default router;
+export default productsRouter;

@@ -14,7 +14,7 @@ class MongoContainer {
 
     async getAll() {
         try {
-            const docs = await database.collection("products").find().toArray();
+            const docs = await database.collection(this.table).find().toArray();
             return docs;
         } catch (err) {
             logger.error("Hubo un error al obtener los datos");
