@@ -23,4 +23,4 @@ function checkData(body) {
     return { nombre, lastname, alias, age, email, avatar, text }
 }
 
-export const negocioMsg = new NegocioMsg();
+export default NegocioMsg;

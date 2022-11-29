@@ -1,16 +1,10 @@
 import { Router } from "express";
-import { negocioMsg } from "../negocio/NegocioMsg.js";
+import { getMsgController, postMsgController } from "../controllers/MsgController.js";
 
-const msgRouter = Router();
+const msgRouter = new Router();
 
-msgRouter.get("/", async (req, res) => {
-    const messages = await negocioMsg.getMsgs();
-    res.json(messages);
-});
+msgRouter.get("/", getMsgController) 
 
-msgRouter.post("/", ({ body }, res) => {
-    const newMsg = negocioMsg.sendMsg(body);
-    if(newMsg === 1) res.status(201);
-});
+msgRouter.post("/", postMsgController)
 
 export default msgRouter;

@@ -1,4 +1,4 @@
-import FirebaseContainer from "../../containers/FirebaseContainer.js";
+import FirebaseContainer from "../../persistencia/FirebaseContainer.js";
 
 class ProductsDaoFirebase extends FirebaseContainer {
 

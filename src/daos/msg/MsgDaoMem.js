@@ -1,4 +1,4 @@
-import MemContainer from "../../containers/MemContainer.js";
+import MemContainer from "../../persistencia/MemContainer.js";
 
 class MsgDaoMem extends MemContainer {
 

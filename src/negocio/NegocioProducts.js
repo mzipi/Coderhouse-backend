@@ -40,5 +40,4 @@ class NegocioProducts {
     }
 }
 
-
-export const negocioProducts = new NegocioProducts;
+export default NegocioProducts;
