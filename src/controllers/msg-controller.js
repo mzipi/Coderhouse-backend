@@ -1,4 +1,4 @@
-import NegocioMsg from "../negocio/NegocioMsg.js";
+import NegocioMsg from "../services/ServiceMsg.js";
 
 const negocioMsg = new NegocioMsg();
 

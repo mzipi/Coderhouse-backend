@@ -1,6 +1,6 @@
 import { initializeApp, applicationDefault, cert } from "firebase-admin/app";
 import { getFirestore, Timestamp, FieldValue } from "firebase-admin/firestore";
-import { PROJECT_ID, PRIVATE_KEY, CLIENT_EMAIL } from "../config.js";
+import { PROJECT_ID, PRIVATE_KEY, CLIENT_EMAIL } from "../config/config.js";
 
 const privateKey = PRIVATE_KEY.replace(/\\n/g, '\n');
 

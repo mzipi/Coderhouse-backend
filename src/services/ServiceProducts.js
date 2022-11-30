@@ -14,7 +14,7 @@ class NegocioProducts {
     addProduct(body) {
         const verifiedData = this.checkData(body);
         this.addId(verifiedData);
-        const product = productDao.saveProduct(productDao);
+        const product = productDao.saveProduct(verifiedData);
         if(product) return 1;
     }
     

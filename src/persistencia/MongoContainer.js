@@ -1,4 +1,4 @@
-import { MONGO_URL2, MONGO_DB } from "../config.js";
+import { MONGO_URL2, MONGO_DB } from "../config/config.js";
 import { MongoClient, ObjectId, Timestamp } from "mongodb";
 import logger from "../api/logger.js";
 

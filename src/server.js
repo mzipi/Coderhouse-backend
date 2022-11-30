@@ -1,25 +1,26 @@
 import express, { urlencoded, json } from "express";
 
-import api_products from "./router/api_products-router.js";
-import index from "./router/index-router.js";
-import products from "./router/products-router.js";
-import msg from "./router/msg-router.js";
-import login from "./router/login-router.js";
-import logout from "./router/logout-router.js";
-import signup from "./router/signup-router.js";
-import test from "./router/test-router.js";
-import fail_login from "./router/fail_login-router.js";
-import fail_signup from "./router/fail_signup-router.js";
-import info from "./router/info-router.js";
-import randoms from "./router/api_randoms-router.js";
-import all from "./router/all-router.js";
+import api_products from "./routes/api_products-route.js";
+import index from "./routes/index-route.js";
+import products from "./routes/products-route.js";
+import msg from "./routes/msg-route.js";
+import login from "./routes/login-route.js";
+import logout from "./routes/logout-route.js";
+import signup from "./routes/signup-route.js";
+import test from "./routes/test-route.js";
+import fail_login from "./routes/fail_login-route.js";
+import fail_signup from "./routes/fail_signup-route.js";
+import info from "./routes/info-route.js";
+import randoms from "./routes/api_randoms-route.js";
+import all from "./routes/all-routes.js";
 
 import sessionHandler from "./middlewares/session-middleware.js";
-import passportMiddleware from "./middlewares/passport.js";
+import { passportMiddleware, passportSessionHandler } from "./middlewares/passport-middleware.js";
 
 const app = express();
 
 app.set('view engine', 'ejs');
+app.set("views", "src/views");
 
 app.use(urlencoded({extended: true}));
 app.use(json());

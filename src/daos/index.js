@@ -1,4 +1,4 @@
-import { MSG, PRODUCT } from "../config.js";
+import { MSG, PRODUCT } from "../config/config.js";
 
 let msgDao, productDao;
 

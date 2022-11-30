@@ -1,29 +1,29 @@
-import NegocioProducts from "../negocio/NegocioProducts.js";
+import NegocioTest from "../services/ServiceTest.js";
 
-const negocioProducts = new NegocioProducts();
+const data = new NegocioTest();
 
 async function getProductsController(req, res) {
-    const products = await negocioProducts.getProducts();
+    const products = await data.getProducts();
     res.json(products);
 };
 
 async function getProductController(req, res) {
-    const product = await negocioProducts.getProduct(req.params);
+    const product = await data.getProduct(req.params);
     res.json(product);
 };
 
 async function postProductController(req, res) {
-    const product = await negocioProducts.addProduct(req.body);
+    const product = await data.addProduct(req.body);
     if(product === 1) return res.status(201);
 };
 
 async function putProductController(req, res) {
-    const product = negocioProducts.updateProduct(req.params);
+    const product = data.updateProduct(req.params);
     if(product === 1) return res.status(201);
 };
 
 async function deleteProductController(req, res) {
-    const product = negocioProducts.deleteProduct(req.params);
+    const product = data.deleteProduct(req.params);
     if(product === 1) return res.status(201);
 };
 
