@@ -15,12 +15,12 @@ passport.use("signup", new LocalStrategy({ passReqToCallback: true },
         try {
             user = await User.findOne({ 'username': username })
         } catch (err) {
-            logger.error('Error in SignUp: ');
+            logger.error('Error en el registro');
             return done(err);
         }
 
         if (user) {
-            logger.info('User already exists');
+            logger.info('Usuario existente');
             return done(null, false)
         }
 
@@ -39,11 +39,11 @@ passport.use("signup", new LocalStrategy({ passReqToCallback: true },
         try {
             userWithId = await User.create(newUser);
         } catch (err) {
-            logger.error('Error in Saving user: ');
+            logger.error('Error guardando usuario');
             return done(err);
         }
 
-        logger.info('User Registration successful');
+        logger.info('Registro de usuario exitoso');
         return done(null, userWithId);
     }
 ));
@@ -60,16 +60,16 @@ passport.use("login", new LocalStrategy(
         }
 
         if (!user) {
-            logger.info('User Not Found with username ' + username);
+            logger.info('Usuario no encontrado: ' + username);
             return done(null, false);
         }
 
         if (!await isValidPassword(user, password)) {
-            logger.info('Invalid Password');
+            logger.info('Contraseña incorrecta');
             return done(null, false);
         }
 
-        logger.info('Login successful');
+        logger.info('Inicio de sesión correcto');
         return done(null, user);
     }
 ));

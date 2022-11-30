@@ -14,17 +14,17 @@ async function getProductController(req, res) {
 
 async function postProductController(req, res) {
     const product = await data.addProduct(req.body);
-    if(product === 1) return res.status(201);
+    if(product === 1) return res.status(201).end();
 };
 
 async function putProductController(req, res) {
     const product = data.updateProduct(req.params);
-    if(product === 1) return res.status(201);
+    if(product === 1) return res.status(201).end();
 };
 
 async function deleteProductController(req, res) {
     const product = data.deleteProduct(req.params);
-    if(product === 1) return res.status(201);
+    if(product === 1) return res.status(201).end();
 };
 
 export { getProductsController, getProductController, postProductController, putProductController, deleteProductController };

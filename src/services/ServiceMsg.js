@@ -12,15 +12,20 @@ class NegocioMsg {
         if(msg) return 1;
     }
     
-    checkData(body) {
-        if (body.author.nombre) return nombre = body.author.nombre;
-        if (body.author.lastname) return lastname = body.author.lastname;
-        if (body.author.alias) return alias = body.author.alias;
-        if (body.author.age) return age = body.author.age;
-        if (body.author.email) return email = body.author.email;
-        if (body.author.avatar) return avatar = body.author.avatar;
-        if (body.text) return text = body.author.text;
-        return { nombre, lastname, alias, age, email, avatar, text }
+    deleteMsg(params) {
+        const delMsg = msgDao.delete(params.id);
+        if (delMsg) return 1;
+    }
+
+    checkData({author, text}) {
+        if (!author.name) throw new Error ("Falta el nombre del autor del mensaje");
+        if (!author.lastname) throw new Error ("Falta el apellido del autor del mensaje");
+        if (!author.nick) throw new Error ("Falta el apellido del autor del mensaje");
+        if (!author.age) throw new Error ("Falta la edad del autor del mensaje");
+        if (!author.email) throw new Error ("Falta el email del autor del mensaje");
+        if (!author.avatar) throw new Error ("Falta el avatar del autor del mensaje");
+        if (!text) throw new Error ("Falta el mensaje");
+        return { author, text }
     }
 }
 

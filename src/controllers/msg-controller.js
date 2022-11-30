@@ -9,7 +9,12 @@ async function getMsgController(req, res) {
 
 async function postMsgController(req, res) {
     const newMsg = negocioMsg.sendMsg(req.body);
-    if(newMsg === 1) res.status(201);
+    if(newMsg) return res.status(201).end();
 };
 
-export { getMsgController, postMsgController };
+async function delMsgController(req, res) {
+    const delMsg = await negocioMsg.deleteMsg(req.params);
+    if(delMsg) return res.status(200).end();
+}
+
+export { getMsgController, postMsgController, delMsgController };

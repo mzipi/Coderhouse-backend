@@ -1,9 +1,9 @@
 import express, { urlencoded, json } from "express";
 
-import api_products from "./routes/api_products-route.js";
+import productsRouter from "./routes/api_products-route.js";
 import index from "./routes/index-route.js";
 import products from "./routes/products-route.js";
-import msg from "./routes/msg-route.js";
+import msgRouter from "./routes/msg-route.js";
 import login from "./routes/login-route.js";
 import logout from "./routes/logout-route.js";
 import signup from "./routes/signup-route.js";
@@ -35,8 +35,8 @@ app.use("/login", login);
 app.use("/logout", logout);
 app.use("/productos", products)
 app.use("/signup", signup);
-app.use("/api/productos", api_products);
-app.use("/api/mensajes", msg);
+app.use("/api/productos", productsRouter);
+app.use("/api/mensajes", msgRouter);
 app.use("/api/productos-test", test);
 app.use("/api/randoms", randoms);
 app.use("*", all);

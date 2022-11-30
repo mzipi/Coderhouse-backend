@@ -1,5 +1,5 @@
 import { MONGO_URL2, MONGO_DB } from "../config/config.js";
-import { MongoClient, ObjectId, Timestamp } from "mongodb";
+import { MongoClient, ObjectId } from "mongodb";
 import logger from "../api/logger.js";
 
 const uri = MONGO_URL2;
@@ -8,13 +8,15 @@ const database = client.db(MONGO_DB);
 
 class MongoContainer {
 
-    constructor(table){
+    constructor(table, model){
         this.table = table;
+        this.model = model;
     }
 
     async getAll() {
         try {
-            const docs = await database.collection(this.table).find().toArray();
+            // const col = database.collection(this.table);
+            const docs = await this.model.find();
             return docs;
         } catch (err) {
             logger.error("Hubo un error al obtener los datos");
@@ -23,7 +25,7 @@ class MongoContainer {
 
     async getById(id) {
         try {
-            const doc = await database.collection(this.table).findOne({ _id: ObjectId(`${id}`) });
+            const doc = await this.model.findOne({ _id: ObjectId(`${id}`) });
             return doc
         } catch (err) {
             logger.error("Hubo un error al buscar");
@@ -32,8 +34,7 @@ class MongoContainer {
 
     async delete(id) {
         try {
-            const doc = database.collection(this.table);
-            await doc.findOneAndDelete({ _id: ObjectId(`${id}`) });
+            await this.model.findOneAndDelete({ _id: ObjectId(`${id}`) });
         } catch (err) {
             logger.error("Hubo un error al eliminar");
         }
@@ -41,9 +42,7 @@ class MongoContainer {
 
     async deleteItem(id, id_prod) {
         try {
-            const doc = database.collection(this.table);
-            const query = await doc.findOne({ _id: ObjectId(`${id}`) });
-            await query.findOneAndDelete({ _id: ObjectId(`${id_prod}`) });
+            await this.model.findOneAndDelete({ _id: ObjectId(`${id_prod}`) });
         } catch (err) {
             logger.error("Hubo un error al eliminar item del carro");
         }
@@ -51,9 +50,7 @@ class MongoContainer {
 
     async saveProduct(obj) {
         try {
-            const tabla = database.collection(this.table);
-            obj.timestamp = new Timestamp();
-            await tabla.insertOne(obj);
+            await this.model.create(obj);
         } catch (err) {
             logger.error("Hubo un error al guardar");
         }
@@ -61,9 +58,7 @@ class MongoContainer {
 
     async update(id, body) {
         try {
-            const doc = database.collection(this.table);
-
-            const query = await doc.findOneAndUpdate({ _id: ObjectId(`${id}`) }, 
+            await this.model.findOneAndUpdate({ _id: ObjectId(`${id}`) }, 
                 { $set: { 
                     nombre: body.nombre,
                     descripcion: body.descripcion,
