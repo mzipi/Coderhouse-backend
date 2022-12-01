@@ -7,12 +7,20 @@
     <title>Proyecto de backend</title>
 </head>
 <body>
-    <%- include('../partials/header'); %>
-    <main>
+    <header>
+        <nav>
+            <ul>
+                <li>
+                    <a href="/">Ingresar producto</a>
+                </li>
+            </ul>
+        </nav>
+    </header>
+    <section>
         <div class="form">
             <%- include('../partials/list-items'); %>
         </div>
-    </main>
+    </section>
     <%- include('../partials/footer'); %>
     <script src="/socket.io/socket.io.js"></script>
     <script src="/index.js"></script>

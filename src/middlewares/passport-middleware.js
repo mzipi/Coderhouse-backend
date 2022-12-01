@@ -2,7 +2,7 @@ import { genSalt, hash, compare } from "bcrypt";
 import passport from "passport";
 import { Strategy as LocalStrategy } from "passport-local";
 import User from "../models/user-model.js";
-import logger from "../api/logger.js";
+import { infoLog, errorLog } from "../api/logger.js";
 
 const passportMiddleware = passport.initialize();
 const passportSessionHandler = passport.session();
@@ -15,12 +15,12 @@ passport.use("signup", new LocalStrategy({ passReqToCallback: true },
         try {
             user = await User.findOne({ 'username': username })
         } catch (err) {
-            logger.error('Error en el registro');
+            errorLog.error('Error en el registro');
             return done(err);
         }
 
         if (user) {
-            logger.info('Usuario existente');
+            infoLog.info('Usuario existente');
             return done(null, false)
         }
 
@@ -43,7 +43,7 @@ passport.use("signup", new LocalStrategy({ passReqToCallback: true },
             return done(err);
         }
 
-        logger.info('Registro de usuario exitoso');
+        infoLog.info('Registro de usuario exitoso');
         return done(null, userWithId);
     }
 ));
@@ -60,16 +60,16 @@ passport.use("login", new LocalStrategy(
         }
 
         if (!user) {
-            logger.info('Usuario no encontrado: ' + username);
+            infoLog.info('Usuario no encontrado: ' + username);
             return done(null, false);
         }
 
         if (!await isValidPassword(user, password)) {
-            logger.info('Contraseña incorrecta');
+            infoLog.info('Contraseña incorrecta');
             return done(null, false);
         }
 
-        logger.info('Inicio de sesión correcto');
+        infoLog.info('Inicio de sesión correcto');
         return done(null, user);
     }
 ));

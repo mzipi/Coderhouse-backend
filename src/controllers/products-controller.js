@@ -9,12 +9,12 @@ async function getProductsController(req, res) {
 
 async function getProductController(req, res) {
     const product = await negocioProducts.getProduct(req.params);
-    res.json(product);
+    res.status(202).json(product);
 };
 
 async function postProductController(req, res) {
     const product = await negocioProducts.addProduct(req.body);
-    if(product) return res.status(201).end();
+    if(product) return res.status(201).json(product);
 };
 
 async function putProductController(req, res) {

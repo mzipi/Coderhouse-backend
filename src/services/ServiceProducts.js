@@ -8,13 +8,14 @@ class NegocioProducts {
     }
     
     getProduct({id}) {
-        return productDao.getById(id);
+        const product = productDao.getById(id);
+        return product;
     }
     
     addProduct(body) {
         const verifiedData = this.checkData(body);
         const product = productDao.saveProduct(verifiedData);
-        if(product) return 1;
+        if(product) return product;
     }
     
     updateProduct({id}) {

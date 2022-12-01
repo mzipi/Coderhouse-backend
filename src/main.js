@@ -5,7 +5,7 @@ import cluster from "cluster";
 import { cpus } from "os";
 
 import app from "./server.js";
-import logger from "./api/logger.js";
+import { errorLog, infoLog } from "./api/logger.js";
 
 const server = createServer(app);
 const io = new Server(server);
@@ -23,7 +23,7 @@ if (args.mode == "CLUSTER" && cluster.isPrimary) {
     };
     
     cluster.on("exit", (worker, code, signal) => {
-        logger.info(`Worker ${worker.process.pid} died`);
+        infoLog.info(`Worker ${worker.process.pid} died`);
     });
 
 } else {
@@ -34,8 +34,8 @@ if (args.mode == "CLUSTER" && cluster.isPrimary) {
     });
 
     server.listen(PORT, () => {
-        logger.info(`Sirviendo en http://localhost:${PORT} con PID: ${process.pid}`);
+        infoLog.info(`Sirviendo en http://localhost:${PORT} con PID: ${process.pid}`);
     });
 
-    server.on("error", err => logger.error(`Error en el servidor: ${err}`));
+    server.on("error", err => errorLog.error(`Error al iniciar el servidor: ${err}`));
 };

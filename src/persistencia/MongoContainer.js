@@ -1,6 +1,6 @@
 import { MONGO_URL2, MONGO_DB } from "../config/config.js";
 import { MongoClient, ObjectId } from "mongodb";
-import logger from "../api/logger.js";
+import { errorLog } from "../api/logger.js";
 
 const uri = MONGO_URL2;
 const client = new MongoClient(uri);
@@ -19,16 +19,20 @@ class MongoContainer {
             const docs = await this.model.find();
             return docs;
         } catch (err) {
-            logger.error("Hubo un error al obtener los datos");
+            errorLog.error("Hubo un error al obtener los datos");
         }
     }
 
     async getById(id) {
         try {
             const doc = await this.model.findOne({ _id: ObjectId(`${id}`) });
-            return doc
+            if (doc) {
+                return doc;
+            } else {
+                return { error: "producto no encontrado" };
+            }
         } catch (err) {
-            logger.error("Hubo un error al buscar");
+            { error: "producto no encontrado"};
         }
     }
 
@@ -36,7 +40,7 @@ class MongoContainer {
         try {
             await this.model.findOneAndDelete({ _id: ObjectId(`${id}`) });
         } catch (err) {
-            logger.error("Hubo un error al eliminar");
+            errorLog.error("Hubo un error al eliminar");
         }
     }
 
@@ -44,15 +48,15 @@ class MongoContainer {
         try {
             await this.model.findOneAndDelete({ _id: ObjectId(`${id_prod}`) });
         } catch (err) {
-            logger.error("Hubo un error al eliminar item del carro");
+            errorLog.error("Hubo un error al eliminar item del carro");
         }
     }
 
     async saveProduct(obj) {
         try {
-            await this.model.create(obj);
+            return await this.model.create(obj);
         } catch (err) {
-            logger.error("Hubo un error al guardar");
+            errorLog.error("Hubo un error al guardar");
         }
     }
 
@@ -68,7 +72,7 @@ class MongoContainer {
                     stock: body.stock
                 } });
         } catch (err) {
-            logger.error("Hubo un error al actualizar");
+            errorLog.error("Hubo un error al actualizar");
         }
     }
 }

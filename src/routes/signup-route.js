@@ -4,7 +4,7 @@ import passport from "passport";
 const router = Router();
 
 router.get("/", (req, res) => {
-    res.render("signup", { msg: "Hasta luego", name: req.session.name });
+    res.render("pages/signup");
 });
 
 router.post(

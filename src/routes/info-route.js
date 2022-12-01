@@ -13,7 +13,7 @@ const path = process.argv[0];
 const cpus = _cpus().length;
 
 router.get("/", compression(), (req, res) => {
-    res.render("info", { cwd, pid, ver, platform, mem, argv, path, cpus });
+    res.json({ cwd, pid, ver, platform, mem, argv, path, cpus });
 });
 
 export default router;

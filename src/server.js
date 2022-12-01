@@ -27,18 +27,19 @@ app.use(json());
 app.use(sessionHandler);
 app.use(passportMiddleware);
 app.use(express.static('public'));
+app.use("/api/productos", productsRouter);
 app.use("/", index);
+app.use("/productos", products);
+app.use("/api/productos-test", test);
+app.use("/login", login);
+app.use("/logout", logout);
+app.use("/signup", signup);
 app.use("/faillogin", fail_login);
 app.use("/failsignup", fail_signup);
 app.use("/info", info);
-app.use("/login", login);
-app.use("/logout", logout);
-app.use("/productos", products)
-app.use("/signup", signup);
-app.use("/api/productos", productsRouter);
-app.use("/api/mensajes", msgRouter);
-app.use("/api/productos-test", test);
 app.use("/api/randoms", randoms);
+
+app.use("/api/mensajes", msgRouter);
 app.use("*", all);
 
 export default app;
