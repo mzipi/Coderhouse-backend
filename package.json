@@ -1,9 +1,9 @@
 {
   "type": "module",
-  "name": "19---dividir-en-capas-nuestro-proyecto",
+  "name": "20---mejorar-arquitectura",
   "version": "1.0.0",
   "description": "",
-  "main": "main.js",
+  "main": "src/main.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node src/main.js",
