@@ -1,19 +1,9 @@
 import { Router } from "express";
-import { cpus as _cpus } from "os";
+import infoController from "../controllers/info-controller.js";
 import compression from "compression";
 
-const router = Router();
-const cwd = process.cwd();
-const pid = process.pid;
-const ver = process.version;
-const platform = process.platform;
-const mem = process.memoryUsage().rss;
-const argv = process.argv.slice(2);
-const path = process.argv[0];
-const cpus = _cpus().length;
+const infoRouter = Router();
 
-router.get("/", compression(), (req, res) => {
-    res.json({ cwd, pid, ver, platform, mem, argv, path, cpus });
-});
+infoRouter.get("/", compression(), infoController);
 
-export default router;
+export default infoRouter;

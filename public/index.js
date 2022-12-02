@@ -1,178 +1,181 @@
-var socket = io();
+if(window.location.pathname === "/") {
+    let msgCenter = document.getElementById("msg-center");
+    let addProduct = document.getElementById("add-product");
+    let listDiv = document.getElementById("products-list");
 
-var data = [];
+    let table = document.createElement("table");
+    let thead = document.createElement("thead");
+    let trHead = document.createElement("tr");
+    let thName = document.createElement("th");
+    let thPrice = document.createElement("th");
+    let thImg = document.createElement("th");
+    let tbody = document.createElement("tbody");
 
-if(document.getElementById("messages")) {
-    var messages = document.getElementById("messages");
-}
+    msgCenter.addEventListener("submit", msgEventHandler);
+    addProduct.addEventListener("submit", productsEventHandler);
 
-if(document.getElementById("msg-center")) {
-    var msgCenter = document.getElementById("msg-center");
-}
-
-if(document.getElementById("email")) {
-    var email = document.getElementById("email");
-}
-
-if (document.getElementById("msg")) {
-    var msg = document.getElementById("msg");
-}
-
-if (document.getElementById("form")) {
-    var form = document.getElementById("form");
-}
-
-if (document.getElementById("title")) {
-    var title = document.getElementById("title");
-}
-
-if (document.getElementById("price")) {
-    var price = document.getElementById("price");
-}
-
-if (thumbnail = document.getElementById("thumbnail")) {
-    var thumbnail = document.getElementById("thumbnail");
-}
-
-fetch("/api/mensajes", {
-    method: "GET",
-    headers: {
-        "Content-Type": "application/json"
-    },
-})
-    .then(response => data = response.json())
-    .then(n => {
-        n.forEach(element => {
-            var item = document.createElement("li");
-            var p = document.createElement("p");
-            var span1 = document.createElement("span");
-            var span2 = document.createElement("span");
-            var span3 = document.createElement("span");
-            span1.className = "email";
-            span2.className = "date";
-            span3.className = "msg";
-            span1.textContent = `${element.author.id} `;
-            var d = new Date();
-            var date = d.toLocaleString();
-            span2.textContent = `[${date}]: `;
-            span3.textContent = element.text;
-            p.appendChild(span1);
-            p.appendChild(span2);
-            p.appendChild(span3);
-            item.appendChild(p);
-            messages.appendChild(item);
-        });
-    })
-
-fetch("/api/productos", {
-    method: "GET",
-    headers: {
-        "Content-Type": "application/json"
-    },
-})
-    .then(response => data = response.json())
-    .then(n => {
-        n.forEach(element => {
-            var tbody = document.getElementById("tbody");
-            var tr = document.createElement("tr");
-            var td1 = document.createElement("td");
-            var td2 = document.createElement("td");
-            var td3 = document.createElement("td");
-            var img = document.createElement("img");
-            td1.textContent = element.name;
-            td2.textContent = element.price;
-            img.alt = element.name;
-            img.src = element.image;
-            td3.appendChild(img);
-            tr.appendChild(td1);
-            tr.appendChild(td2);
-            tr.appendChild(td3);
-            tbody.appendChild(tr);
-        });
-    })
-
-if(msgCenter && email && msg){
-    msgCenter.addEventListener("submit", function(e) {
-        e.preventDefault();
-        var urlencoded = new URLSearchParams();
-        urlencoded.append("email", email.value);
-        urlencoded.append("msg", msg.value);
-        fetch("/api/mensajes", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/x-www-form-urlencoded",
-            },
-            body: urlencoded,
-            redirect: "manual"
-        })
-            .then(response => response.text())
-
-        var d = new Date();
-        var date = d.toLocaleString();
-        socket.emit("chat message", [email.value, date, msg.value]);
-        email.value = "";
-        msg.value = "";
-    });
-}
-
-if(form && title && price && thumbnail) {
+    thName.textContent = "Producto";
+    thPrice.textContent = "Precio";
+    thImg.textContent = "Imágen";
+    tbody.id = "tbody";
     
-    form.addEventListener("submit", function(e) {
-        e.preventDefault();
-        var urlencoded = new URLSearchParams();
-        urlencoded.append("name", title.value);
-        urlencoded.append("price", Number(price.value));
-        urlencoded.append("image", thumbnail.value);
-        fetch("/api/productos", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/x-www-form-urlencoded",
-            },
-            body: urlencoded,
-            redirect: "manual"
-        })
-            .then(response => response.text())
+    trHead.appendChild(thName);
+    trHead.appendChild(thPrice);
+    trHead.appendChild(thImg);
+    thead.appendChild(trHead);
+    table.appendChild(thead);
+    table.appendChild(tbody);
+    listDiv.appendChild(table);
+    
+    getMsg();
+    getProducts();
+}
 
-        socket.emit("add item", [title.value, Number(price.value), thumbnail.value]);
-        title.value = "";
-        price.value = "";
-        thumbnail.value = "";
+async function getMsg() {
+    const data = await fetch("/api/mensajes", { method: "GET" });
+    const msgs = await data.json();
+    msgs.forEach(element => { displayMsg(element) });
+}
+
+async function msgEventHandler(e) {
+    let socket = io();
+
+    let email = document.getElementById("email");
+    let text = document.getElementById("msg");
+
+    e.preventDefault();
+
+    let data = {
+        author: {
+            email: email.value
+        },
+        text: text.value
+    }
+
+    await fetch("/api/mensajes", { 
+        method: "POST",
+        body: JSON.stringify(data),
+        headers: {
+            "Content-Type": "application/json"
+        }
+    });
+
+    socket.emit("chat message", [email.value, text.value]);
+    email.value = "";
+    text.value = "";
+
+    socket.on("chat message", function(res) {
+        let obj = {
+            author: {
+                email: res[0]
+            },
+            text: res[1],
+        };
+        displayMsg(obj);
     });
 }
 
-socket.on("chat message", function(res) {
-    var item = document.createElement("li");
-    var p = document.createElement("p");
-    var span1 = document.createElement("span");
-    var span2 = document.createElement("span");
-    var span3 = document.createElement("span");
-    span1.className = "email";
-    span2.className = "date";
-    span3.className = "msg";
-    span1.textContent = `${res[0]} `;
-    span2.textContent = `[${res[1]}]: `;
-    span3.textContent = res[2];
-    p.appendChild(span1);
-    p.appendChild(span2);
-    p.appendChild(span3);
-    item.appendChild(p);
-    messages.appendChild(item);
-});
+function displayMsg(msgs) {
+    let itemDiv = document.createElement("div");
 
-socket.on("add item", function(res) {
-    var tbody = document.getElementById("tbody");
-    var tr = document.createElement("tr");
-    var td1 = document.createElement("td");
-    var td2 = document.createElement("td");
-    var td3 = document.createElement("td");
-    var img = document.createElement("img");
-    td1.textContent = res[0];
-    td2.textContent = res[1];
-    img.alt = res[0];
-    img.src = res[2];
-    td3.appendChild(img);
-    tr.appendChild(td1);
-    tr.appendChild(td2);
-    tr.appendChild(td3);
-    tbody.appendChild(tr);
-});
+    let mailDiv = document.createElement("div");
+    let dateDiv = document.createElement("div");
+    let msgDiv = document.createElement("div");
+    let avatarDiv = document.createElement("div");
+    
+    mailDiv.id = "email";
+    dateDiv.id = "date";
+    msgDiv.id = "msg";
+    avatarDiv.id = "avatar";
+
+    let mailP = document.createElement("p")
+    let dateP = document.createElement("p")
+    let msgP = document.createElement("p")
+    let avatarImg = document.createElement("img")
+    
+    mailP.textContent = `${msgs.author.email} `;
+    dateP.textContent = `[${msgs.createdAt}]: `;
+    msgP.textContent = msgs.text;
+    avatarImg.src = msgs.author.avatar;
+
+    mailDiv.appendChild(mailP);
+    dateDiv.appendChild(dateP);
+    msgDiv.appendChild(msgP);
+    avatarDiv.appendChild(avatarImg);
+
+    itemDiv.appendChild(mailDiv);
+    itemDiv.appendChild(dateDiv);
+    itemDiv.appendChild(msgDiv);
+    itemDiv.appendChild(avatarDiv);
+
+    messages.appendChild(itemDiv);
+}
+
+async function getProducts() {
+    const data = await fetch("/api/productos", { method: "GET" });
+    const products = await data.json();
+    products.forEach(element => { displayProducts(element) });
+}
+
+async function productsEventHandler(e) {
+    let socket = io();
+
+    let title = document.getElementById("title");
+    let price = document.getElementById("price");
+    let thumbnail = document.getElementById("thumbnail");
+
+    e.preventDefault();
+
+    price = Number(price.value);
+
+    let data = {
+        name: title.value,
+        price: price,
+        image: thumbnail.value
+    }
+
+    await fetch("/api/productos", { 
+        method: "POST", 
+        body: JSON.stringify(data),
+        headers: {
+            "Content-Type": "application/json"
+        }
+    });
+
+    socket.emit("add item", [title.value, Number(price.value), thumbnail.value]);
+
+    title.value = "";
+    price.value = "";
+    thumbnail.value = "";
+    
+    socket.on("add item", res => { 
+        let obj = {
+            name: res[0],
+            price: res[1],
+            image: res[2]
+        };
+        displayProducts(obj);
+    });
+};
+
+function displayProducts(products) {
+    let item = document.createElement("tr");
+
+    let itemName = document.createElement("td");
+    let itemPrice = document.createElement("td");
+    let itemImg = document.createElement("td");
+
+    let img = document.createElement("img");
+    img.src = products.image;
+    img.alt = products.name;
+
+    itemName.textContent = products.name;
+    itemPrice.textContent = products.price;
+    itemImg.appendChild(img);
+
+    item.appendChild(itemName);
+    item.appendChild(itemPrice);
+    item.appendChild(itemImg);
+
+    tbody.appendChild(item);
+}

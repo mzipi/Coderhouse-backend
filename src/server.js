@@ -1,7 +1,7 @@
 import express, { urlencoded, json } from "express";
 
 import productsRouter from "./routes/api_products-route.js";
-import index from "./routes/index-route.js";
+import index from "./routes/root-route.js";
 import products from "./routes/products-route.js";
 import msgRouter from "./routes/msg-route.js";
 import login from "./routes/login-route.js";

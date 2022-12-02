@@ -71,14 +71,14 @@ button {
 #messages {
     list-style: none;
 }
-.email {
+#email > p {
     color: blue;
     font-weight: bold;
 }
-.date {
+#date > p {
     color: brown;
 }
-.msg {
+#msg > p {
     color: green;
     font-style: italic;
 }

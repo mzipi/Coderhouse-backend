@@ -13,7 +13,7 @@ async function postMsgController(req, res) {
 };
 
 async function delMsgController(req, res) {
-    const delMsg = await negocioMsg.deleteMsg(req.params);
+    const delMsg = negocioMsg.deleteMsg(req.params);
     if(delMsg) return res.status(200).end();
 }
 

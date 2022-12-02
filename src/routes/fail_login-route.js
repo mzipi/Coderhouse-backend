@@ -1,9 +1,8 @@
 import { Router } from "express";
+import failLoginController from "../controllers/fail_login-controller.js";
 
-const router = Router();
+const failLoginRoute = Router();
 
-router.get("/", (req, res) => {
-    res.render("pages/fail-login");
-});
+failLoginRoute.get("/", failLoginController);
 
-export default router;
+export default failLoginRoute;
