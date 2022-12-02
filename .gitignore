@@ -2,4 +2,5 @@ node_modules
 .DS_Store
 *.swp
 .env
-pendientes.md
+src/logs
+src/db
