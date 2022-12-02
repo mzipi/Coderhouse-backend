@@ -1,11 +1,8 @@
 import { Router } from "express";
-import { productDao } from "../daos/index.js";
+import productsController from "../controllers/products-controller.js";
 
-const router = Router();
+const productsRouter = Router();
 
-router.get("/", (req, res) => {
-    productDao.getAll();
-    res.render("pages/products");
-});
+productsRouter.get("/", productsController);
 
-export default router;
+export default productsRouter;
