@@ -1,18 +1,10 @@
 import { Router } from "express";
-import passport from "passport";
+import { getLoginController, postLoginController } from "../controllers/login-controller.js";
 
-const router = Router();
+const loginRouter = Router();
 
-router.get("/", (req, res) => {
-    res.render("pages/login");
-});
+loginRouter.get("/", getLoginController);
 
-router.post(
-    "/", 
-    passport.authenticate("login", { failureRedirect: "/login" }), 
-    (req, res) => {
-        res.redirect("/");
-    }
-);
+loginRouter.post("/", postLoginController);
 
-export default router;
+export default loginRouter;
