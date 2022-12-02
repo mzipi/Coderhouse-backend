@@ -13,3 +13,9 @@
 {"level":"error","message":"Hubo un error al guardar"}
 {"level":"error","message":"Hubo un error al eliminar"}
 {"level":"error","message":"Hubo un error al eliminar"}
+{"level":"error","message":null}
+{"level":"error","message":null}
+{"level":"error","message":null}
+{"level":"error","message":null}
+{"level":"error","message":"Hubo un error al hacer logout"}
+{"level":"error","message":"Hubo un error al hacer logout"}
