@@ -1,4 +1,4 @@
-import ServiceInfo from "../services/ServiceInfo.js";
+import ServiceInfo from '../services/ServiceInfo.js';
 
 const data = new ServiceInfo();
 

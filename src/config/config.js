@@ -1,6 +1,6 @@
 import * as dotenv from 'dotenv'
 
-dotenv.config({ path: "./src/config/.env" })
+dotenv.config({ path: './src/config/.env' })
 
 const MARIADB_USR = process.env.MARIADB_USR;
 const MARIADB_PWD = process.env.MARIADB_PWD;

@@ -1,20 +1,15 @@
-import NegocioMsg from "../services/ServiceMsg.js";
+import MsgService from '../services/MsgService.js';
 
-const negocioMsg = new NegocioMsg();
+const msgService = new MsgService();
 
 async function getMsgController(req, res) {
-    const messages = await negocioMsg.getMsgs();
+    const messages = await msgService.getMsg();
     res.json(messages);
 };
 
 async function postMsgController(req, res) {
-    const newMsg = negocioMsg.sendMsg(req.body);
+    const newMsg = msgService.sendMsg(req);
     if(newMsg) return res.status(201).end();
 };
 
-async function delMsgController(req, res) {
-    const delMsg = negocioMsg.deleteMsg(req.params);
-    if(delMsg) return res.status(200).end();
-}
-
-export { getMsgController, postMsgController, delMsgController };
+export { getMsgController, postMsgController };

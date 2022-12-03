@@ -1,4 +1,4 @@
-import NegocioTest from "../services/ServiceTest.js";
+import NegocioTest from '../services/ServiceTest.js';
 
 const data = new NegocioTest();
 

@@ -1,4 +1,4 @@
-import ServiceAll from "../services/ServiceAll.js";
+import ServiceAll from '../services/ServiceAll.js';
 
 const allRotues = new ServiceAll();
 

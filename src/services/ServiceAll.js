@@ -1,4 +1,4 @@
-import { infoLog } from "../api/logger.js";
+import { infoLog } from '../api/logger.js';
 
 class ServiceAll {
     log(req) {

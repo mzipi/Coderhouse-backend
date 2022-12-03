@@ -1,4 +1,4 @@
-import ServiceSignup from "../services/ServiceSignup.js";
+import ServiceSignup from '../services/ServiceSignup.js';
 
 const serviceSignup = new ServiceSignup();
 

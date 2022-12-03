@@ -1,4 +1,4 @@
-import generarProducto from '../utils/product-generator.js';
+import generarProducto from '../api/product-generator.js';
 
 class NegocioTest {
 

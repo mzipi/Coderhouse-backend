@@ -1,6 +1,6 @@
-import { initializeApp, cert } from "firebase-admin/app";
-import { getFirestore } from "firebase-admin/firestore";
-import { PROJECT_ID, PRIVATE_KEY, CLIENT_EMAIL } from "/src/config/config.js";
+import { initializeApp, cert } from 'firebase-admin/app';
+import { getFirestore } from 'firebase-admin/firestore';
+import { PROJECT_ID, PRIVATE_KEY, CLIENT_EMAIL } from '/src/config/config.js';
 
 const privateKey = PRIVATE_KEY.replace(/\\n/g, '\n');
 
@@ -20,7 +20,7 @@ class FirebaseContainer {
         try {
 			let res = [];
 			const db = getFirestore();
-			const snapshot = await db.collection("messages").get();
+			const snapshot = await db.collection('messages').get();
 			if (snapshot) {
                 snapshot.forEach((doc) => {
                     res.push(doc.data());
@@ -33,7 +33,7 @@ class FirebaseContainer {
     async save(obj) {
 		try {
 			const db = getFirestore();
-			const docRef = db.collection("messages");
+			const docRef = db.collection('messages');
 			await docRef.add({
                 author: {
                     id: obj.author.id,

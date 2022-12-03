@@ -1,4 +1,4 @@
-import { fork } from "child_process";
+import { fork } from 'child_process';
 
 class ServiceRandom {
     
@@ -6,11 +6,11 @@ class ServiceRandom {
 
         let cant = Number(req.query.cant) || 100000;
 
-        const child = fork("./src/api/child.js");
+        const child = fork('./src/api/child.js');
 
         child.send(cant);
 
-        child.on("message", msg => res.send({ num: msg }));
+        child.on('message', msg => res.send({ num: msg }));
     }
 }
 

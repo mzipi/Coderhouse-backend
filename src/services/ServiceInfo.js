@@ -1,4 +1,4 @@
-import { cpus } from "os";
+import { cpus } from 'os';
 
 export default class ServiceInfo {
     info() {

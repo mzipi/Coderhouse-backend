@@ -1,4 +1,4 @@
-import ServiceRandom from "../services/ServiceRandom.js"
+import ServiceRandom from '../services/ServiceRandom.js'
 
 const child = new ServiceRandom();
 

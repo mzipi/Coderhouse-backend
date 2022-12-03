@@ -1,13 +1,13 @@
-import { genSalt, hash, compare } from "bcrypt";
-import passport from "passport";
-import { Strategy as LocalStrategy } from "passport-local";
-import User from "../models/user-model.js";
-import { infoLog, errorLog } from "../api/logger.js";
+import { genSalt, hash, compare } from 'bcrypt';
+import passport from 'passport';
+import { Strategy as LocalStrategy } from 'passport-local';
+import User from '../../models/user-model.js';
+import { infoLog, errorLog } from '../logger.js';
 
 const passportMiddleware = passport.initialize();
 const passportSessionHandler = passport.session();
 
-passport.use("signup", new LocalStrategy({ passReqToCallback: true },
+passport.use('signup', new LocalStrategy({ passReqToCallback: true },
     async (req, username, password, done) => {
         
         let user;
@@ -48,7 +48,7 @@ passport.use("signup", new LocalStrategy({ passReqToCallback: true },
     }
 ));
 
-passport.use("login", new LocalStrategy(
+passport.use('login', new LocalStrategy(
     async (username, password, done) => {
         
         let user;

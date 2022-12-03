@@ -1,5 +1,5 @@
-import { connect, model, Schema } from "mongoose";
-import { MONGO_URL2 } from "../config/config.js";
+import { connect, model, Schema } from 'mongoose';
+import { MONGO_URL2 } from '../config/config.js';
 
 connect(MONGO_URL2);
 
@@ -16,6 +16,6 @@ const schema = {
 }
 
 const msgSchema = new Schema(schema, { timestamps: true });
-const Msg = model("Msg", msgSchema, "messages");
+const Msg = model('Msg', msgSchema, 'messages');
 
 export default Msg;

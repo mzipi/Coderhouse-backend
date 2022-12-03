@@ -1,10 +1,5 @@
-import { MONGO_URL2, MONGO_DB } from "../../config/config.js";
-import { MongoClient, ObjectId } from "mongodb";
-import { errorLog } from "../../api/logger.js";
-
-const uri = MONGO_URL2;
-const client = new MongoClient(uri);
-const database = client.db(MONGO_DB);
+import { ObjectId } from 'mongodb';
+import { errorLog } from '../../api_old/logger.js';
 
 class MongoContainer {
 
@@ -15,11 +10,10 @@ class MongoContainer {
 
     async getAll() {
         try {
-            // const col = database.collection(this.table);
             const docs = await this.model.find();
             return docs;
         } catch (err) {
-            errorLog.error("Hubo un error al obtener los datos");
+            errorLog.error('Hubo un error al obtener los datos');
         }
     }
 
@@ -29,10 +23,10 @@ class MongoContainer {
             if (doc) {
                 return doc;
             } else {
-                return { error: "producto no encontrado" };
+                return { error: 'producto no encontrado' };
             }
         } catch (err) {
-            { error: "producto no encontrado"};
+            { error: 'producto no encontrado'};
         }
     }
 
@@ -40,7 +34,7 @@ class MongoContainer {
         try {
             await this.model.findOneAndDelete({ _id: ObjectId(`${id}`) });
         } catch (err) {
-            errorLog.error("Hubo un error al eliminar");
+            errorLog.error('Hubo un error al eliminar');
         }
     }
 
@@ -48,7 +42,7 @@ class MongoContainer {
         try {
             await this.model.findOneAndDelete({ _id: ObjectId(`${id_prod}`) });
         } catch (err) {
-            errorLog.error("Hubo un error al eliminar item del carro");
+            errorLog.error('Hubo un error al eliminar item del carro');
         }
     }
 
@@ -56,7 +50,7 @@ class MongoContainer {
         try {
             return await this.model.create(obj);
         } catch (err) {
-            errorLog.error("Hubo un error al guardar");
+            errorLog.error('Hubo un error al guardar');
         }
     }
 
@@ -72,7 +66,7 @@ class MongoContainer {
                     stock: body.stock
                 } });
         } catch (err) {
-            errorLog.error("Hubo un error al actualizar");
+            errorLog.error('Hubo un error al actualizar');
         }
     }
 }
