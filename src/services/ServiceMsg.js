@@ -1,4 +1,4 @@
-import { msgDao } from "../daos/index.js";
+import { msgDao } from "../persistencia/msgFactory.js";
 
 class NegocioMsg {
     

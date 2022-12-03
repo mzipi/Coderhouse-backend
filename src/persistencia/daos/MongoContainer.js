@@ -1,6 +1,6 @@
-import { MONGO_URL2, MONGO_DB } from "../config/config.js";
+import { MONGO_URL2, MONGO_DB } from "../../config/config.js";
 import { MongoClient, ObjectId } from "mongodb";
-import { errorLog } from "../api/logger.js";
+import { errorLog } from "../../api/logger.js";
 
 const uri = MONGO_URL2;
 const client = new MongoClient(uri);

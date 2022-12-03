@@ -1,5 +1,5 @@
 import { Router } from "express";
-import randomController from "../controllers/random-controller.js";
+import randomController from "../../controllers/random-controller.js";
 
 const router = Router();
 

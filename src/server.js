@@ -1,18 +1,18 @@
 import express, { urlencoded, json } from "express";
 
-import productsRouter from "./routes/api_products-route.js";
-import index from "./routes/root-route.js";
-import products from "./routes/products-route.js";
-import msgRouter from "./routes/msg-route.js";
-import login from "./routes/login-route.js";
-import logout from "./routes/logout-route.js";
-import signup from "./routes/signup-route.js";
-import test from "./routes/test-route.js";
-import fail_login from "./routes/fail_login-route.js";
-import fail_signup from "./routes/fail_signup-route.js";
-import info from "./routes/info-route.js";
-import randoms from "./routes/api_randoms-route.js";
-import all from "./routes/all-routes.js";
+import productsRouter from "./api/routes/api_products-route.js";
+import index from "./api/routes/root-route.js";
+import products from "./api/routes/products-route.js";
+import msgRouter from "./api/routes/msg-route.js";
+import login from "./api/routes/login-route.js";
+import logout from "./api/routes/logout-route.js";
+import signup from "./api/routes/signup-route.js";
+import test from "./api/routes/test-route.js";
+import fail_login from "./api/routes/fail_login-route.js";
+import fail_signup from "./api/routes/fail_signup-route.js";
+import info from "./api/routes/info-route.js";
+import randoms from "./api/routes/api_randoms-route.js";
+import all from "./api/routes/all-routes.js";
 
 import sessionHandler from "./middlewares/session-middleware.js";
 import { passportMiddleware, passportSessionHandler } from "./middlewares/passport-middleware.js";

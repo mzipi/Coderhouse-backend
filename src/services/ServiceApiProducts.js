@@ -1,5 +1,5 @@
 import { randomUUID } from 'crypto';
-import { productDao } from "../daos/index.js";
+import { productDao } from "../persistencia/productsFactory.js";
 
 class NegocioProducts {
     

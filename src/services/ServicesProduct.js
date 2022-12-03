@@ -1,4 +1,4 @@
-import { productDao } from "../daos/index.js";
+import { productDao } from "../persistencia/productsFactory.js";
 
 export default class ServiceProducts {
     getProducts(res) {
