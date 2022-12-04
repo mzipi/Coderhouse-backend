@@ -4,6 +4,7 @@ import { MONGO_URL2 } from '../config/config.js';
 mongoose.connect(MONGO_URL2);
 
 const schema = {
+    id: String,
     name: String,
     price: Number,
     image: String

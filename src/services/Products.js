@@ -11,15 +11,17 @@ function asegurarValorPositivo(valor, errorMsg) {
 }
 
 export default class Product {
+    #id;
     #name;
     #price;
     #image;
 
-    constructor({ name, price, image }) {
+    constructor({ id, name, price, image }) {
         asegurarValorNoNulo(name, 'el nombre no puede ser nulo');
         asegurarValorNoNulo(price, 'el precio no puede ser nulo');
         asegurarValorNoNulo(image, 'la imagen no puede ser nula');
 
+        this.#id = id;
         this.#name = name;
         this.#price = price;
         this.#image = image;
@@ -39,6 +41,7 @@ export default class Product {
 
     asDto() {
         return Object.freeze({
+            id: this.#id,
             name: this.#name,
             price: this.#price,
             image: this.#image,

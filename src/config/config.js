@@ -17,8 +17,7 @@ const TWILIO_ACCOUNT_SID = process.env.TWILIO_ACCOUNT_SID;
 const TWILIO_AUTH_TOKEN = process.env.TWILIO_AUTH_TOKEN;
 const FROM_PHONE = process.env.FROM_PHONE;
 const TO_PHONE = process.env.TO_PHONE;
-const PRODUCT = process.env.PRODUCT;
-const MSG = process.env.MSG;
+const CONTAINER = process.env.CONTAINER;
 
 export {
     MARIADB_USR,
@@ -36,6 +35,5 @@ export {
     TWILIO_AUTH_TOKEN,
     FROM_PHONE,
     TO_PHONE,
-    PRODUCT,
-    MSG
+    CONTAINER
 };

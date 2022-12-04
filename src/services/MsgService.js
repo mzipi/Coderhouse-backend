@@ -1,4 +1,4 @@
-import msgDao from '../persistencia/msg-factory.js';
+import { msgDao } from '../persistencia/dao-factory.js';
 import MsgRepo from './MsgRepo.js';
 import Messages from './Messages.js';
 
@@ -7,14 +7,24 @@ export default class MsgService {
         this.msgRepo = new MsgRepo(msgDao);
     }
 
-    async sendMsg({body}) {
-        const msg = new Messages({ ...body })
-        await this.msgRepo.addMsg(msg)
+    async setData({body}) {
+        const msg = new Messages({...body})
+        await this.msgRepo.setData(msg)
         return msg.asDto()
     }
 
-    async getMsg() {
-        const msg = await this.msgRepo.getMsg()
+    async getAllData() {
+        const msg = await this.msgRepo.getAllData()
         return msg.map(usu => usu.asDto())
     }
+
+    // async updateData({body}) {
+    //     const msg = new Messages({ ...body })
+    //     await this.msgRepo.updateData(msg.asDto(body))
+    // }
+
+    // async delData({body}) {
+    //     const msg = new Messages(body.id)
+    //     await this.msgRepo.delData(msg.asDto(body.id))
+    // }
 }

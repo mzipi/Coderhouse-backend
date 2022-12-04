@@ -4,6 +4,7 @@ import { MONGO_URL2 } from '../config/config.js';
 connect(MONGO_URL2);
 
 const schema = {
+    id: String,
     author: {
         name: String,
         lastname: String,

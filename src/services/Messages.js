@@ -1,8 +1,10 @@
-export default class Product {
+export default class Messages {
+    #id;
     #author;
     #text;
 
-    constructor({ author,text }) {
+    constructor({ _id, author,text }) {
+        this.#id = _id;
         this.#author = author;
         this.#text = text;
     }
@@ -14,6 +16,7 @@ export default class Product {
 
     asDto() {
         return Object.freeze({
+            id: this.#id,
             author: this.#author,
             text: this.#text
         });
