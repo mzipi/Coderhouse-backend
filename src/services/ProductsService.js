@@ -26,15 +26,15 @@ export default class ProductsService {
         return products.map(usu => usu.asDto())
     }
 
-    // async updateData({body}) {
-    //     const product = new Product({ ...body })
-    //     await this.productsRepo.updateData(product)
-    //     return product.asDto()
-    // }
+    async updateData({body}) {
+        const product = new Product({ ...body })
+        await this.productsRepo.updateData(product)
+        return product.asDto()
+    }
 
-    // async delData({body}) {
-    //     const product = new Product({ ...body })
-    //     await this.productsRepo.delData(product)
-    //     return product.asDto()
-    // }
+    async delData({body}) {
+        const product = new Product({ ...body })
+        await this.productsRepo.delData(product)
+        return product.asDto()
+    }
 }

@@ -14,11 +14,11 @@ export default class ProductsRepo {
         return dtos.map(dto => new Product(dto))
     }
 
-    // async updateData(data) {
-    //     await this.dao.updateData(data.asDto())
-    // }
+    async updateData(data) {
+        await this.dao.updateData(data.asDto())
+    }
 
-    // async delData(data) {
-    //     await this.dao.delData(data.asDto())
-    // }
+    async delData(data) {
+        await this.dao.delData(data.asDto())
+    }
 }
