@@ -40,7 +40,8 @@ export default class MongoContainer {
     
     async updateData(id, body) {
         try {
-            await this.model.findOneAndUpdate({ _id: ObjectId(`${id}`) }, { $set: body });
+            await this.model.findOneAndUpdate({ id: id }, { $set: body });
+            // await this.model.findOneAndUpdate({ _id: ObjectId(`${id}`) }, { $set: body });
         } catch (err) {
             { updatedata: err }
         }

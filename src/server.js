@@ -10,11 +10,12 @@ import fail_signup from './api/routes/fail_signup-route.js';
 import info from './api/routes/info-route.js';
 import randoms from './api/routes/api_randoms-route.js';
 import all from './api/routes/all-routes.js';
-import products from './api/routes/products-router.js';
+// import products from './api/routes/products-router.js';
 import msg from './api/routes/msg-router.js';
 
 import sessionHandler from './api/middlewares/session-middleware.js';
 import { passportMiddleware, passportSessionHandler } from './api/middlewares/passport-middleware.js';
+import { graphqlMiddleware } from './api/middlewares/graphql-middleware.js';
 
 const app = express();
 
@@ -38,7 +39,7 @@ app.use('/failsignup', fail_signup);
 app.use('/info', info);
 app.use('/api/randoms', randoms);
 app.use('*', all);
-app.use('/api/productos', products);
+app.use('/api/productos', graphqlMiddleware);
 app.use('/api/mensajes', msg);
 
 export default app;
