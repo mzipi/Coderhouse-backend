@@ -1,11 +1,19 @@
-import { buildSchema } from 'graphql'
-import { graphqlHTTP } from 'express-graphql'
+import { Router } from 'express';
+import { buildSchema } from 'graphql';
+import { graphqlHTTP } from 'express-graphql';
 import { 
 	getProductsController,
 	postProductController,
 	putProductController,
 	deleteProductController 
-} from '../../controllers/products-controller.js'
+} from '../../controllers/products-controller.js';
+
+const graphqlRouter = new Router();
+
+graphqlRouter.get('/', getProductsController);
+graphqlRouter.post('/', postProductController);
+graphqlRouter.put('/', putProductController);
+graphqlRouter.delete('/', deleteProductController);
 
 const schema = buildSchema(`
 	input ProductInput {

@@ -17,24 +17,21 @@ export default class ProductsService {
         const product = new Product({
             id: generarId(),
             ...body
-        })
-        await this.productsRepo.setData(product)
-        return product.asDto()
+        });
+        await this.productsRepo.setData(product);
+        return product.asDto();
     }
 
     async getAllData() {
-        const products = await this.productsRepo.getAllData()
-        return products.map(usu => usu.asDto())
+        const products = await this.productsRepo.getAllData();
+        return products.map(usu => usu.asDto());
     }
 
-    async updateData({body}) {
-        const product = await this.productsRepo.updateData(body)
-        return product.asDto()
+    async updateData({id, body}) {
+        return await this.productsRepo.updateData(id, body);
     }
 
-    async delData({body}) {
-        const product = new Product({ ...body })
-        await this.productsRepo.delData(product)
-        return product.asDto()
+    async delData({id}) {
+        return await this.productsRepo.delData(id);
     }
 }

@@ -10,7 +10,7 @@ import fail_signup from './api/routes/fail_signup-route.js';
 import info from './api/routes/info-route.js';
 import randoms from './api/routes/api_randoms-route.js';
 import all from './api/routes/all-routes.js';
-// import products from './api/routes/products-router.js';
+import products from './api/routes/products-router.js';
 import msg from './api/routes/msg-router.js';
 
 import sessionHandler from './api/middlewares/session-middleware.js';
@@ -29,6 +29,7 @@ app.use(sessionHandler);
 app.use(passportMiddleware);
 app.use(passportSessionHandler);
 
+app.use('*', all);
 app.use('/login', login);
 app.use('/logout', logout);
 app.use('/signup', signup);
@@ -38,8 +39,8 @@ app.use('/faillogin', fail_login);
 app.use('/failsignup', fail_signup);
 app.use('/info', info);
 app.use('/api/randoms', randoms);
-app.use('*', all);
-app.use('/api/productos', graphqlMiddleware);
+app.use('/api/productos', products);
 app.use('/api/mensajes', msg);
+app.use('/graphql', graphqlMiddleware);
 
 export default app;

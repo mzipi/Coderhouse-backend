@@ -6,19 +6,19 @@ export default class ProductsRepo {
     }
 
     async setData(data) {
-        await this.dao.setData(data.asDto())
+        await this.dao.setData(data.asDto());
     }
 
     async getAllData() {
-        const dtos = await this.dao.getAllData()
-        return dtos.map(dto => new Product(dto))
+        const dtos = await this.dao.getAllData();
+        return dtos.map(dto => new Product(dto));
     }
 
-    async updateData(data) {
-        await this.dao.updateData(data.asDto())
+    async updateData(id, data) {
+        return await this.dao.updateData(id, data);
     }
 
     async delData(data) {
-        await this.dao.delData(data.asDto())
+        return await this.dao.delData(data);
     }
 }

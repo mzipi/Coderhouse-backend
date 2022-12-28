@@ -3,24 +3,17 @@ import ProductsService from '../services/ProductsService.js';
 const products = new ProductsService();
 
 export async function getProductsController(req, res) {
-    const data = await products.getAllData();
-    // res.json(data);
-    return data;
+    return await products.getAllData();
 }
 
 export async function postProductController(req, res) {
-    const data = await products.setData(req);
-    // res.json(data);
-    return data;
+    return await products.setData(req);
 }
 
 export async function putProductController(req, res) {
-    const data = await products.updateData(req);
-    // res.status(200).end();
-    return data;
+    return await products.updateData(req);
 };
 
 export async function deleteProductController(req, res) {
-    const data = await products.delData(req);
-    res.status(200).end();
+    return await products.delData(req);
 };
