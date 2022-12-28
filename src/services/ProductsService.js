@@ -1,10 +1,11 @@
-import { randomUUID } from 'crypto'
+import crypto from 'crypto'
 import { productDao } from '../persistencia/dao-factory.js';
 import ProductsRepo from './ProductsRepo.js';
 import Product from './Products.js';
 
 function generarId() {
-    return randomUUID()
+    const id = crypto.randomBytes(10).toString('hex');
+    return id;
 }
 
 export default class ProductsService {
@@ -26,15 +27,22 @@ export default class ProductsService {
         return products.map(usu => usu.asDto())
     }
 
-    async updateData({body}) {
-        const product = new Product({ ...body })
-        await this.productsRepo.updateData(product)
-        return product.asDto()
+    async updateData({params, body}) {
+        return await this.productsRepo.updateData(params.id, body);
     }
 
-    async delData({body}) {
-        const product = new Product({ ...body })
-        await this.productsRepo.delData(product)
-        return product.asDto()
+    async delData({params}) {
+        return await this.productsRepo.delData(params.id)
     }
+    // async updateData({body}) {
+    //     const product = new Product({ ...body })
+    //     await this.productsRepo.updateData(product)
+    //     return product.asDto()
+    // }
+
+    // async delData({body}) {
+    //     const product = new Product({ ...body })
+    //     await this.productsRepo.delData(product)
+    //     return product.asDto()
+    // }
 }

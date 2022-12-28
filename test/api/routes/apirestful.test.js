@@ -8,7 +8,7 @@ import { MONGO_URL2 } from '../../../src/config/config.js';
 let request;
 let server;
 
-describe('test de api RESTful', () => {
+describe('Test de api RESTful', () => {
 
     before(async function () {
         await connectDb();
@@ -21,14 +21,14 @@ describe('test de api RESTful', () => {
         server.close();
     });
 
-    describe('GET', () => {
+    describe('GET request', () => {
         it('debería retornar un status 200', async () => {
             const response = await request.get('/');
             expect(response.status).to.eql(200);
         });
     });
 
-    describe('POST', () => {
+    describe('POST request', () => {
         it('debería agregar un producto', async () => {
             const fakeProduct = generarProducto();
 
@@ -43,27 +43,24 @@ describe('test de api RESTful', () => {
         });
     });
 
-    describe('PUT', () => {
-        it('debería actualizar un producto', async (done) => {
+    describe('PUT request', () => {
+        it('debería actualizar un producto', async () => {
             const fakeProduct = generarProducto();
-
-            const response = await request.put('/6382121127ba4d9bda7bc777').send(fakeProduct);
+            const response = await request.put('/8c1ecfb869ff6b305b90').send(fakeProduct);
             expect(response.status).to.eql(200);
-
+            
             const product = response.body;
             expect(product).to.include.keys('name', 'price', 'image');
             expect(product.name).to.eql(fakeProduct.name);
             expect(product.price).to.eql(fakeProduct.price);
             expect(product.image).to.eql(fakeProduct.image);
-            done();
         });
     });
 
-    describe('DELETE', () => {
-        it('debería eliminar un producto', async (done) => {
-            const response = await request.delete('/6382121127ba4d9bda7bc777');
+    describe('DELETE request', () => {
+        it('debería eliminar un producto', async () => {
+            const response = await request.delete('/faa1a068-78cb-4fd4-92fa-38a37f538253');
             expect(response.status).to.eql(200);
-            done();
         });
     });
 });

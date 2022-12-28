@@ -14,10 +14,10 @@ export async function postProductController(req, res) {
 
 export async function putProductController(req, res) {
     const data = await products.updateData(req);
-    res.status(200).end();
+    res.json(data);
 };
 
 export async function deleteProductController(req, res) {
     const data = await products.delData(req);
-    res.status(200).end();
+    res.json(data);
 };

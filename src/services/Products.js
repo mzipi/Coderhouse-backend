@@ -5,7 +5,7 @@ function asegurarValorNoNulo(valor, errorMsg) {
 }
 
 function asegurarValorPositivo(valor, errorMsg) {
-    if (valor === undefined || valor === null)
+    if (valor < 0)
         throw new Error(errorMsg);
     return valor;
 }

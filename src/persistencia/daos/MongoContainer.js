@@ -24,7 +24,7 @@ export default class MongoContainer {
 
     async getData(id) {
         try {
-            return await this.model.findOne({ _id: ObjectId(`${id}`) });
+            return await this.model.findOne({ id });
         } catch (err) {
             { getdata: err }
         }
@@ -32,7 +32,7 @@ export default class MongoContainer {
 
     async delData(id) {
         try {
-            await this.model.findOneAndDelete({ _id: ObjectId(`${id}`) });
+            return await this.model.findOneAndDelete({ id });
         } catch (err) {
             { deldata: err }
         }
@@ -40,9 +40,24 @@ export default class MongoContainer {
     
     async updateData(id, body) {
         try {
-            await this.model.findOneAndUpdate({ _id: ObjectId(`${id}`) }, { $set: body });
+            return await this.model.findOneAndUpdate({ id }, { $set: body });
         } catch (err) {
             { updatedata: err }
         }
     }
+    // async delData(id) {
+    //     try {
+    //         await this.model.findOneAndDelete({ _id: ObjectId(`${id}`) });
+    //     } catch (err) {
+    //         { deldata: err }
+    //     }
+    // }
+    
+    // async updateData(id, body) {
+    //     try {
+    //         await this.model.findOneAndUpdate({ _id: ObjectId(`${id}`) }, { $set: body });
+    //     } catch (err) {
+    //         { updatedata: err }
+    //     }
+    // }
 };
