@@ -1,4 +1,4 @@
-import ServiceLogout from '../services/logout-service.js';
+import ServiceLogout from '../app/services/logout-service.js';
 
 const serviceLogout = new ServiceLogout();
 

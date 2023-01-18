@@ -1,6 +1,6 @@
 import session from 'express-session';
 import MongoStore from 'connect-mongo';
-import { MONGO_URL2 } from '../config/config.js';
+import { MONGO_URL2 } from '../../config/config.js';
 
 const mongoUrl = MONGO_URL2;
 const store = MongoStore.create({ mongoUrl, ttl: 300 });

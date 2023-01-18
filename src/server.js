@@ -1,24 +1,24 @@
 import express, { json, urlencoded } from "express";
 
-import cartsRouter from "./routers/carts-router.js";
-import ordersRouter from "./routers/orders-router.js";
-import productsRouter from "./routers/products-router.js";
-import usersRouter from "./routers/users-router.js";
-import missingRoutes from './missing-routes/missing-routes-router.js';
-import loginRouter from './routers/login-router.js';
-import logoutRouter from './routers/logout-router.js';
-import signupRouter from './routers/signup-router.js';
-import failLoginRouter from './routers/fail-login-router.js';
-import failSignupRouter from './routers/fail-signup-router.js';
+import cartsRouter from "./routes/carts-router.js";
+import ordersRouter from "./routes/orders-router.js";
+import productsRouter from "./routes/products-router.js";
+import usersRouter from "./routes/users-router.js";
+import missingRoutes from './routes/missing-routes-router.js';
+import loginRouter from './routes/login-router.js';
+import logoutRouter from './routes/logout-router.js';
+import signupRouter from './routes/signup-router.js';
+import failLoginRouter from './routes/fail-login-router.js';
+import failSignupRouter from './routes/fail-signup-router.js';
 
-import sessionHandler from './middlewares/session-middleware.js';
+import sessionHandler from './app/middlewares/session-middleware.js';
 // import { passportMiddleware, passportSessionHandler } from "./middlewares/passport-middleware.js";
 
 const app = express();
 
 app.use(json());
 app.use(urlencoded({extended: true}));
-app.use(express.static('public'));
+app.use(express.static('src/static'));
 app.use(sessionHandler);
 // app.use(passportMiddleware);
 // app.use(passportSessionHandler);
