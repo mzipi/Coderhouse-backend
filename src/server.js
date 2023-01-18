@@ -1,15 +1,15 @@
 import express, { json, urlencoded } from "express";
 
-import cartsRouter from "./carts/carts-router.js";
-import ordersRouter from "./orders/orders-router.js";
-import productsRouter from "./products/products-router.js";
-import usersRouter from "./users/users-router.js";
+import cartsRouter from "./routers/carts-router.js";
+import ordersRouter from "./routers/orders-router.js";
+import productsRouter from "./routers/products-router.js";
+import usersRouter from "./routers/users-router.js";
 import missingRoutes from './missing-routes/missing-routes-router.js';
-import login from './login/login-router.js';
-import logout from './logout/logout-router.js';
-import signup from './signup/signup-router.js';
-import fail_login from './fail-login/fail-login-router.js';
-import fail_signup from './fail-signup/fail-signup-router.js';
+import loginRouter from './routers/login-router.js';
+import logoutRouter from './routers/logout-router.js';
+import signupRouter from './routers/signup-router.js';
+import failLoginRouter from './routers/fail-login-router.js';
+import failSignupRouter from './routers/fail-signup-router.js';
 
 import sessionHandler from './middlewares/session-middleware.js';
 // import { passportMiddleware, passportSessionHandler } from "./middlewares/passport-middleware.js";
@@ -26,11 +26,11 @@ app.use('/api/shoppingcartproducts', cartsRouter);
 app.use('/api/orders', ordersRouter);
 app.use('/api/products', productsRouter);
 app.use('/api/users', usersRouter);
-app.use('/login', login);
-app.use('/logout', logout);
-app.use('/signup', signup);
-app.use('/faillogin', fail_login);
-app.use('/failsignup', fail_signup);
+app.use('/login', loginRouter);
+app.use('/logout', logoutRouter);
+app.use('/signup', signupRouter);
+app.use('/faillogin', failLoginRouter);
+app.use('/failsignup', failSignupRouter);
 app.use('*', missingRoutes);
 
 export default app;
