@@ -26,11 +26,7 @@ export default class ProductsService {
         const products = await this.productsRepo.getAllData();
         return products.map(usu => usu.asDto());
     }
-
-    async updateData({id, body}) {
-        // return await this.productsRepo.updateData(id, body);
-    }
-
+    
     async delData({id}) {
         return await this.productsRepo.delData(id);
     }
