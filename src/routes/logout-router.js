@@ -1,7 +1,8 @@
-import ServiceLogout from '../app/services/logout-service.js';
+import { Router } from 'express';
+import logoutController from '../controllers/logout-controller.js';
 
-const serviceLogout = new ServiceLogout();
+const logoutRouter = Router();
 
-export default function logoutController(req, res) {
-    serviceLogout.logout(req, res);
-}
+logoutRouter.get('/', logoutController);
+
+export default logoutRouter;

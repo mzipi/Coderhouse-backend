@@ -1,6 +1,6 @@
-import { CONTAINER } from '../../config/config.js';
+import { CONTAINER } from '../config/config.js';
 // import Msg from '../models/msg-model.js';
-import Products from '../../app/schemas/products-schema.js';
+import Products from '../schemas/products-schema.js';
 
 let msgDao, productDao;
 

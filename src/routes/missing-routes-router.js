@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import allController from '../app/controllers/missing-routes-controller.js';
+import allController from '../controllers/missing-routes-controller.js';
 
 const router = Router();
 

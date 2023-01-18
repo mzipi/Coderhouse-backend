@@ -11,7 +11,7 @@ import signupRouter from './routes/signup-router.js';
 import failLoginRouter from './routes/fail-login-router.js';
 import failSignupRouter from './routes/fail-signup-router.js';
 
-import sessionHandler from './app/middlewares/session-middleware.js';
+import sessionHandler from './middlewares/session-middleware.js';
 // import { passportMiddleware, passportSessionHandler } from "./middlewares/passport-middleware.js";
 
 const app = express();

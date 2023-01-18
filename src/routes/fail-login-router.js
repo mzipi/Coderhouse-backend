@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import failLoginController from '../app/controllers/fail-login-controller.js';
+import failLoginController from '../controllers/fail-login-controller.js';
 
 const failLoginRouter = Router();
 
