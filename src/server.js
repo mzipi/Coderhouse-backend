@@ -11,18 +11,23 @@ import logoutRouter from './routes/logout-router.js';
 import signupRouter from './routes/signup-router.js';
 import failLoginRouter from './routes/fail-login-router.js';
 import failSignupRouter from './routes/fail-signup-router.js';
+import userProtectedRouter from './routes/user-protected-router.js';
 
 import sessionHandler from './middlewares/session-middleware.js';
-import { passportMiddleware, passportSessionHandler } from "./middlewares/passport-middleware.js";
+import { passportMiddleware } from "./middlewares/passport-middleware.js";
+// import { passportMiddleware, passportSessionHandler } from "./middlewares/passport-middleware.js";
+import connect from "./middlewares/db-config.js";
 
 const app = express();
+connect();
 
 app.use(json());
 app.use(urlencoded({extended: true}));
 app.use(express.static('src/static'));
 app.use(sessionHandler);
 app.use(passportMiddleware);
-app.use(passportSessionHandler);
+// app.use(passportSessionHandler);
+app.use('/api/user/protected', userProtectedRouter);
 app.use('/api/images', imagesRouter);
 app.use('/api/orders', ordersRouter);
 app.use('/api/products', productsRouter);

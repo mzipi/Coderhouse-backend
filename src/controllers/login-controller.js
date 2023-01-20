@@ -1,7 +1,13 @@
-import ServiceLogin from '../services/login-service.js';
+import jwt from "jsonwebtoken";
 
-const serviceLogin = new ServiceLogin();
-
-export function postLoginController(req, res) {
-    serviceLogin.auth();
-}
+export function postLoginController(req, res, next) {
+    jwt.sign({ user: req.user }, 'secretKey', { expiresIn: '1h'} , (err, token) => {
+        if(err) {
+            return res.json({
+                massgae: "Failed to login",
+                token: null
+            });
+        };
+        res.json({ token });
+    });
+};
