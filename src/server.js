@@ -1,5 +1,6 @@
 import express, { json, urlencoded } from "express";
 
+import imagesRouter from "./routes/load-images-router.js";
 import cartsRouter from "./routes/carts-router.js";
 import ordersRouter from "./routes/orders-router.js";
 import productsRouter from "./routes/products-router.js";
@@ -22,9 +23,10 @@ app.use(express.static('src/static'));
 app.use(sessionHandler);
 // app.use(passportMiddleware);
 // app.use(passportSessionHandler);
-app.use('/api/shoppingcartproducts', cartsRouter);
+app.use('/api/images', imagesRouter);
 app.use('/api/orders', ordersRouter);
 app.use('/api/products', productsRouter);
+app.use('/api/shoppingcartproducts', cartsRouter);
 app.use('/api/users', usersRouter);
 app.use('/login', loginRouter);
 app.use('/logout', logoutRouter);

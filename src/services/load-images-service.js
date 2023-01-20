@@ -1,24 +1,16 @@
 import crypto from 'crypto'
-import { productDao } from '../dao/dao-factory.js';
-import ProductsRepo from './orders-repository.js';
-import Product from '../dto/create-order-dto.js';
-
-function generarId() {
-    const id = crypto.randomBytes(10).toString('hex')
-    return id;
-}
+import { imagesDao } from '../dao/dao-factory.js';
+import LoadImagesRepository from '../repositories/load-images-repository.js';
+import ImagesDto from '../dto/load-images-dto.js';
 
 export default class ProductsService {
     constructor() {
-        this.productsRepo = new ProductsRepo(productDao);
+        this.loadImagesRepository = new LoadImagesRepository(imagesDao);
     }
 
     async setData({body}) {
-        const product = new Product({
-            id: generarId(),
-            ...body
-        });
-        await this.productsRepo.setData(product);
-        return product.asDto();
+        const image = new ImagesDto({ ...body });
+        await this.loadImagesRepository.setData(image);
+        return image.asDto();
     }
 }
