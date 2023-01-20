@@ -1,5 +1,5 @@
 import { CONTAINER, NODE_ENV } from '../config/config.js';
-import Carts from '../model/products-model.js';
+import Carts from '../model/carts-model.js';
 import Images from '../model/images-model.js';
 import Products from '../model/products-model.js';
 import Orders from '../model/orders-model.js';

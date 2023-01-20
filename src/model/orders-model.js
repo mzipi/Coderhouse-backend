@@ -11,7 +11,7 @@ const schema = {
     items: Object
 }
  
-const ordersSchema = new mongoose.Schema(schema, { driver: mongoose.ObjectId });
+const ordersSchema = new mongoose.Schema(schema, { driver: mongoose.ObjectId }, { timestamps: true });
 const Orders = mongoose.model('Orders', ordersSchema, 'orders');
 
 export default Orders;

@@ -10,6 +10,6 @@ const schema = {
 }
  
 const cartSchema = new mongoose.Schema(schema, { driver: mongoose.ObjectId });
-const Cart = mongoose.model('Cart', cartSchema, 'cart');
+const Cart = mongoose.model('Cart', cartSchema, 'carts');
 
 export default Cart;

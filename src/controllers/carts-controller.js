@@ -8,9 +8,11 @@ export async function getCartController(req, res) {
 }
 
 export async function postCartController(req, res) {
-    return await cart.setData(req);
+    const data = await cart.setData(req);
+    res.json(data);
 }
 
 export async function deleteCartController(req, res) {
-    return await cart.deleteData(req);
+    const data = await cart.deleteData(req.params);
+    res.json(data);
 };

@@ -8,5 +8,6 @@ export async function getOrdersController(req, res) {
 }
 
 export async function postOrdersController(req, res) {
-    return await orders.setData(req);
+    const data = await orders.setData();
+    res.json(data);
 }

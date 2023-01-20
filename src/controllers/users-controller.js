@@ -8,5 +8,6 @@ export async function getUsersController(req, res) {
 }
 
 export async function postUsersController(req, res) {
-    return await users.setData(req);
+    const data = await users.setData(req);
+    res.json(data);
 }

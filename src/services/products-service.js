@@ -31,8 +31,8 @@ export default class ProductsService {
         }
     }
 
-    async updateData({id, body}) {
-        return await this.productsRepository.updateData(id, body);
+    async updateData({params, body}) {
+        return await this.productsRepository.updateData(params.id, body);
     }
 
     async deleteData({params}) {

@@ -13,10 +13,10 @@ export default class OrdersService {
         this.orderRepository = new OrderRepository(ordersDao);
     }
 
-    async setData({body}) {
+    async setData() {
         const order = new OrderDto({
             id: idGenerator(),
-            ...body
+            // timestamp
         });
         await this.orderRepository.setData(order);
         return order.asDto();

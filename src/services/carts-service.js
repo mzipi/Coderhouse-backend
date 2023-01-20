@@ -28,6 +28,6 @@ export default class CartsService {
     }
     
     async deleteData({id}) {
-        return await this.cartRepository.delData(id);
+        return await this.cartRepository.deleteData(id);
     }
 }
