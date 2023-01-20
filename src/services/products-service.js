@@ -1,5 +1,5 @@
 import crypto from 'crypto'
-import { productDao } from '../dao/dao-factory.js';
+import { products } from '../dao/dao-factory.js';
 import ProductsRepository from '../repositories/products-repository.js';
 import Product from '../dto/create-product-dto.js';
 
@@ -10,7 +10,7 @@ function generarId() {
 
 export default class ProductsService {
     constructor() {
-        this.productsRepository = new ProductsRepository(productDao);
+        this.productsRepository = new ProductsRepository(products);
     }
 
     async setData({body}) {
@@ -22,16 +22,20 @@ export default class ProductsService {
         return product.asDto();
     }
 
-    async getData() {
-        const products = await this.productsRepository.getData();
-        return products.map(product => product.asDto());
+    async getData({params}) {
+        if(params.id) {
+            return await this.productsRepository.getData(params.id);
+        } else {
+            const data = await this.productsRepository.getData();
+            return data.map(product => product.asDto());
+        }
     }
 
     async updateData({id, body}) {
         return await this.productsRepository.updateData(id, body);
     }
 
-    async deleteData({id}) {
-        return await this.productsRepository.deleteData(id);
+    async deleteData({params}) {
+        return await this.productsRepository.deleteData(params.id);
     }
 }

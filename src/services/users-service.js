@@ -1,5 +1,5 @@
 import crypto from 'crypto'
-import { productDao } from '../dao/dao-factory.js'; // <----------------------
+import { users } from '../dao/dao-factory.js';
 import UsersRepository from '../repositories/users-repository.js';
 import User from '../dto/create-user-dto.js';
 
@@ -10,7 +10,7 @@ function idGenerator() {
 
 export default class UsersService {
     constructor() {
-        this.userRepository = new UsersRepository(productDao);
+        this.userRepository = new UsersRepository(users);
     }
 
     async setData({body}) {

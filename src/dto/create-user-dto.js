@@ -9,7 +9,7 @@ export default class Order {
     constructor({ id, email, password, name, lastname, image }) {
         this.#id = id;
         this.#email = email;
-        this.setpassword(password);
+        this.#password = password;
         this.#name = name;
         this.#lastname = lastname;
         this.#image = image;

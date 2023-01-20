@@ -6,43 +6,56 @@ export default class MongoContainer {
         this.model = model;
     }
 
-    async getAllData() {
-        try {
-            return await this.model.find();
-        } catch (err) {
-            { getalldata: err }
+    async getData(id) {
+        if(id) {
+            try {
+                const data = await this.model.findOne({ id: `${id}` });
+                if(!data) {
+                    return { id, status: 'not found' }
+                } else {
+                    return data;
+                }
+            } catch (error) {
+                return { error }
+            }
+        } else {
+            try {
+                const data = await this.model.find();
+                if(!data) {
+                    return { status: 'not found' }
+                } else {
+                    return data;
+                }
+            } catch (error) {
+                return { error }
+            }
         }
     }
 
     async setData(dto) {
         try {
-            return await this.model.create(dto);
-        } catch (err) {
-            { setdata: err }
+            await this.model.create(dto);
+            return { id: `${dto.id}`, status: 'added'}
+        } catch (error) {
+            return { error }
         }
     }
 
-    async getData(id) {
+    async deleteData(id) {
         try {
-            return await this.model.findOne({ _id: ObjectId(`${id}`) });
-        } catch (err) {
-            { getdata: err }
-        }
-    }
-
-    async delData(id) {
-        try {
-            return await this.model.findOneAndDelete({ id });
-        } catch (err) {
-            { deldata: err }
+            await this.model.findOneAndDelete({ id: `${id}` });
+            return { id, status: 'deleted'}
+        } catch (error) {
+            return { error }
         }
     }
     
     async updateData(id, body) {
         try {
-            return await this.model.findOneAndUpdate({ id }, { $set: body });
-        } catch (err) {
-            { updatedata: err }
+            await this.model.findOneAndUpdate({ id }, { $set: body });
+            return { id, status: 'updated'}
+        } catch (error) {
+            return { error }
         }
     }
 };

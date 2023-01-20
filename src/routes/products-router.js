@@ -3,7 +3,7 @@ import { getProductsController, postProductController, putProductController, del
 
 const productsRouter = new Router();
 
-productsRouter.get('/', getProductsController);
+productsRouter.get('/:id?', getProductsController);
 productsRouter.post('/', postProductController);
 productsRouter.put('/:id', putProductController);
 productsRouter.delete('/:id', deleteProductController);

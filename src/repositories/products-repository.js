@@ -9,16 +9,20 @@ export default class ProductsRepository {
         await this.dao.setData(data.asDto());
     }
 
-    async getData() {
-        const dtos = await this.dao.getData();
-        return dtos.map(dto => new Product(dto));
+    async getData(id) {
+        if(id) {
+            return await this.dao.getData(id);
+        } else {
+            const data = await this.dao.getData();
+            return data.map(dto => new Product(dto));
+        }
     }
 
     async updateData(id, data) {
         return await this.dao.updateData(id, data);
     }
 
-    async deleteData(data) {
-        return await this.dao.deleteData(data);
+    async deleteData(id) {
+        return await this.dao.deleteData(id);
     }
 }

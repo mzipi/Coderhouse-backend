@@ -1,5 +1,5 @@
 import crypto from 'crypto'
-import { productDao } from '../dao/dao-factory.js'; // <----------------------------
+import { orders } from '../dao/dao-factory.js';
 import OrderRepository from '../repositories/orders-repository.js';
 import Order from '../dto/create-order-dto.js';
 
@@ -10,7 +10,7 @@ function idGenerator() {
 
 export default class OrdersService {
     constructor() {
-        this.orderRepository = new OrderRepository(productDao);
+        this.orderRepository = new OrderRepository(orders);
     }
 
     async setData({body}) {

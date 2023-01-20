@@ -1,5 +1,5 @@
 import crypto from 'crypto'
-import { productDao } from '../dao/dao-factory.js'; // <------------------------
+import { carts } from '../dao/dao-factory.js';
 import CartRepository from '../repositories/carts-repository.js';
 import Cart from '../dto/create-cart-dto.js';
 
@@ -10,7 +10,7 @@ function idGenerator() {
 
 export default class CartsService {
     constructor() {
-        this.cartRepository = new CartRepository(productDao);
+        this.cartRepository = new CartRepository(carts);
     }
 
     async setData({body}) {

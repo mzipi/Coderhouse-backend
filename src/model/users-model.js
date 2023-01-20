@@ -1,8 +1,8 @@
-import { connect, model } from 'mongoose';
-import { MONGO_URL } from '../config/config.js';
+import { connect, model, set } from 'mongoose';
+import { MONGO_URL2 } from '../config/config.js';
 
-mongoose.set('strictQuery', false);
-connect(MONGO_URL);
+set('strictQuery', false);
+connect(MONGO_URL2);
  
 export default model('Users',{
     email: String,
@@ -13,3 +13,4 @@ export default model('Users',{
     phone: String,
     image: String
 });
+

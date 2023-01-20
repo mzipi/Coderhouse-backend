@@ -27,7 +27,7 @@ export default class Product {
         this.#description = description;
         this.#price = price;
         this.#image = image;
-        this.setPrice(price);
+        // this.setPrice(price);
     }
 
     // accessors (getter)
