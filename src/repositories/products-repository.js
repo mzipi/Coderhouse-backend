@@ -1,6 +1,6 @@
 import Product from '../dto/create-product-dto.js';
 
-export default class ProductsRepo {
+export default class ProductsRepository {
     constructor(container) {
         this.dao = container;
     }
@@ -9,8 +9,8 @@ export default class ProductsRepo {
         await this.dao.setData(data.asDto());
     }
 
-    async getAllData() {
-        const dtos = await this.dao.getAllData();
+    async getData() {
+        const dtos = await this.dao.getData();
         return dtos.map(dto => new Product(dto));
     }
 
@@ -18,7 +18,7 @@ export default class ProductsRepo {
         return await this.dao.updateData(id, data);
     }
 
-    async delData(data) {
-        return await this.dao.delData(data);
+    async deleteData(data) {
+        return await this.dao.deleteData(data);
     }
 }
