@@ -45,6 +45,7 @@ export default class Product {
         return Object.freeze({
             id: this.#id,
             name: this.#name,
+            description: this.#description,
             price: this.#price,
             image: this.#image,
         });
