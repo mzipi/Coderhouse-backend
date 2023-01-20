@@ -1,16 +1,16 @@
-import ProductsService from '../services/carts-service.js';
+import CartsService from '../services/carts-service.js';
 
-const products = new ProductsService();
+const cart = new CartsService();
 
-export async function getProductsController(req, res) {
-    const data = await products.getAllData();
+export async function getCartController(req, res) {
+    const data = await cart.getData();
     res.json(data);
 }
 
-export async function postProductController(req, res) {
-    return await products.setData(req);
+export async function postCartController(req, res) {
+    return await cart.setData(req);
 }
 
-export async function deleteProductController(req, res) {
-    return await products.delData(req);
+export async function deleteCartController(req, res) {
+    return await cart.deleteData(req);
 };

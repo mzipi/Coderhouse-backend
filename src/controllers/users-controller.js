@@ -1,12 +1,12 @@
-import ProductsService from '../services/users-service.js';
+import UsersService from '../services/users-service.js';
 
-const products = new ProductsService();
+const users = new UsersService();
 
-export async function getProductsController(req, res) {
-    const data = await products.getAllData();
+export async function getUsersController(req, res) {
+    const data = await users.getData();
     res.json(data);
 }
 
-export async function postProductController(req, res) {
-    return await products.setData(req);
+export async function postUsersController(req, res) {
+    return await users.setData(req);
 }

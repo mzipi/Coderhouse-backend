@@ -1,29 +1,29 @@
 import crypto from 'crypto'
-import { productDao } from '../dao/dao-factory.js';
-import ProductsRepo from '../repositories/users-repository.js';
-import Product from '../dto/create-user-dto.js';
+import { productDao } from '../dao/dao-factory.js'; // <----------------------
+import UsersRepository from '../repositories/users-repository.js';
+import User from '../dto/create-user-dto.js';
 
-function generarId() {
+function idGenerator() {
     const id = crypto.randomBytes(10).toString('hex')
     return id;
 }
 
-export default class ProductsService {
+export default class UsersService {
     constructor() {
-        this.productsRepo = new ProductsRepo(productDao);
+        this.userRepository = new UsersRepository(productDao);
     }
 
     async setData({body}) {
-        const product = new Product({
-            id: generarId(),
+        const user = new User({
+            id: idGenerator(),
             ...body
         });
-        await this.productsRepo.setData(product);
-        return product.asDto();
+        await this.userRepository.setData(user);
+        return user.asDto();
     }
 
-    async getAllData() {
-        const products = await this.productsRepo.getAllData();
-        return products.map(usu => usu.asDto());
+    async getData() {
+        const users = await this.userRepository.getData();
+        return users.map(user => user.asDto());
     }
 }

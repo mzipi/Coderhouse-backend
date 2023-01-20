@@ -8,6 +8,7 @@ const MONGO_DB = process.env.MONGO_DB;
 const MAILER_PASS = process.env.MAILER_PASS;
 const MAILER_MAIL = process.env.MAILER_MAIL;
 const CONTAINER = process.env.CONTAINER;
+const NODE_ENV = process.env.NODE_ENV;
 
 export {
     MONGO_URL1,
@@ -15,5 +16,6 @@ export {
     MONGO_DB,
     MAILER_PASS,
     MAILER_MAIL,
-    CONTAINER
+    CONTAINER,
+    NODE_ENV
 };

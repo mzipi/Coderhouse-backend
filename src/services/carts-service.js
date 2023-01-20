@@ -1,33 +1,33 @@
 import crypto from 'crypto'
-import { productDao } from '../dao/dao-factory.js';
-import ProductsRepo from '../repositories/carts-repository.js';
-import Product from '../dto/create-cart-dto.js';
+import { productDao } from '../dao/dao-factory.js'; // <------------------------
+import CartRepository from '../repositories/carts-repository.js';
+import Cart from '../dto/create-cart-dto.js';
 
-function generarId() {
+function idGenerator() {
     const id = crypto.randomBytes(10).toString('hex')
     return id;
 }
 
-export default class ProductsService {
+export default class CartsService {
     constructor() {
-        this.productsRepo = new ProductsRepo(productDao);
+        this.cartRepository = new CartRepository(productDao);
     }
 
     async setData({body}) {
-        const product = new Product({
-            id: generarId(),
+        const cart = new Cart({
+            id: idGenerator(),
             ...body
         });
-        await this.productsRepo.setData(product);
-        return product.asDto();
+        await this.cartRepository.setData(cart);
+        return cart.asDto();
     }
 
-    async getAllData() {
-        const products = await this.productsRepo.getAllData();
-        return products.map(usu => usu.asDto());
+    async getData() {
+        const carts = await this.cartRepository.getData();
+        return carts.map(cart => cart.asDto());
     }
     
-    async delData({id}) {
-        return await this.productsRepo.delData(id);
+    async deleteData({id}) {
+        return await this.cartRepository.delData(id);
     }
 }

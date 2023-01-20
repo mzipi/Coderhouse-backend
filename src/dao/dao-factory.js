@@ -1,15 +1,17 @@
-import { CONTAINER } from '../config/config.js';
+import { CONTAINER, NODE_ENV } from '../config/config.js';
 // import Msg from '../models/msg-model.js';
-import Products from '../schemas/products-schema.js';
+import Products from '../model/products-model.js';
 
 let msgDao, productDao;
 
-switch (CONTAINER) {
-    // case 'firebase':
-    //     const { default: FirebaseContainer } = await import('./daos/FirebaseContainer.js');
-    //     msgDao = new FirebaseContainer();
-    //     productDao = new FirebaseContainer(Products);
-    //     break;
+switch (NODE_ENV) {
+    case 'development':
+        break;
+    case 'production':
+        const { default: MongoAtlas } = await import('./containers/mongo-atlas.js');
+        // msgDao = new MongoContainer(Msg);
+        productDao = new MongoAtlas(Products);
+        break;
     default:
         const { default: MongoContainer } = await import('./containers/mongo-atlas.js');
         // msgDao = new MongoContainer(Msg);

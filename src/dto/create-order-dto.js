@@ -1,50 +1,26 @@
-function asegurarValorNoNulo(valor, errorMsg) {
-    if (valor === undefined || valor === null)
-        throw new Error(errorMsg);
-    return valor;
-}
-
-function asegurarValorPositivo(valor, errorMsg) {
-    if (valor === undefined || valor === null)
-        throw new Error(errorMsg);
-    return valor;
-}
-
-export default class Product {
+export default class Order {
     #id;
-    #name;
-    #price;
-    #image;
+    #date;
+    #idClient;
+    #items;
 
-    constructor({ id, name, price, image }) {
-        asegurarValorNoNulo(name, 'el nombre no puede ser nulo');
-        asegurarValorNoNulo(price, 'el precio no puede ser nulo');
-        asegurarValorNoNulo(image, 'la imagen no puede ser nula');
-
+    constructor({ id, date, idClient, items }) {
         this.#id = id;
-        this.#name = name;
-        this.#price = price;
-        this.#image = image;
-        this.setPrice(price);
+        this.#date = date;
+        this.#idClient = idClient;
+        this.#items = items;
     }
 
-    // accessors (getter)
-    getName() { return this.#name; }
-    getPrice() { return this.#price; }
-    getImage() { return this.#image; }
+    // Getters
 
-    // mutators (setter)
-    setPrice(price) {
-        asegurarValorNoNulo(price, 'el precio no puede ser nulo');
-        asegurarValorPositivo(price, 'el precio debe ser positivo');
-    }
+    // Setters
 
     asDto() {
         return Object.freeze({
             id: this.#id,
-            name: this.#name,
-            price: this.#price,
-            image: this.#image,
+            date: this.#date,
+            idClient: this.#idClient,
+            items: this.#items,
         });
     }
 }

@@ -1,6 +1,6 @@
-import Product from '../dto/create-cart-dto.js';
+import Cart from '../dto/create-cart-dto.js';
 
-export default class ProductsRepo {
+export default class CartRepository {
     constructor(container) {
         this.dao = container;
     }
@@ -9,16 +9,12 @@ export default class ProductsRepo {
         await this.dao.setData(data.asDto());
     }
 
-    async getAllData() {
-        const dtos = await this.dao.getAllData();
-        return dtos.map(dto => new Product(dto));
+    async getData() {
+        const dtos = await this.dao.getData();
+        return dtos.map(dto => new Cart(dto));
     }
 
-    async updateData(id, data) {
-        return await this.dao.updateData(id, data);
-    }
-
-    async delData(data) {
+    async deleteData(data) {
         return await this.dao.delData(data);
     }
 }

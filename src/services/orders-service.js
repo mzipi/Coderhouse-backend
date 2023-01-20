@@ -1,29 +1,29 @@
 import crypto from 'crypto'
-import { productDao } from '../dao/dao-factory.js';
-import ProductsRepo from '../repositories/orders-repository.js';
-import Product from '../dto/create-order-dto.js';
+import { productDao } from '../dao/dao-factory.js'; // <----------------------------
+import OrderRepository from '../repositories/orders-repository.js';
+import Order from '../dto/create-order-dto.js';
 
-function generarId() {
+function idGenerator() {
     const id = crypto.randomBytes(10).toString('hex')
     return id;
 }
 
-export default class ProductsService {
+export default class OrdersService {
     constructor() {
-        this.productsRepo = new ProductsRepo(productDao);
+        this.orderRepository = new OrderRepository(productDao);
     }
 
     async setData({body}) {
-        const product = new Product({
-            id: generarId(),
+        const order = new Order({
+            id: idGenerator(),
             ...body
         });
-        await this.productsRepo.setData(product);
-        return product.asDto();
+        await this.orderRepository.setData(order);
+        return order.asDto();
     }
 
-    async getAllData() {
-        const products = await this.productsRepo.getAllData();
-        return products.map(usu => usu.asDto());
+    async getData() {
+        const orders = await this.orderRepository.getData();
+        return orders.map(order => order.asDto());
     }
 }

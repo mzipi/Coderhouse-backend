@@ -1,6 +1,6 @@
-import Product from '../dto/create-order-dto.js';
+import Order from '../dto/create-order-dto.js';
 
-export default class ProductsRepo {
+export default class OrderRepository {
     constructor(container) {
         this.dao = container;
     }
@@ -9,16 +9,8 @@ export default class ProductsRepo {
         await this.dao.setData(data.asDto());
     }
 
-    async getAllData() {
-        const dtos = await this.dao.getAllData();
-        return dtos.map(dto => new Product(dto));
-    }
-
-    async updateData(id, data) {
-        return await this.dao.updateData(id, data);
-    }
-
-    async delData(data) {
-        return await this.dao.delData(data);
+    async getData() {
+        const dtos = await this.dao.getData();
+        return dtos.map(dto => new Order(dto));
     }
 }
