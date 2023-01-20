@@ -4,6 +4,6 @@ export default class ProductsRepository {
     }
 
     async setData(data) {
-        await this.dao.setData(data.asDto());
+        await this.dao.saveImage(data.asDto());
     }
 }

@@ -1,8 +1,19 @@
 import { Router } from 'express';
-import { postLoginController } from '../controllers/load-images-controller.js';
+import multer from 'multer';
 
-const loginRouter = Router();
+import { postImageController } from '../controllers/load-images-controller.js';
 
-loginRouter.post('/', postLoginController);
+const loadImageRouter = Router();
+const storage = multer.diskStorage({
+    destination: function (req, file, cb) {
+      cb(null, 'src/static/images/')
+    },
+    filename: function (req, file, cb) {
+      cb(null, file.originalname)
+    }
+})
+const upload = multer({ storage: storage })
 
-export default loginRouter;
+loadImageRouter.post('/', upload.single('avatar'), postImageController);
+
+export default loadImageRouter;

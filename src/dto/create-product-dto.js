@@ -27,13 +27,13 @@ export default class Product {
         this.#description = description;
         this.#price = price;
         this.#image = image;
-        // this.setPrice(price);
+        this.setPrice(price);
     }
 
     // accessors (getter)
-    getName() { return this.#name; }
-    getPrice() { return this.#price; }
-    getImage() { return this.#image; }
+    // getName() { return this.#name; }
+    // getPrice() { return this.#price; }
+    // getImage() { return this.#image; }
 
     // mutators (setter)
     setPrice(price) {

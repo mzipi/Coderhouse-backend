@@ -5,5 +5,8 @@ set('strictQuery', false);
 connect(MONGO_URL2);
  
 export default model('Images',{
-    image: String
+    image: {
+        data: Buffer,
+        contentType: String
+    }
 });

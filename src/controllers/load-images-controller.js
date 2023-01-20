@@ -1,7 +1,8 @@
-import ServiceLogin from '../services/load-images-service.js';
+import LoadImageService from '../services/load-images-service.js';
 
-const serviceLogin = new ServiceLogin();
+const image = new LoadImageService();
 
-export function postLoginController(req, res) {
-    serviceLogin.auth();
+export async function postImageController(req, res) {
+    // const data = await image.setData(req);
+    res.json(req.file);
 }
