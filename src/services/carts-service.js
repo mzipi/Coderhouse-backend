@@ -1,7 +1,7 @@
 import crypto from 'crypto'
-import { carts } from '../dao/dao-factory.js';
+import { cartsDao } from '../dao/dao-factory.js';
 import CartRepository from '../repositories/carts-repository.js';
-import Cart from '../dto/create-cart-dto.js';
+import CartDto from '../dto/create-cart-dto.js';
 
 function idGenerator() {
     const id = crypto.randomBytes(10).toString('hex')
@@ -10,11 +10,11 @@ function idGenerator() {
 
 export default class CartsService {
     constructor() {
-        this.cartRepository = new CartRepository(carts);
+        this.cartRepository = new CartRepository(cartsDao);
     }
 
     async setData({body}) {
-        const cart = new Cart({
+        const cart = new CartDto({
             id: idGenerator(),
             ...body
         });

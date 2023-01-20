@@ -1,4 +1,4 @@
-export default class Order {
+export default class OrderDto {
     #id;
     #date;
     #idClient;

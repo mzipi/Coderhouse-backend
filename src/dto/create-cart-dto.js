@@ -1,4 +1,4 @@
-export default class Cart {
+export default class CartDto {
     #id;
     #items;
 

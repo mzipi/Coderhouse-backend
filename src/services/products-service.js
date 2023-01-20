@@ -1,7 +1,7 @@
 import crypto from 'crypto'
-import { products } from '../dao/dao-factory.js';
+import { productsDao } from '../dao/dao-factory.js';
 import ProductsRepository from '../repositories/products-repository.js';
-import Product from '../dto/create-product-dto.js';
+import ProductDto from '../dto/create-product-dto.js';
 
 function generarId() {
     const id = crypto.randomBytes(10).toString('hex')
@@ -10,11 +10,11 @@ function generarId() {
 
 export default class ProductsService {
     constructor() {
-        this.productsRepository = new ProductsRepository(products);
+        this.productsRepository = new ProductsRepository(productsDao);
     }
 
     async setData({body}) {
-        const product = new Product({
+        const product = new ProductDto({
             id: generarId(),
             ...body
         });

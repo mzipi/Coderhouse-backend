@@ -1,7 +1,7 @@
 import crypto from 'crypto'
-import { users } from '../dao/dao-factory.js';
+import { usersDao } from '../dao/dao-factory.js';
 import UsersRepository from '../repositories/users-repository.js';
-import User from '../dto/create-user-dto.js';
+import UserDto from '../dto/create-user-dto.js';
 
 function idGenerator() {
     const id = crypto.randomBytes(10).toString('hex')
@@ -10,11 +10,11 @@ function idGenerator() {
 
 export default class UsersService {
     constructor() {
-        this.userRepository = new UsersRepository(users);
+        this.userRepository = new UsersRepository(usersDao);
     }
 
     async setData({body}) {
-        const user = new User({
+        const user = new UserDto({
             id: idGenerator(),
             ...body
         });
