@@ -13,7 +13,7 @@ import failLoginRouter from './routes/fail-login-router.js';
 import failSignupRouter from './routes/fail-signup-router.js';
 
 import sessionHandler from './middlewares/session-middleware.js';
-// import { passportMiddleware, passportSessionHandler } from "./middlewares/passport-middleware.js";
+import { passportMiddleware, passportSessionHandler } from "./middlewares/passport-middleware.js";
 
 const app = express();
 
@@ -21,8 +21,8 @@ app.use(json());
 app.use(urlencoded({extended: true}));
 app.use(express.static('src/static'));
 app.use(sessionHandler);
-// app.use(passportMiddleware);
-// app.use(passportSessionHandler);
+app.use(passportMiddleware);
+app.use(passportSessionHandler);
 app.use('/api/images', imagesRouter);
 app.use('/api/orders', ordersRouter);
 app.use('/api/products', productsRouter);

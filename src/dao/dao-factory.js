@@ -1,9 +1,9 @@
 import { CONTAINER, NODE_ENV } from '../config/config.js';
-import Carts from '../model/carts-model.js';
-import Images from '../model/images-model.js';
-import Products from '../model/products-model.js';
-import Orders from '../model/orders-model.js';
-import Users from '../model/users-model.js';
+import Carts from '../models/carts-model.js';
+import Images from '../models/images-model.js';
+import Products from '../models/products-model.js';
+import Orders from '../models/orders-model.js';
+import Users from '../models/users-model.js';
 
 let cartsDao, imagesDao, ordersDao, productsDao, usersDao;
 
