@@ -1,9 +1,9 @@
-import missingRoutesService from "../services/missing-routes-service.js";
-
-function allController(req, res, next) {
-    const response = missingRoutesService(req);
-    res.status(404).json(response)
-    next();
+function allController(req, res) {
+    return ({
+        'url': req.originalUrl,
+        'method': req.method,
+        'status-code': '404'
+    });
 };
 
 export default allController;

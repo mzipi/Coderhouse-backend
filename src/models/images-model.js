@@ -1,12 +1,15 @@
-import { connect, model, set } from 'mongoose';
-import { MONGO_URL2 } from '../config/config.js';
+import mongoose from 'mongoose';
 
-set('strictQuery', false);
-connect(MONGO_URL2);
- 
-export default model('Images',{
+const schema = {
     image: {
         data: Buffer,
         contentType: String
     }
-});
+}
+
+mongoose.set('strictQuery', false);
+
+const imageSchema = new mongoose.Schema(schema, { driver: mongoose.ObjectId });
+const Images = mongoose.model('Images', imageSchema, 'orders');
+
+export default Images;

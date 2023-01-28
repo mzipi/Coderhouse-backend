@@ -1,67 +1,79 @@
 import passport from 'passport';
 import LocalStrategy from 'passport-local';
-import JwtStrategy, { ExtractJwt } from 'passport-jwt';
-
 import Users from '../models/users-model.js';
-import { infoLog } from '../middlewares/logger.js';
+import bcrypt from 'bcrypt';
+import { infoLog } from './logger.js';
+import { JWT_SECRET } from '../config/config.js';
+import { Strategy as JwtStrategy, ExtractJwt } from 'passport-jwt';
 
-const passportMiddleware = passport.initialize();
-// const passportSessionHandler = passport.session();
+passport.serializeUser((user, done) => {
+    done(null, user._id);
+});
+  
+passport.deserializeUser((id, done) => {
+    Users.findById(id, (error, user) => done(error, user));
+});
 
-passport.use('signup', new LocalStrategy({ usernameField: 'email' },
-    async (email, password, done) => {
+passport.use("signup",
+    new LocalStrategy({ usernameField: 'email', passReqToCallback: true },
+    async (req, email, password, done) => {
         try {
-            const userExists = await Users.findOne({ 'email': email });
-            if (userExists) {
-                infoLog.info('Usuario existente');
+            const user = await Users.findOne({ email })
+            if (user) {
+                infoLog.info('User already exists');
                 return done(null, false)
             }
-            const user = await Users.create({ email, password });
-            infoLog.info('Registro de usuario exitoso');
-            return done(null, user);
-        } catch (error) {
-            done(error);
-        }
-    })
-);
-
-passport.use('login', new LocalStrategy({ usernameField: 'email' },
-    async (email, password, done) => {
-        try {
-            const user = await Users.findOne({ 'email': email });
-            if (!user) {
-                infoLog.info('Usuario no encontrado: ' + email);
-                return done(null, false);
+            const salt = await bcrypt.genSalt(10);
+            const encryptedPassword = await bcrypt.hash(password, salt);
+            const newUser = {
+                ...req.body,
+                password: encryptedPassword
             }
-            const isMatch = await user.matchPassword(password);
-            if (!isMatch) {
-                return done(null, false);
-            }
-            infoLog.info('Inicio de sesión correcto');
-            return done(null, user);
+            const userWithId = await Users.create(newUser);
+            infoLog.info('User Registration successful');
+            return done(null, userWithId);
         } catch (error) {
-            console.log(error)
-            return done(error, false);
-        }
-    })
-);
-
-passport.use('jwt', new JwtStrategy.Strategy(
-    {
-        jwtFromRequest: ExtractJwt.fromHeader("authorization"),
-        secretOrKey: "secretKey",
-    },
-    async (jwtPayload, done) => {
-        try {
-            const user = jwtPayload.user;
-            done(null, user);
-        } catch (error) {
-            done(error, false);
+            infoLog.info('Error in SignUp: ');
+            return done(error);
         }
     }
 ));
 
-export { 
-    passportMiddleware, 
-    // passportSessionHandler
-};
+passport.use("login",
+    new LocalStrategy({ usernameField: 'email' },
+        async (email, password, done) => {
+            try {
+                const user = await Users.findOne({ email })
+                if (!user) {
+                    infoLog.info('User Not Found with username ' + email);
+                    return done(null, false);
+                }
+                if (!await bcrypt.compare(password, user.password)) {
+                    infoLog.info('Invalid Password');
+                    return done(null, false);
+                }
+                infoLog.info('Login successful');
+                return done(null, user);
+            } catch (error) {
+                return done(error);
+            };
+        }
+    )
+);
+
+passport.use(
+    new JwtStrategy({
+            jwtFromRequest: ExtractJwt.fromHeader("authorization"),
+            secretOrKey: JWT_SECRET,
+        },
+        async (token, done) => {
+            try {
+                return done(null, token.user);
+            } catch (error) {
+                done(error);
+            }
+        }
+    )
+);
+
+export default passport;

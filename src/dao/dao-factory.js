@@ -18,11 +18,12 @@ switch (NODE_ENV) {
         break;
     default:
         const { default: MongoAtlas } = await import('./containers/mongo-atlas.js');
+        const { default: UsersContainer } = await import('./containers/users-container.js');
         cartsDao = new MongoAtlas(Carts);
         imagesDao = new MongoAtlas(Images);
         ordersDao = new MongoAtlas(Orders);
         productsDao = new MongoAtlas(Products);
-        usersDao = new MongoAtlas(Users);
+        usersDao = new UsersContainer(Users);
         break;
 };
 

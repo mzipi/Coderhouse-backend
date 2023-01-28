@@ -9,7 +9,7 @@ export default class UsersRepository {
         await this.dao.setData(data.asDto());
     }
 
-    async getData() {
+    async getLoggedUsers() {
         const dtos = await this.dao.getData();
         return dtos.map(dto => new User(dto));
     }

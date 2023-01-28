@@ -1,12 +1,17 @@
 import session from 'express-session';
 import MongoStore from 'connect-mongo';
-import { MONGO_URL2 } from '../config/config.js';
+import { mongoUrl, mongoOptions } from './db-connection.js';
+import { SESSION_SECRET } from '../config/config.js';
 
-const mongoUrl = MONGO_URL2;
-const store = MongoStore.create({ mongoUrl, ttl: 300 });
+const store = MongoStore.create({
+    mongoUrl,
+    ttl: 300,
+    mongoOptions
+});
+
 const sessionHandler = session({
     store,
-    secret: 'secreto',
+    secret: SESSION_SECRET,
     resave: false,
     saveUninitialized: false,
     cookie: { maxAge: 600000 }

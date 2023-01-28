@@ -1,8 +1,4 @@
 import mongoose from 'mongoose';
-import { MONGO_URL2 } from '../config/config.js';
-
-mongoose.set('strictQuery', false);
-mongoose.connect(MONGO_URL2);
 
 const schema = {
     id: String,
@@ -11,8 +7,10 @@ const schema = {
     price: Number,
     image: String
 }
+
+mongoose.set('strictQuery', false);
  
-const productsSchema = new mongoose.Schema(schema, { driver: mongoose.ObjectId });
+const productsSchema = new mongoose.Schema(schema, { driver: mongoose.ObjectId, strictQuery: false });
 const Products = mongoose.model('Products', productsSchema, 'products');
 
 export default Products;
