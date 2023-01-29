@@ -8,17 +8,28 @@ export async function getProductsController(req, res) {
 }
 
 export async function postProductController(req, res) {
-    console.log(req.isAuthenticated());
-    const data = await products.setData(req);
-    res.json(data);
+    if(req.isAuthenticated() && req.user.name === 'admin') {
+        await products.setData(req);
+        res.json({ message: 'product loaded' });
+    } else {
+        res.json({ permission: 'denied'});
+    }
 }
 
 export async function putProductController(req, res) {
-    const data = await products.updateData(req);
-    res.json(data);
+    if(req.isAuthenticated() && req.user.name === 'admin') {
+        await products.updateData(req);
+        res.json({ message: 'product updated' });
+    } else {
+        res.json({ permission: 'denied'});
+    }
 };
 
 export async function deleteProductController(req, res) {
-    const data = await products.deleteData(req);
-    res.json(data);
+    if(req.isAuthenticated() && req.user.name === 'admin') {
+        await products.deleteData(req);
+        res.json({ message: 'product deleted' });
+    } else {
+        res.json({ permission: 'denied'});
+    }
 };

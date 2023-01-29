@@ -1,12 +1,11 @@
-import { getToken, objectFromToken } from '../middlewares/jwt.js';
+import { getToken } from '../middlewares/jwt.js';
 import passport from 'passport';
 
 export async function getUsersController(req, res, next) {
     if(req.isAuthenticated()) {
-        await objectFromToken(req, res, next);
         res.json(req.user);
     } else {
-        res.json({ resource: 'inaccessible'})
+        res.json({ permission: 'denied'});
     };
 }
 
