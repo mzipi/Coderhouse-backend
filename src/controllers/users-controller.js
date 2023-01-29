@@ -1,12 +1,13 @@
-import UsersService from '../services/users-service.js';
 import { getToken, objectFromToken } from '../middlewares/jwt.js';
 import passport from 'passport';
 
-const users = new UsersService();
-
 export async function getUsersController(req, res, next) {
-    await objectFromToken(req, res, next);
-    res.json(req.user);
+    if(req.isAuthenticated()) {
+        await objectFromToken(req, res, next);
+        res.json(req.user);
+    } else {
+        res.json({ resource: 'inaccessible'})
+    };
 }
 
 export async function postUsersController(req, res, next) {

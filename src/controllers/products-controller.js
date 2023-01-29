@@ -8,6 +8,7 @@ export async function getProductsController(req, res) {
 }
 
 export async function postProductController(req, res) {
+    console.log(req.isAuthenticated());
     const data = await products.setData(req);
     res.json(data);
 }

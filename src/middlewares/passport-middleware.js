@@ -19,10 +19,7 @@ passport.use("signup",
     async (req, email, password, done) => {
         try {
             const user = await Users.findOne({ email })
-            if (user) {
-                infoLog.info('User already exists');
-                return done(null, false)
-            }
+            if (user) { return done(null, false) };
             const salt = await bcrypt.genSalt(10);
             const encryptedPassword = await bcrypt.hash(password, salt);
             const newUser = {
@@ -30,10 +27,8 @@ passport.use("signup",
                 password: encryptedPassword
             }
             const userWithId = await Users.create(newUser);
-            infoLog.info('User Registration successful');
             return done(null, userWithId);
         } catch (error) {
-            infoLog.info('Error in SignUp: ');
             return done(error);
         }
     }
@@ -41,37 +36,30 @@ passport.use("signup",
 
 passport.use("login",
     new LocalStrategy({ usernameField: 'email' },
-        async (email, password, done) => {
-            try {
-                const user = await Users.findOne({ email })
-                if (!user) {
-                    infoLog.info('User Not Found with username ' + email);
-                    return done(null, false);
-                }
-                if (!await bcrypt.compare(password, user.password)) {
-                    infoLog.info('Invalid Password');
-                    return done(null, false);
-                }
-                infoLog.info('Login successful');
+        function (email, password, done) {
+            Users.findOne({ email }, async function(error, user) {
+                const matchPassword = await bcrypt.compare(password, user.password);
+                
+                if (error) { return done(error) }
+                if (!user) { return done(null, false) };
+                if (!matchPassword) { return done(null, false) };
                 return done(null, user);
-            } catch (error) {
-                return done(error);
-            };
+            })
         }
     )
 );
 
 passport.use(
     new JwtStrategy({
-            jwtFromRequest: ExtractJwt.fromHeader("authorization"),
+            jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
             secretOrKey: JWT_SECRET,
         },
-        async (token, done) => {
-            try {
-                return done(null, token.user);
-            } catch (error) {
-                done(error);
-            }
+        function (token, done) {
+            Users.findOne({id: token.sub}, function(error, user){
+                if (error) { return done(error, false) }
+                if (user) { return done(null, user) } 
+                else { return done(null, false) }
+            });
         }
     )
 );
