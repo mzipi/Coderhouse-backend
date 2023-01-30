@@ -14,7 +14,8 @@ export default class CartRepository {
         return dtos.map(dto => new Cart(dto));
     }
 
-    async deleteData(data) {
-        return await this.dao.deleteData(data);
+    async deleteData(id) {
+        const data = await this.dao.deleteData(id);
+        return data;
     }
 }

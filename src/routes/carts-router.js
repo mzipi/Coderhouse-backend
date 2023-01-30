@@ -5,6 +5,5 @@ const cartsRouter = new Router();
 
 cartsRouter.get('/', getCartController);
 cartsRouter.post('/', postCartController);
-cartsRouter.delete('/:id', deleteCartController);
 
 export default cartsRouter;

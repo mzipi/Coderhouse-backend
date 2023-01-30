@@ -14,7 +14,7 @@ export async function getCartController(req, res) {
 export async function postCartController(req, res) {
     if(req.isAuthenticated()) {
         await cart.setData(req);
-        res.json({ message: 'product loaded to cart' });
+        res.json({ message: 'product added' });
     } else {
         res.json({ permission: 'denied'});
     }
@@ -22,8 +22,8 @@ export async function postCartController(req, res) {
 
 export async function deleteCartController(req, res) {
     if(req.isAuthenticated()) {
-        cart.deleteData(req.params);
-        res.json({ message: 'product deleted from cart' });
+        const data = await cart.deleteData(req);
+        res.json(data);
     } else {
         res.json({ permission: 'denied'});
     }

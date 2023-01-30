@@ -12,12 +12,12 @@ const schema = new mongoose.Schema ({
     },
     name: String,
     lastname: String,
-    image: String
+    image: { type: String }
 });
 
 mongoose.set('strictQuery', false);
 
-const UserSchema = new mongoose.Schema(schema, { driver: mongoose.ObjectId, strictQuery: false });
+const UserSchema = new mongoose.Schema(schema, { driver: mongoose.ObjectId });
 const Users = mongoose.model('users', UserSchema);
 
 export default Users;

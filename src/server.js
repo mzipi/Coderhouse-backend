@@ -8,8 +8,6 @@ import usersRouter from "./routes/users-router.js";
 import missingRoutes from './routes/missing-routes-router.js';
 import loginRouter from './routes/login-router.js';
 import logoutRouter from './routes/logout-router.js';
-import failLoginRouter from './routes/fail-login-router.js';
-import failSignupRouter from './routes/fail-signup-router.js';
 
 import sessionHandler from './middlewares/session-middleware.js';
 import passportMiddleware from "./middlewares/passport-middleware.js";
@@ -31,8 +29,6 @@ app.use('/api/shoppingcartproducts', cartsRouter);
 app.use('/api/users', usersRouter);
 app.use('/login', loginRouter);
 app.use('/logout', logoutRouter);
-app.use('/faillogin', failLoginRouter);
-app.use('/failsignup', failSignupRouter);
 app.use('*', missingRoutes);
 
 export default app;

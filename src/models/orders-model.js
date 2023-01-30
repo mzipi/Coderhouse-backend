@@ -9,7 +9,7 @@ const schema = {
 
 mongoose.set('strictQuery', false);
  
-const ordersSchema = new mongoose.Schema(schema, { driver: mongoose.ObjectId, strictQuery: false }, { timestamps: true });
+const ordersSchema = new mongoose.Schema(schema, { driver: mongoose.ObjectId }, { timestamps: true });
 const Orders = mongoose.model('Orders', ordersSchema, 'orders');
 
 export default Orders;

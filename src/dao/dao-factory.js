@@ -1,30 +1,26 @@
-import { CONTAINER, NODE_ENV } from '../config/config.js';
+import { NODE_ENV } from '../config/config.js';
 import Carts from '../models/carts-model.js';
-import Images from '../models/images-model.js';
 import Products from '../models/products-model.js';
 import Orders from '../models/orders-model.js';
 import Users from '../models/users-model.js';
 
-let cartsDao, imagesDao, ordersDao, productsDao, usersDao;
+let cartsDao, productsDao, ordersDao, usersDao;
 
 switch (NODE_ENV) {
     case 'production':
-        // const { default: MongoAtlas } = await import('./containers/mongodb.js');
-        // cartsDao = new MongoAtlas(Carts);
-        // imagesDao = new MongoAtlas(Images);
-        // ordersDao = new MongoAtlas(Orders);
-        // productsDao = new MongoAtlas(Products);
-        // usersDao = new MongoAtlas(Users);
+        // const { default: CartsLocalContainer } = await import('./containers/carts-remote-container.js');
+        // cartsDao = new CartsLocalContainer(Carts);
         break;
     default:
         const { default: MongoAtlas } = await import('./containers/mongo-atlas.js');
         const { default: UsersContainer } = await import('./containers/users-container.js');
-        cartsDao = new MongoAtlas(Carts);
-        imagesDao = new MongoAtlas(Images);
-        ordersDao = new MongoAtlas(Orders);
+        const { default: CartsRemoteContainer } = await import('./containers/carts-remote-container.js');
+        const { default: OrdersRemoteContainer } = await import('./containers/carts-remote-container.js');
+        cartsDao = new CartsRemoteContainer(Carts);
         productsDao = new MongoAtlas(Products);
+        ordersDao = new OrdersRemoteContainer(Orders);
         usersDao = new UsersContainer(Users);
         break;
 };
 
-export { cartsDao, imagesDao, ordersDao, productsDao, usersDao };
+export { cartsDao, productsDao, ordersDao, usersDao };

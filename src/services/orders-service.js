@@ -1,12 +1,6 @@
-import crypto from 'crypto'
 import { ordersDao } from '../dao/dao-factory.js';
 import OrderRepository from '../repositories/orders-repository.js';
 import OrderDto from '../dto/create-order-dto.js';
-
-function idGenerator() {
-    const id = crypto.randomBytes(10).toString('hex')
-    return id;
-}
 
 export default class OrdersService {
     constructor() {
@@ -15,7 +9,6 @@ export default class OrdersService {
 
     async setData() {
         const order = new OrderDto({
-            id: idGenerator(),
             // timestamp
         });
         await this.orderRepository.setData(order);

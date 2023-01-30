@@ -1,10 +1,10 @@
 export default class CartDto {
     #id;
-    #items;
+    #productId;
 
-    constructor({ id, items }) {
+    constructor({id, productId}) {
         this.#id = id;
-        this.#items = items;
+        this.#productId = productId;
     }
 
     // Getter
@@ -14,7 +14,7 @@ export default class CartDto {
     asDto() {
         return Object.freeze({
             id: this.#id,
-            items: this.#items
+            productId: this.#productId
         });
     }
 }

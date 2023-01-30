@@ -2,7 +2,6 @@ import passport from 'passport';
 import LocalStrategy from 'passport-local';
 import Users from '../models/users-model.js';
 import bcrypt from 'bcrypt';
-import { infoLog } from './logger.js';
 import { JWT_SECRET } from '../config/config.js';
 import { Strategy as JwtStrategy, ExtractJwt } from 'passport-jwt';
 

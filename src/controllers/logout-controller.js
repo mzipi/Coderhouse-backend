@@ -1,7 +1,10 @@
-import ServiceLogout from '../services/logout-service.js';
-
-const serviceLogout = new ServiceLogout();
-
 export default function logoutController(req, res) {
-    serviceLogout.logout(req, res);
+    if(req.isAuthenticated()) {
+        req.logout(function(err) {
+            if (err) { return next(err) }
+        });
+        res.json({ message: 'user disconnected' })
+    } else {
+        res.json({ message: 'no users connected' })
+    }
 }
