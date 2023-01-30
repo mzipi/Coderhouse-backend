@@ -15,10 +15,6 @@ export default class UserDto {
         this.#image = image;
     }
 
-    // Getter
-
-    // Setter
-
     asDto() {
         return Object.freeze({
             id: this.#id,

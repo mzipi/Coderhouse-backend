@@ -6,11 +6,7 @@ export default class CartDto {
         this.#id = id;
         this.#productId = productId;
     }
-
-    // Getter
-
-    // Setter
-
+    
     asDto() {
         return Object.freeze({
             id: this.#id,

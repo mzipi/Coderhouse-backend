@@ -1,8 +1,14 @@
 import mongoose from 'mongoose';
 
 const productSchema = {
-    id: String,
-    quantity: Number
+    id: {
+        type: String,
+        required: true
+    },
+    quantity: {
+        type: String,
+        required: true
+    }
 }
 
 const schema = {

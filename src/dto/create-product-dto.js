@@ -30,12 +30,6 @@ export default class Product {
         this.setPrice(price);
     }
 
-    // accessors (getter)
-    // getName() { return this.#name; }
-    // getPrice() { return this.#price; }
-    // getImage() { return this.#image; }
-
-    // mutators (setter)
     setPrice(price) {
         asegurarValorNoNulo(price, 'el precio no puede ser nulo');
         asegurarValorPositivo(price, 'el precio debe ser positivo');

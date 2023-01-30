@@ -1,4 +1,4 @@
-import { getToken } from '../middlewares/jwt.js';
+import { getToken } from '../middlewares/jwt-middleware.js';
 import passport from 'passport';
 
 export async function getUsersController(req, res, next) {

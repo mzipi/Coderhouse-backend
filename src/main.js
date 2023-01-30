@@ -1,7 +1,7 @@
 import app from "./server.js";
 import { createServer } from 'http';
 import { Server } from 'socket.io';
-import { errorLog, infoLog } from './middlewares/logger.js';
+import { errorLog, infoLog } from './middlewares/logger-middleware.js';
 
 const PORT = process.env.PORT || 8080;
 const server = createServer(app);

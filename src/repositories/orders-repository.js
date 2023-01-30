@@ -5,12 +5,15 @@ export default class OrderRepository {
         this.dao = container;
     }
 
-    async setData(data) {
-        await this.dao.setData(data.asDto());
+    // async setData(data) {
+    async setData() {
+        await this.dao.setData();
+        // await this.dao.setData(data.asDto());
     }
 
     async getData() {
         const dtos = await this.dao.getData();
+        console.log(dtos);
         return dtos.map(dto => new Order(dto));
     }
 }

@@ -2,9 +2,15 @@ import mongoose from 'mongoose';
 
 export const schema = {
     id: String,
-    name: String,
+    name: {
+        type: String,
+        required: true
+    },
     description: String,
-    price: Number,
+    price: {
+        type: String,
+        required: true
+    },
     image: String
 }
 

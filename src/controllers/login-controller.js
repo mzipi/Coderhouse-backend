@@ -1,4 +1,4 @@
-import { getToken } from "../middlewares/jwt.js";
+import { getToken } from "../middlewares/jwt-middleware.js";
 
 export async function postLoginController(req, res) {
     if(req.isAuthenticated()) {

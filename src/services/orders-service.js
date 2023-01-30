@@ -8,11 +8,12 @@ export default class OrdersService {
     }
 
     async setData() {
-        const order = new OrderDto({
-            // timestamp
-        });
-        await this.orderRepository.setData(order);
-        return order.asDto();
+        // const order = new OrderDto({
+        //     // timestamp
+        // });
+        // await this.orderRepository.setData(order);
+        await this.orderRepository.setData();
+        // return order.asDto();
     }
 
     async getData() {

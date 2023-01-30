@@ -1,26 +1,22 @@
 export default class OrderDto {
     #id;
     #date;
-    #idClient;
-    #items;
+    #clientId;
+    #products;
 
-    constructor({ id, date, idClient, items }) {
+    constructor({ id, date, clientId, products }) {
         this.#id = id;
         this.#date = date;
-        this.#idClient = idClient;
-        this.#items = items;
+        this.#clientId = clientId;
+        this.#products = products;
     }
-
-    // Getters
-
-    // Setters
 
     asDto() {
         return Object.freeze({
             id: this.#id,
             date: this.#date,
-            idClient: this.#idClient,
-            items: this.#items,
+            clientId: this.#clientId,
+            products: this.#products,
         });
     }
 }
