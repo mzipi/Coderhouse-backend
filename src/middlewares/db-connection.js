@@ -1,7 +1,10 @@
 import mongoose from 'mongoose';
-import { MONGO_URL } from '../config/config.js';
+import { MONGO_ATLAS, MONGO_LOCAL, NODE_ENV } from '../config/config.js';
 
-export const mongoUrl = MONGO_URL;
+export let mongoUrl;
+
+(NODE_ENV === 'development') ? mongoUrl = MONGO_ATLAS : mongoUrl = MONGO_LOCAL;
+
 export const mongoOptions = {
     useNewUrlParser: true,
     useUnifiedTopology: true,
