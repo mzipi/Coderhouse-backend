@@ -13,7 +13,7 @@ export async function getOrdersController(req, res) {
 
 export async function postOrdersController(req, res) {
     if(req.isAuthenticated()) {
-        await orders.setData();
+        await orders.setData(req);
         res.json({ message: 'product loaded to cart' });
     } else {
         res.json({ permission: 'denied'});

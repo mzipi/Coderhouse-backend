@@ -1,10 +1,12 @@
-import Products from "../../models/products-model.js";
+import Cart from '../../models/carts-model.js';
+import Product from '../../models/products-model.js'
 
 export default class MongoContainer {
 
     constructor(ordersModel){
         this.ordersModel = ordersModel;
-        this.productModel = Products;
+        this.cartModel = Cart;
+        this.productModel = Product;
     }
 
     async getData(id) {
@@ -33,37 +35,25 @@ export default class MongoContainer {
         }
     }
 
-    async setData() {
+    async setData(user) {
         try {
-            await this.ordersModel.create({
-                date,
-                clientId
-            });
-
-            // const productExist = await this.productModel.findOne({ id: productId });
-            // const productInCart = await this.cartModel.findOne({ 'products.id': productId });
-            // const emptyCart = await this.cartModel.find().exists('_id');
-
-            // if(productExist && !productInCart) {
-            //     if(emptyCart.length == 0) {
-            //         await this.cartModel.create({ products: { id: productId, quantity: 1 }});
-            //     } else {
-            //         await this.cartModel.updateOne({ $push: { products: { id: productId, quantity: 1 }}});
-            //     }
-            // } 
-
-            // if(productExist && productInCart) {
-            //     productInCart.products.map(element => {
-            //         if(element.id === productId) {
-            //             element.quantity++;
-            //         }
-            //     })
-            //     await this.cartModel.updateOne(productInCart);
-            // } 
-            
-            // if(!productExist) {
-            //     return { status: 'product not found' };
-            // }
+            // await this.ordersModel.create({});
+            const x = null;
+            const cart = await this.cartModel.findOne();
+            const newArray = cart.products.map(async element => {
+                const aux = await this.productModel.findOne({id: element.id});
+                if(aux.id == element.id) {
+                    element = {
+                        id: aux.id,
+                        name: aux.name,
+                        description: aux.description,
+                        price: aux.price,
+                        quantity: element.quantity,
+                        image: aux.image
+                    }
+                }
+                console.log(element);
+            })
         } catch (error) {
             return { error };
         }

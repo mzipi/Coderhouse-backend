@@ -6,8 +6,8 @@ export default class OrderRepository {
     }
 
     // async setData(data) {
-    async setData() {
-        await this.dao.setData();
+    async setData({ user }) {
+        await this.dao.setData(user);
         // await this.dao.setData(data.asDto());
     }
 
