@@ -1,11 +1,10 @@
-import ServiceLogin from "../services/ServiceLogin.js";
+import { getToken } from "../middlewares/jwt-middleware.js";
 
-const serviceLogin = new ServiceLogin();
-
-export function getLoginController(req, res) {
-    serviceLogin.render(res);
-}
-
-export function postLoginController(req, res) {
-    serviceLogin.auth();
-}
+export async function postLoginController(req, res) {
+    if(req.isAuthenticated()) {
+        const token = await getToken(req.user);
+        res.json({token})
+    } else {
+        res.json({ login: 'failed' })
+    }
+};

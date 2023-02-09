@@ -1,45 +1,34 @@
-import express, { urlencoded, json } from "express";
+import express, { json, urlencoded } from "express";
 
-import productsRouter from "./routes/api_products-route.js";
-import index from "./routes/root-route.js";
-import products from "./routes/products-route.js";
-import msgRouter from "./routes/msg-route.js";
-import login from "./routes/login-route.js";
-import logout from "./routes/logout-route.js";
-import signup from "./routes/signup-route.js";
-import test from "./routes/test-route.js";
-import fail_login from "./routes/fail_login-route.js";
-import fail_signup from "./routes/fail_signup-route.js";
-import info from "./routes/info-route.js";
-import randoms from "./routes/api_randoms-route.js";
-import all from "./routes/all-routes.js";
+import imagesRouter from "./routes/load-images-router.js";
+import cartsRouter from "./routes/carts-router.js";
+import ordersRouter from "./routes/orders-router.js";
+import productsRouter from "./routes/products-router.js";
+import usersRouter from "./routes/users-router.js";
+import missingRoutes from './routes/missing-routes-router.js';
+import loginRouter from './routes/login-router.js';
+import logoutRouter from './routes/logout-router.js';
 
-import sessionHandler from "./middlewares/session-middleware.js";
-import { passportMiddleware, passportSessionHandler } from "./middlewares/passport-middleware.js";
+import sessionHandler from './middlewares/session-middleware.js';
+import passportMiddleware from "./middlewares/passport-middleware.js";
+import connect from "./middlewares/db-connection.js";
 
 const app = express();
+connect();
 
-app.set('view engine', 'ejs');
-app.set("views", "src/views");
-
-app.use(urlencoded({extended: true}));
 app.use(json());
+app.use(urlencoded({extended: true}));
+app.use(express.static('src/static'));
 app.use(sessionHandler);
-app.use(passportMiddleware);
-app.use(express.static('public'));
-app.use("/api/productos", productsRouter);
-app.use("/", index);
-app.use("/productos", products);
-app.use("/api/productos-test", test);
-app.use("/login", login);
-app.use("/logout", logout);
-app.use("/signup", signup);
-app.use("/faillogin", fail_login);
-app.use("/failsignup", fail_signup);
-app.use("/info", info);
-app.use("/api/randoms", randoms);
-
-app.use("/api/mensajes", msgRouter);
-app.use("*", all);
+app.use(passportMiddleware.initialize());
+app.use(passportMiddleware.session());
+app.use('/api/images', imagesRouter);
+app.use('/api/orders', ordersRouter);
+app.use('/api/products', productsRouter);
+app.use('/api/shoppingcartproducts', cartsRouter);
+app.use('/api/users', usersRouter);
+app.use('/login', loginRouter);
+app.use('/logout', logoutRouter);
+app.use('*', missingRoutes);
 
 export default app;

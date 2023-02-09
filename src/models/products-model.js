@@ -1,15 +1,22 @@
-import mongoose from "mongoose";
-import { MONGO_URL2 } from "../config/config.js";
+import mongoose from 'mongoose';
 
-mongoose.connect(MONGO_URL2);
-
-const schema = {
-    name: String,
-    price: Number,
+export const schema = {
+    id: String,
+    name: {
+        type: String,
+        required: true
+    },
+    description: String,
+    price: {
+        type: String,
+        required: true
+    },
     image: String
 }
+
+mongoose.set('strictQuery', false);
  
 const productsSchema = new mongoose.Schema(schema, { driver: mongoose.ObjectId });
-const Products = mongoose.model("Products", productsSchema, "products");
+const Products = mongoose.model('Products', productsSchema, 'products');
 
 export default Products;
