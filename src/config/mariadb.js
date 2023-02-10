@@ -1,10 +1,12 @@
+const { MARIADB_USR, MARIADB_PWD, MARIADB_DB } = require("../config.js");
+
 const options = {
-    client: "mysql",
+    client: 'mysql',
     connection: {
-        host: "localhost",
-        user: "root",
-        password: "mymariadbpassword",
-        database: "coderhouse"
+        host: 'localhost',
+        user: MARIADB_USR,
+        password: MARIADB_PWD,
+        database: MARIADB_DB
     }
 }
-export default options;
+export default options
