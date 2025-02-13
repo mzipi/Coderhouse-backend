@@ -1,5 +1,5 @@
 {
-  "name": "coderhouse-backend",
+  "name": "store-api",
   "version": "1.0.0",
   "description": "",
   "main": "src/main.js",
@@ -11,15 +11,15 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/mzipi/Coderhouse-backend.git"
+    "url": "git+https://github.com/mzipi/store-api.git"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/mzipi/Coderhouse-backend/issues"
+    "url": "https://github.com/mzipi/store-api/issues"
   },
-  "homepage": "https://github.com/mzipi/Coderhouse-backend#readme",
+  "homepage": "https://github.com/mzipi/store-api#readme",
   "dependencies": {
     "bcrypt": "^5.1.0",
     "connect-mongo": "^4.6.0",
