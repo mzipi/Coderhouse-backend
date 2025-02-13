@@ -76,63 +76,63 @@ Inicia la API con: `npm start`. Accede en `http://localhost:8080`.
 
 ```bash
 # Obtener todos los productos
-wget --method=GET --header="Content-Type: application/json" http://localhost:3000/api/products
+wget --method=GET --header="Content-Type: application/json" http://localhost:8080/api/products
 
 # Obtener un producto por ID
-wget --method=GET --header="Content-Type: application/json" http://localhost:3000/api/products/1
+wget --method=GET --header="Content-Type: application/json" http://localhost:8080/api/products/1
 
 # Crear un nuevo producto
 wget --method=POST --header="Content-Type: application/json" --body-data='{
   "name": "Nuevo Producto",
   "price": 150,
   "description": "Descripción del nuevo producto"
-}' http://localhost:3000/api/products
+}' http://localhost:8080/api/products
 
 # Actualizar un producto por ID
 wget --method=PUT --header="Content-Type: application/json" --body-data='{
   "name": "Producto Actualizado",
   "price": 200,
   "description": "Descripción actualizada del producto"
-}' http://localhost:3000/api/products/1
+}' http://localhost:8080/api/products/1
 
 # Eliminar un producto por ID
-wget --method=DELETE --header="Content-Type: application/json" http://localhost:3000/api/products/1
+wget --method=DELETE --header="Content-Type: application/json" http://localhost:8080/api/products/1
 
 # Registrar un nuevo usuario
 wget --method=POST --header="Content-Type: application/json" --body-data='{
   "email": "nuevo_usuario@example.com",
   "password": "nueva_contraseña"
-}' http://localhost:3000/api/users/register
+}' http://localhost:8080/api/users/register
 
 # Iniciar sesión de un usuario
 wget --method=POST --header="Content-Type: application/json" --body-data='{
   "email": "usuario@example.com",
   "password": "contraseña123"
-}' http://localhost:3000/api/users/login
+}' http://localhost:8080/api/users/login
 
 # Obtener el carrito del usuario
-wget --method=GET --header="Content-Type: application/json" http://localhost:3000/api/cart
+wget --method=GET --header="Content-Type: application/json" http://localhost:8080/api/cart
 
 # Añadir un producto al carrito
 wget --method=POST --header="Content-Type: application/json" --body-data='{
   "productId": "1",
   "quantity": 1
-}' http://localhost:3000/api/cart
+}' http://localhost:8080/api/cart
 
 # Eliminar un producto del carrito
-wget --method=DELETE --header="Content-Type: application/json" http://localhost:3000/api/cart/1
+wget --method=DELETE --header="Content-Type: application/json" http://localhost:8080/api/cart/1
 
 # Crear una nueva orden
 wget --method=POST --header="Content-Type: application/json" --body-data='{
   "cartId": "carrito-id",
   "address": "Dirección de envío"
-}' http://localhost:3000/api/orders
+}' http://localhost:8080/api/orders
 
 # Obtener detalles de una orden
-wget --method=GET --header="Content-Type: application/json" http://localhost:3000/api/orders/123
+wget --method=GET --header="Content-Type: application/json" http://localhost:8080/api/orders/123
 
 # Subir una nueva imagen
-wget --method=POST --header="Content-Type: multipart/form-data" --body-file=@imagen.png http://localhost:3000/api/images/upload
+wget --method=POST --header="Content-Type: multipart/form-data" --body-file=@imagen.png http://localhost:8080/api/images/upload
 ```
 
 ## Contribuciones
